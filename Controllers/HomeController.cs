@@ -4,6 +4,7 @@ using vv_airline.Models;
 
 namespace vv_airline.Controllers;
 
+[Route("/")]
 public class HomeController : AppBaseController
 {
     private readonly ILogger<HomeController> _logger;
@@ -13,19 +14,10 @@ public class HomeController : AppBaseController
         _logger = logger;
     }
 
+    [HttpGet]
     public IActionResult Index()
     {
-        return View();
+        throw new NotImplementedException();
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
 }

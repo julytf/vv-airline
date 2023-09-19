@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
+using vv_airline.Models;
 using vv_airline.Models.Data;
+using vv_airline.Models.Enums;
 
-namespace vv_airline.Seeders;
+namespace vv_airline.Database.Seeders;
 public static class InitSeed
 {
 
@@ -24,7 +26,7 @@ public static class InitSeed
 
     static async Task RolesSeed()
     {
-        foreach (var value in Enum.GetValues(typeof(AppEnums.UserRoles)))
+        foreach (var value in Enum.GetValues(typeof(UserEnums.Roles)))
         {
             await _roleManager.CreateAsync(new IdentityRole { Name = value.ToString() });
         }
@@ -46,7 +48,7 @@ public static class InitSeed
         var results = await _userManager.CreateAsync(admin, "password");
         Console.WriteLine(results);
 
-        await _userManager.AddToRoleAsync(admin, AppEnums.UserRoles.Admin.ToString());
+        await _userManager.AddToRoleAsync(admin, UserEnums.Roles.Admin.ToString());
 
         var staff =
             new User()
@@ -61,6 +63,6 @@ public static class InitSeed
         results = await _userManager.CreateAsync(staff, "password");
         Console.WriteLine(results);
 
-        await _userManager.AddToRoleAsync(staff, AppEnums.UserRoles.Staff.ToString());
+        await _userManager.AddToRoleAsync(staff, UserEnums.Roles.Staff.ToString());
     }
 }

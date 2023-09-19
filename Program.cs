@@ -1,27 +1,52 @@
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+using App;
+using vv_airline.Database.Seeders;
+using vv_airline.Models;
+using vv_airline.Models.Data;
+public class Program
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    static async Task Main(string[] args)
+    {
+        var app = CreateHostBuilder(args).Build();
+
+        if (args.Length > 0 && args[0] == "seed")
+        {
+            await InitSeed.Seed(app.Services);
+            return;
+        }
+
+        app.Run();
+
+
+        // Test();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args)
+    {
+        return Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
+    }
+
+    static async Task Test()
+    {
+        // using AppDBContext appDBContext = new AppDBContext();
+
+        // await appDBContext.CreateDatabase();
+
+        // Model model = new Model
+        // {
+        //     Id = 1,
+        //     Name = "model 1"
+        // };
+
+        // appDBContext.Models.Add(model);
+        // await appDBContext.SaveChangesAsync();
+
+        // User user = new User(){};
+
+        // Console.WriteLine(user.Id);
+    }
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.Run();
