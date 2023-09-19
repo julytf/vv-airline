@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-[Index("UserId", Name = "IX_Bookings_user_id")]
+[Microsoft.EntityFrameworkCore.Index("UserId", Name = "IX_Bookings_user_id")]
 public partial class Booking
 {
     [Key]

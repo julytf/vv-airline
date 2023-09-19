@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-[Index("DistrictId", Name = "IX_Wards_district_id")]
+[Microsoft.EntityFrameworkCore.Index("DistrictId", Name = "IX_Wards_district_id")]
 public partial class Ward
 {
     [Key]

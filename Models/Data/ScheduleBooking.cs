@@ -8,7 +8,7 @@ namespace vv_airline.Models.Data;
 
 [PrimaryKey("ScheduleId", "BookingId")]
 [Table("Schedule_Booking")]
-[Index("BookingId", Name = "IX_Schedule_Booking_booking_id")]
+[Microsoft.EntityFrameworkCore.Index("BookingId", Name = "IX_Schedule_Booking_booking_id")]
 public partial class ScheduleBooking
 {
     [Key]

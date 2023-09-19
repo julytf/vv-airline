@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-[Index("FlightId", Name = "IX_Tickets_flight_id")]
-[Index("PassengerId", Name = "IX_Tickets_passenger_id")]
-[Index("SeatId", Name = "IX_Tickets_seat_id")]
+[Microsoft.EntityFrameworkCore.Index("FlightId", Name = "IX_Tickets_flight_id")]
+[Microsoft.EntityFrameworkCore.Index("PassengerId", Name = "IX_Tickets_passenger_id")]
+[Microsoft.EntityFrameworkCore.Index("SeatId", Name = "IX_Tickets_seat_id")]
 public partial class Ticket
 {
     [Key]

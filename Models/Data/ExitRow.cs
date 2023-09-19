@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace vv_airline.Models.Data;
 
 [Table("Exit_rows")]
-[Index("ModelId", Name = "exit_row_index_0")]
+[Microsoft.EntityFrameworkCore.Index("ModelId", Name = "exit_row_index_0")]
 public partial class ExitRow
 {
     [Key]

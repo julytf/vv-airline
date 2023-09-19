@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-[Index("NormalizedEmail", Name = "EmailIndex")]
-[Index("CityId", Name = "IX_Users_city_id")]
-[Index("DistrictId", Name = "IX_Users_district_id")]
-[Index("WardId", Name = "IX_Users_ward_id")]
+[Microsoft.EntityFrameworkCore.Index("NormalizedEmail", Name = "EmailIndex")]
+[Microsoft.EntityFrameworkCore.Index("CityId", Name = "IX_Users_city_id")]
+[Microsoft.EntityFrameworkCore.Index("DistrictId", Name = "IX_Users_district_id")]
+[Microsoft.EntityFrameworkCore.Index("WardId", Name = "IX_Users_ward_id")]
 public partial class User : IdentityUser
 {
     // [Key]

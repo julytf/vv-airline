@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace vv_airline.Models.Data;
 
 [Table("Aisle_cols")]
-[Index("ModelId", Name = "aisle_col_index_1")]
+[Microsoft.EntityFrameworkCore.Index("ModelId", Name = "aisle_col_index_1")]
 public partial class AisleCol
 {
     [Key]

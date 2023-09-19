@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-[Index("RouteId", Name = "IX_Schedules_route_id")]
+[Microsoft.EntityFrameworkCore.Index("RouteId", Name = "IX_Schedules_route_id")]
 public partial class Schedule
 {
     [Key]

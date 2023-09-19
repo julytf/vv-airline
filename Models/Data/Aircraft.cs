@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-[Index("ModelId", Name = "IX_Aircrafts_model_id")]
+[Microsoft.EntityFrameworkCore.Index("ModelId", Name = "IX_Aircrafts_model_id")]
 public partial class Aircraft
 {
     [Key]

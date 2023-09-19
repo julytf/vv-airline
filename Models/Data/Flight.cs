@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-[Index("AircraftRegistrationNumber", Name = "IX_Flights_aircraft_registration_number")]
-[Index("RouteId", Name = "IX_Flights_route_id")]
+[Microsoft.EntityFrameworkCore.Index("AircraftRegistrationNumber", Name = "IX_Flights_aircraft_registration_number")]
+[Microsoft.EntityFrameworkCore.Index("RouteId", Name = "IX_Flights_route_id")]
 public partial class Flight
 {
     [Key]

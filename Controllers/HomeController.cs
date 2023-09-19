@@ -4,7 +4,7 @@ using vv_airline.Models;
 
 namespace vv_airline.Controllers;
 
-public class HomeController : Controller
+public class HomeController : AppBaseController
 {
     private readonly ILogger<HomeController> _logger;
 

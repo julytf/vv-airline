@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-[Index("CityId", Name = "IX_Airports_city_id")]
-[Index("DistrictId", Name = "IX_Airports_district_id")]
-[Index("WardId", Name = "IX_Airports_ward_id")]
+[Microsoft.EntityFrameworkCore.Index("CityId", Name = "IX_Airports_city_id")]
+[Microsoft.EntityFrameworkCore.Index("DistrictId", Name = "IX_Airports_district_id")]
+[Microsoft.EntityFrameworkCore.Index("WardId", Name = "IX_Airports_ward_id")]
 public partial class Airport
 {
     [Key]
