@@ -1,0 +1,15 @@
+@model vv_airline.Areas.Public.Models.LoginModel
+
+<form asp-controller="Auth" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post"
+    class="user">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <input asp-for="Email" class="form-control form-control-user" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input asp-for="Password" class="form-control form-control-user" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary btn-user btn-block">Đăng nhập</button>
+</form>

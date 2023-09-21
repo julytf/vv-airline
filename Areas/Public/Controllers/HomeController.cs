@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using vv_airline.Controllers;
 using vv_airline.Models;
 
-namespace vv_airline.Controllers;
+namespace vv_airline.Areas.Public.Controllers;
 
+[Area("Public")]
 [Route("/")]
 public class HomeController : AppBaseController
 {

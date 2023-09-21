@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using vv_airline.Controllers;
 using vv_airline.Models.Data;
 
-namespace vv_airline.Areas.Public.Controllers;
+namespace vv_airline.Areas.Admin.Controllers;
 
-[Area("Public")]
-[Route("/account")]
+[Area("Admin")]
+[Route("/admin/account")]
 public class AccountController : AppBaseController
 {
     public AccountController()

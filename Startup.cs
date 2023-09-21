@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using vv_airline.Areas.Auth.Models;
 using vv_airline.Models;
 using vv_airline.Models.Data;
 using vv_airline.Models.Enums;
@@ -27,17 +26,18 @@ public class Startup
         // Thêm  dịch vụ Session, dịch vụ này cunng cấp Middleware: 
         // services.AddSession();
 
-        services
-            .AddControllers()
-        //     .AddNewtonsoftJson(options =>
-        //         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-        //     )
-        ;
+        // services
+        //     .AddControllers()
+        // //     .AddNewtonsoftJson(options =>
+        // //         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+        // //     )
+        // ;
+
+        services.AddMvc();
 
         services.AddDbContext<AppDBContext>(options =>
         {
-            string connectionString = _configuration.GetConnectionString("ConnectionStrings");
-            options.UseSqlServer(connectionString);
+            options.UseSqlServer(_configuration.GetConnectionString("sql"));
             //TODO:
         });
 
@@ -62,27 +62,28 @@ public class Startup
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
             options.User.RequireUniqueEmail = true;
 
-            options.SignIn.RequireConfirmedEmail = true;
+            options.SignIn.RequireConfirmedEmail = false;
             options.SignIn.RequireConfirmedPhoneNumber = false;
 
         });
 
         // Cấu hình Cookie
-        services.ConfigureApplicationCookie(options =>
-        {
-            // options.Cookie.HttpOnly = true;  
-            // options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-            // options.LoginPath = $"/login/";                                 // Url đến trang đăng nhập
-            // options.LogoutPath = $"/logout/";
-            // options.AccessDeniedPath = $"/Identity/Account/AccessDenied";   // Trang khi User bị cấm truy cập
-        });
+        // services.ConfigureApplicationCookie(options =>
+        // {
+        //     // options.Cookie.HttpOnly = true;  
+        //     // options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        //     // options.LoginPath = $"/login/";                                 // Url đến trang đăng nhập
+        //     // options.LogoutPath = $"/logout/";
+        //     // options.AccessDeniedPath = $"/Identity/Account/AccessDenied";   // Trang khi User bị cấm truy cập
+        // });
 
-        services.Configure<SecurityStampValidatorOptions>(options =>
-        {
-            // Trên 5 giây truy cập lại sẽ nạp lại thông tin User (Role)
-            // SecurityStamp trong bảng User đổi -> nạp lại thông tinn Security
-            options.ValidationInterval = TimeSpan.FromSeconds(5);
-        });
+        // services.Configure<SecurityStampValidatorOptions>(options =>
+        // {
+        //     // Trên 5 giây truy cập lại sẽ nạp lại thông tin User (Role)
+        //     // SecurityStamp trong bảng User đổi -> nạp lại thông tinn Security
+        //     options.ValidationInterval = TimeSpan.FromSeconds(5);
+        // });
+
         // Adding Authentication
         services.AddAuthentication(options =>
         {

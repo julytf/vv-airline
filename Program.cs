@@ -14,10 +14,9 @@ public class Program
             return;
         }
 
+        await Test(app.Services);
+        
         app.Run();
-
-
-        // Test();
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args)
@@ -29,11 +28,19 @@ public class Program
             });
     }
 
-    static async Task Test()
+    static async Task Test(IServiceProvider serviceProvider)
     {
-        // using AppDBContext appDBContext = new AppDBContext();
 
-        // await appDBContext.CreateDatabase();
+        // var config = serviceProvider.GetService<IConfiguration>();
+
+        // Console.WriteLine("here");
+        // Console.WriteLine(config.GetConnectionString("sql"));
+
+        // using var scope = serviceProvider.CreateScope();
+
+        // var context = scope.ServiceProvider.GetService<AppDBContext>();
+
+        // await context.CreateDatabase();
 
         // Model model = new Model
         // {

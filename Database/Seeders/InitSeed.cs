@@ -15,8 +15,8 @@ public static class InitSeed
     {
         using var scope = serviceProvider.CreateScope();
 
-        _context = new AppDBContext();
         _serviceProvider = serviceProvider;
+        _context = scope.ServiceProvider.GetService<AppDBContext>();
         _roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
         _userManager = scope.ServiceProvider.GetService<UserManager<User>>();
 

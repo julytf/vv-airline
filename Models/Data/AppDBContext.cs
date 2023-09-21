@@ -7,22 +7,15 @@ namespace vv_airline.Models.Data;
 
 public partial class AppDBContext : IdentityDbContext<User>
 {
-    private const string connectionString = @"
-        Server=localhost;
-        Database=vv_airline;
-        User ID=admin;
-        Password=password;
-        TrustServerCertificate=True;
-        ";
+    // private readonly string _connectionString;
     IConfiguration _configuration;
-    public AppDBContext()
-    {
-    }
 
     public AppDBContext(DbContextOptions<AppDBContext> options, IConfiguration configuration)
     : base(options)
     {
         _configuration = configuration;
+        // _connectionString = connectionString;
+        // Console.WriteLine(_connectionString);
     }
     public static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
         {
@@ -110,7 +103,7 @@ public partial class AppDBContext : IdentityDbContext<User>
         // string connectionString = _configuration.GetConnectionString("ConnectionStrings");
         optionsBuilder
             .UseLoggerFactory(loggerFactory)
-            .UseSqlServer(connectionString)
+            // .UseSqlServer(_connectionString)
             ;
     }
 
