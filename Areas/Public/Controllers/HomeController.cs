@@ -19,7 +19,8 @@ public class HomeController : AppBaseController
     [HttpGet]
     public IActionResult Index()
     {
-        throw new NotImplementedException();
+        // throw new NotImplementedException();
+        return View();
     }
 
 }
