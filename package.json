@@ -1,0 +1,25 @@
+{
+  "name": "vv-airline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "css:build": "npx tailwindcss build -i ./wwwroot/css/site.css -o ./wwwroot/css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julytf/vv-airline.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/julytf/vv-airline/issues"
+  },
+  "homepage": "https://github.com/julytf/vv-airline#readme",
+  "devDependencies": {
+    "@tailwindcss/postcss7-compat": "^2.2.17"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.3.3"
+  }
+}
