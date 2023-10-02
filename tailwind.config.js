@@ -1,11 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './Views/**/*.{cshtml,css}', 
-    './Areas/**/*.{cshtml,css}',
-  ],
+  content: ['./Views/**/*.{cshtml,css}', './Areas/**/*.{cshtml,css}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#5c6ac4',
+        secondary: '#ecc94b',
+      },
+    },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
+  darkMode: 'class',
 }

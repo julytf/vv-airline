@@ -20,7 +20,7 @@ public class BookingController : AppBaseController
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> ShowView(int id)
+    public async Task<IActionResult> Show(int id)
     {
         throw new NotImplementedException();
     }

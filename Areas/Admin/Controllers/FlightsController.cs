@@ -19,19 +19,19 @@ public class FlightsController : AppBaseController
     }
 
     [HttpGet("create")]
-    public async Task<IActionResult> CreateView()
-    {
-        throw new NotImplementedException();
-    }
-
-    [HttpPost("create")]
     public async Task<IActionResult> Create()
     {
         throw new NotImplementedException();
     }
 
+    // [HttpPost("create")]
+    // public async Task<IActionResult> Create()
+    // {
+    //     throw new NotImplementedException();
+    // }
+
     [HttpGet("{id}")]
-    public async Task<IActionResult> ShowView(int id)
+    public async Task<IActionResult> Show(int id)
     {
         throw new NotImplementedException();
     }
@@ -42,11 +42,11 @@ public class FlightsController : AppBaseController
         throw new NotImplementedException();
     }
 
-    [HttpPut("{id}/update")]
-    public async Task<IActionResult> UpdateView(int id)
-    {
-        throw new NotImplementedException();
-    }
+    // [HttpPut("{id}/update")]
+    // public async Task<IActionResult> Update(int id)
+    // {
+    //     throw new NotImplementedException();
+    // }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)

@@ -19,7 +19,7 @@ public class AccountController : AppBaseController
     }
 
     [HttpGet("/update")]
-    public async Task<IActionResult> UpdateView()
+    public async Task<IActionResult> Update(int id)
     {
         throw new NotImplementedException();
     }
@@ -31,7 +31,7 @@ public class AccountController : AppBaseController
     }
 
     [HttpGet("/change-password")]
-    public async Task<IActionResult> ChangePasswordView()
+    public async Task<IActionResult> ChangePassword(int id)
     {
         throw new NotImplementedException();
     }

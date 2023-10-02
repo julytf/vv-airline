@@ -15,7 +15,7 @@ public class SearchController : AppBaseController
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        return RedirectToAction("FlightsSelection");
+        return View();
     }
 
     [HttpGet("flights-selection")]
