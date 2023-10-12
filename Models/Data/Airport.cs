@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-[Microsoft.EntityFrameworkCore.Index("CityId", Name = "IX_Airports_city_id")]
-[Microsoft.EntityFrameworkCore.Index("DistrictId", Name = "IX_Airports_district_id")]
-[Microsoft.EntityFrameworkCore.Index("WardId", Name = "IX_Airports_ward_id")]
+[Microsoft.EntityFrameworkCore.Index("ProvinceCode", Name = "IX_Airports_province_code")]
+[Microsoft.EntityFrameworkCore.Index("DistrictCode", Name = "IX_Airports_district_code")]
+[Microsoft.EntityFrameworkCore.Index("WardCode", Name = "IX_Airports_ward_code")]
 public partial class Airport
 {
     [Key]
@@ -31,20 +31,20 @@ public partial class Airport
     [Column("latitude")]
     public double? Latitude { get; set; }
 
-    [Column("city_id")]
-    public long? CityId { get; set; }
+    [Column("province_code")]
+    public string? ProvinceCode { get; set; }
 
-    [Column("district_id")]
-    public long? DistrictId { get; set; }
+    [Column("district_code")]
+    public string? DistrictCode { get; set; }
 
-    [Column("ward_id")]
-    public long? WardId { get; set; }
+    [Column("ward_code")]
+    public string? WardCode { get; set; }
 
-    [ForeignKey("CityId")]
+    [ForeignKey("ProvinceCode")]
     [InverseProperty("Airports")]
-    public virtual City? City { get; set; }
+    public virtual Province? Province { get; set; }
 
-    [ForeignKey("DistrictId")]
+    [ForeignKey("DistrictCode")]
     [InverseProperty("Airports")]
     public virtual District? District { get; set; }
 
@@ -54,7 +54,7 @@ public partial class Airport
     [InverseProperty("DestinationAirportNavigation")]
     public virtual ICollection<Route> RouteDestinationAirportNavigations { get; set; } = new List<Route>();
 
-    [ForeignKey("WardId")]
+    [ForeignKey("WardCode")]
     [InverseProperty("Airports")]
     public virtual Ward? Ward { get; set; }
 }

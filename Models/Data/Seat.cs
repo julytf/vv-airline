@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-[Table("Seat")]
 [Microsoft.EntityFrameworkCore.Index("ModelId", Name = "IX_Seat_model_id")]
 [Microsoft.EntityFrameworkCore.Index("SeatClassId", Name = "IX_Seat_seat_class_id")]
 [Microsoft.EntityFrameworkCore.Index("SeatTypeId", Name = "IX_Seat_seat_type_id")]
@@ -29,7 +28,7 @@ public partial class Seat
     public long SeatClassId { get; set; }
 
     [Column("seat_type_id")]
-    public long SeatTypeId { get; set; }
+    public long? SeatTypeId { get; set; }
 
     [Column("status")]
     [StringLength(20)]
@@ -46,7 +45,7 @@ public partial class Seat
 
     [ForeignKey("SeatTypeId")]
     [InverseProperty("Seats")]
-    public virtual SeatType SeatType { get; set; } = null!;
+    public virtual SeatType? SeatType { get; set; } = null!;
 
     [InverseProperty("Seat")]
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();

@@ -33,7 +33,7 @@ public partial class AppDBContext : IdentityDbContext<User>
 
     public virtual DbSet<Booking> Bookings { get; set; }
 
-    public virtual DbSet<City> Cities { get; set; }
+    public virtual DbSet<Province> Provinces { get; set; }
 
     public virtual DbSet<Config> Configs { get; set; }
 
@@ -69,7 +69,7 @@ public partial class AppDBContext : IdentityDbContext<User>
 
     public virtual DbSet<Ticket> Tickets { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<User> AppUsers { get; set; }
 
     public virtual DbSet<Ward> Wards { get; set; }
 
@@ -87,7 +87,7 @@ public partial class AppDBContext : IdentityDbContext<User>
     {
         String databasename = Database.GetDbConnection().Database;
         Console.Write($"Confirm delete database {databasename} (y) ? ");
-        string input = Console.ReadLine();
+        string input = Console.ReadLine() ?? "";
 
         if (input.ToLower() == "y")
         {
@@ -130,9 +130,9 @@ public partial class AppDBContext : IdentityDbContext<User>
         {
             entity.HasKey(e => e.Id).HasName("PK__airport__3213E83FBD0BFB0E");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.City).WithMany(p => p.Airports).HasConstraintName("FK__airport__city_id__778AC167");
+            entity.HasOne(d => d.Province).WithMany(p => p.Airports).HasConstraintName("FK__airport__province_id__778AC167");
 
             entity.HasOne(d => d.District).WithMany(p => p.Airports).HasConstraintName("FK__airport__distric__787EE5A0");
 
@@ -143,7 +143,7 @@ public partial class AppDBContext : IdentityDbContext<User>
         {
             entity.HasKey(e => e.Id).HasName("PK__aisle_co__3213E83F3B06808E");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.Model).WithMany(p => p.AisleCols).HasConstraintName("FK__aisle_col__model__6B24EA82");
         });
@@ -152,7 +152,7 @@ public partial class AppDBContext : IdentityDbContext<User>
         {
             entity.HasKey(e => e.Id).HasName("PK__booking__3213E83F278586E2");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.User).WithMany(p => p.Bookings).HasConstraintName("FK__booking__user_id__7D439ABD");
 
@@ -181,11 +181,9 @@ public partial class AppDBContext : IdentityDbContext<User>
                     });
         });
 
-        modelBuilder.Entity<City>(entity =>
+        modelBuilder.Entity<Province>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__city__3213E83F8F0A62B8");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.HasKey(e => e.Code).HasName("provinces_pkey");
         });
 
         modelBuilder.Entity<Config>(entity =>
@@ -197,18 +195,16 @@ public partial class AppDBContext : IdentityDbContext<User>
 
         modelBuilder.Entity<District>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__district__3213E83F4540C126");
+            entity.HasKey(e => e.Code).HasName("districts_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
-
-            entity.HasOne(d => d.City).WithMany(p => p.Districts).HasConstraintName("FK__district__city_i__02FC7413");
+            entity.HasOne(d => d.ProvinceCodeNavigation).WithMany(p => p.Districts).HasConstraintName("districts_province_code_fkey");
         });
 
         modelBuilder.Entity<ExitRow>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__exit_row__3213E83F21867537");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.Model).WithMany(p => p.ExitRows).HasConstraintName("FK__exit_row__model___6A30C649");
         });
@@ -217,7 +213,7 @@ public partial class AppDBContext : IdentityDbContext<User>
         {
             entity.HasKey(e => e.Id).HasName("PK__flight__3213E83F67464E02");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.AircraftRegistrationNumberNavigation).WithMany(p => p.Flights).HasConstraintName("FK__flight__aircraft__72C60C4A");
 
@@ -241,14 +237,14 @@ public partial class AppDBContext : IdentityDbContext<User>
         {
             entity.HasKey(e => e.Id).HasName("PK__model__3213E83F64857539");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<Passenger>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__passenge__3213E83FC1DFDF90");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.Booking).WithMany(p => p.Passengers).HasConstraintName("FK__passenger__booki__00200768");
         });
@@ -257,7 +253,7 @@ public partial class AppDBContext : IdentityDbContext<User>
         {
             entity.HasKey(e => e.Id).HasName("PK__price__3213E83FA4A40A38");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.Route).WithMany(p => p.Prices).HasConstraintName("FK__price__route_id__71D1E811");
 
@@ -268,7 +264,7 @@ public partial class AppDBContext : IdentityDbContext<User>
         {
             entity.HasKey(e => e.Id).HasName("PK__route__3213E83F3EC1E94B");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.DepartureAirportNavigation).WithMany(p => p.RouteDepartureAirportNavigations)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -283,7 +279,7 @@ public partial class AppDBContext : IdentityDbContext<User>
         {
             entity.HasKey(e => e.Id).HasName("PK__schedule__3213E83F003A11A8");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.Route).WithMany(p => p.Schedules).HasConstraintName("FK__schedule__route___74AE54BC");
         });
@@ -305,7 +301,7 @@ public partial class AppDBContext : IdentityDbContext<User>
         {
             entity.HasKey(e => e.Id).HasName("PK__seat__3213E83F7530C246");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Status).IsFixedLength();
 
             entity.HasOne(d => d.Model).WithMany(p => p.Seats).HasConstraintName("FK__seat__model_id__6C190EBB");
@@ -319,14 +315,14 @@ public partial class AppDBContext : IdentityDbContext<User>
         {
             entity.HasKey(e => e.Id).HasName("PK__seat_cla__3213E83FD5D1D927");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<SeatMap>(entity =>
         {
             entity.HasKey(e => e.ModelId).HasName("PK__seat_map__DC39CAF467886AEF");
 
-            entity.Property(e => e.ModelId).ValueGeneratedNever();
+            // entity.Property(e => e.ModelId).ValueGeneratedNever();
 
             entity.HasOne(d => d.Model).WithOne(p => p.SeatMap)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -337,7 +333,7 @@ public partial class AppDBContext : IdentityDbContext<User>
         {
             entity.HasKey(e => e.Id).HasName("PK__seat_typ__3213E83F4BEA9166");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<Service>(entity =>
@@ -351,7 +347,7 @@ public partial class AppDBContext : IdentityDbContext<User>
         {
             entity.HasKey(e => e.Id).HasName("PK__ticket__3213E83FB53CA3F1");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.Flight).WithMany(p => p.Tickets).HasConstraintName("FK__ticket__flight_i__7A672E12");
 
@@ -370,7 +366,7 @@ public partial class AppDBContext : IdentityDbContext<User>
 
             entity.Property(e => e.IdNumber).IsFixedLength();
 
-            entity.HasOne(d => d.City).WithMany(p => p.Users).HasConstraintName("FK__user__city_id__656C112C");
+            entity.HasOne(d => d.Province).WithMany(p => p.Users).HasConstraintName("FK__user__province_id__656C112C");
 
             entity.HasOne(d => d.District).WithMany(p => p.Users).HasConstraintName("FK__user__district_i__66603565");
 
@@ -380,11 +376,9 @@ public partial class AppDBContext : IdentityDbContext<User>
 
         modelBuilder.Entity<Ward>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ward__3213E83F5DDAAE1F");
+            entity.HasKey(e => e.Code).HasName("wards_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
-
-            entity.HasOne(d => d.District).WithMany(p => p.Wards).HasConstraintName("FK__ward__district_i__03F0984C");
+            entity.HasOne(d => d.DistrictCodeNavigation).WithMany(p => p.Wards).HasConstraintName("wards_district_code_fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -1,5 +1,6 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ public class Startup
         // Thêm dịch vụ dùng bộ nhớ lưu cache (session sử dụng dịch vụ này)
         // services.AddDistributedMemoryCache();
         // Thêm  dịch vụ Session, dịch vụ này cunng cấp Middleware: 
-        // services.AddSession();
+        services.AddSession();
 
         // services
         //     .AddControllers()
@@ -64,18 +65,19 @@ public class Startup
 
             options.SignIn.RequireConfirmedEmail = false;
             options.SignIn.RequireConfirmedPhoneNumber = false;
+            options.SignIn.RequireConfirmedAccount = false;
 
         });
 
         // Cấu hình Cookie
-        // services.ConfigureApplicationCookie(options =>
-        // {
-        //     // options.Cookie.HttpOnly = true;  
-        //     // options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-        //     // options.LoginPath = $"/login/";                                 // Url đến trang đăng nhập
-        //     // options.LogoutPath = $"/logout/";
-        //     // options.AccessDeniedPath = $"/Identity/Account/AccessDenied";   // Trang khi User bị cấm truy cập
-        // });
+        services.ConfigureApplicationCookie(options =>
+        {
+            // options.Cookie.HttpOnly = true;  
+            // options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+            options.LoginPath = $"/login/";
+            options.LogoutPath = $"/logout/";
+            // options.AccessDeniedPath = $"/Identity/Account/AccessDenied";   // Trang khi User bị cấm truy cập
+        });
 
         // services.Configure<SecurityStampValidatorOptions>(options =>
         // {
@@ -86,11 +88,7 @@ public class Startup
 
         // Adding Authentication
         services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
+        { })
         // .AddJwtBearer(options =>
         // {
         //     options.SaveToken = true;
@@ -135,17 +133,16 @@ public class Startup
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
-        // app.UseSession();
+        app.UseSession();
+
+        app.UseRouting();
 
         app.UseAuthentication();   // Phục hồi thông tin đăng nhập (xác thực)
         app.UseAuthorization();   // Phục hồi thông tinn về quyền của User
 
-        app.UseRouting();
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            endpoints.MapControllers();
         });
 
         // app.MapFallbackToFile("index.html");

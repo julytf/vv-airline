@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-[Table("Seat_Map")]
 public partial class SeatMap
 {
     [Key]
     [Column("model_id")]
+    // [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public long ModelId { get; set; }
 
     [Column("no_row")]

@@ -25,6 +25,9 @@ public partial class Schedule
     [Column("arrival_time", TypeName = "datetime")]
     public DateTime ArrivalTime { get; set; }
 
+    [Column("distance")]
+    public long? Distance { get; set; }
+
     [InverseProperty("Schedule")]
     public virtual ICollection<FlightSchedule> FlightSchedules { get; set; } = new List<FlightSchedule>();
 

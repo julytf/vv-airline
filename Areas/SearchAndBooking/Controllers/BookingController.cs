@@ -16,7 +16,8 @@ public class BookingController : AppBaseController
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        throw new NotImplementedException();
+        return View();
+        // throw new NotImplementedException();
     }
 
     [HttpGet("{id}")]

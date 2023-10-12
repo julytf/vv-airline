@@ -8,14 +8,15 @@ public class Program
     {
         var app = CreateHostBuilder(args).Build();
 
-        if (args.Length > 0 && args[0] == "seed")
+        // await Test(app.Services);
+        // return;
+
+        if (args.ElementAtOrDefault(0) == "seed")
         {
-            await InitSeed.Seed(app.Services);
+            await Seed(args, app.Services);
             return;
         }
 
-        await Test(app.Services);
-        
         app.Run();
     }
 
@@ -27,20 +28,63 @@ public class Program
                 webBuilder.UseStartup<Startup>();
             });
     }
+    static async Task Seed(string[] args, IServiceProvider serviceProvider)
+    {
+        if (args.ElementAtOrDefault(1) == "init")
+        {
+            await InitSeed.Seed(serviceProvider);
+            return;
+        }
+        if (args.ElementAtOrDefault(1) == "test")
+        {
+            await TestSeed.Seed(serviceProvider);
+            return;
+        }
+    }
 
     static async Task Test(IServiceProvider serviceProvider)
     {
 
+
+        // await Task.Delay(1);
         // var config = serviceProvider.GetService<IConfiguration>();
 
         // Console.WriteLine("here");
         // Console.WriteLine(config.GetConnectionString("sql"));
 
-        // using var scope = serviceProvider.CreateScope();
+        using var scope = serviceProvider.CreateScope();
 
-        // var context = scope.ServiceProvider.GetService<AppDBContext>();
+        var dbContext = scope.ServiceProvider.GetService<AppDBContext>();
 
-        // await context.CreateDatabase();
+
+        // SeatClass seatClass = new()
+        // {
+        //     Name = "test"
+        // };
+        // Console.WriteLine("here");
+        // Console.WriteLine(seatClass.Id);
+
+        // dbContext.Add(seatClass);
+
+        // Console.WriteLine("here");
+        // Console.WriteLine(seatClass.Id);
+
+        Airport airport = new() { Name = "test" };
+
+        Console.WriteLine("here");
+        Console.WriteLine(airport.Id);
+
+        dbContext.Add(airport);
+
+        Console.WriteLine("here");
+        Console.WriteLine(airport.Id);
+        ;
+        dbContext.SaveChanges();
+
+        Console.WriteLine("here");
+        Console.WriteLine(airport.Id);
+
+        // await dbContext.CreateDatabase();
 
         // Model model = new Model
         // {

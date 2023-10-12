@@ -1,0 +1,74 @@
+@{
+    int stepIndex = 2;
+    var steps = new[] {
+new {
+index = 1,
+path = "search",
+method = "Index",
+title = "Tìm kiếm",
+icon = "fa-solid fa-magnifying-glass"
+},
+new {
+index = 2,
+path = "flights-selection",
+method = "SchedulesSelection",
+title = "Chọn chuyến bay",
+icon = "fa-regular fa-plane"
+},
+new {
+index = 3,
+path = "seats-selection",
+method = "SeatsSelection",
+title = "Chọn chỗ ngồi",
+icon = "fa-regular fa-person-seat"
+},
+new {
+index = 4,
+path = "addition-services-selection",
+method = "AdditionServicesSelection",
+title = "Dịch vụ hỗ trợ",
+icon = "fa-regular fa-suitcase"
+},
+new {
+index = 5,
+path = "passengers-information",
+method = "PassengersInformation",
+title = "Thông tin khách",
+icon = "fa-regular fa-user-pen"
+},
+new {
+index = 6,
+path = "checkout",
+method = "Checkout",
+title = "Thanh toán",
+icon = "fa-regular fa-credit-card"
+},
+};
+}
+
+<div>
+    <div>
+        <ol class=" grid grid-cols-1 overflow-hidden border-2 border-gray-200 text-sm text-gray-500 sm:grid-cols-6">
+            @foreach (var step in steps)
+            {
+                <a asp-controller="Search" asp-action="@step.method">
+                    <li class="relative">
+                        <div
+                            class=' mx-auto my-auto flex-1 relative flex items-center justify-center gap-2 !border-0 pl-4 p-4  @(step.index == stepIndex ? "bg-primary" : "")'>
+                            <i class="@step.icon h-7 w-7 shrink-0 text-2xl"></i>
+
+                            <p class="leading-none">
+                                <strong class='block font-large @(step.index > stepIndex ? "text-gray-300" : "")'>
+                                    @step.title </strong>
+                                @* <small class="mt-1"> Where we sending it? </small> *@
+                            </p>
+                        </div>
+                        <span
+                            class='absolute top-0 right-0 translate-x-1/2 hidden h-[calc(60px/1.41)] w-[calc(60px/1.41)] translate-y-2 -translate-x-5 rotate-45 border-2 border-gray-200 border-b-0 border-s-0 sm:block z-10 @(step.index == stepIndex ? "bg-primary" : "bg-white")'>
+                        </span>
+                    </li>
+                </a>
+            }
+        </ol>
+    </div>
+</div>

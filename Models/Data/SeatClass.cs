@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-[Table("Seat_Class")]
 public partial class SeatClass
 {
     [Key]

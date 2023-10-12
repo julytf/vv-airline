@@ -4,8 +4,8 @@ public static class UserEnums
 {
     public enum Roles
     {
-        Admin = 'A',
-        Staff = 'S',
-        User = 'U'
+        Admin,
+        Staff,
+        User,
     };
 }

@@ -1,11 +1,14 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors')
+
+
 module.exports = {
   content: ['./Views/**/*.{cshtml,css}', './Areas/**/*.{cshtml,css}'],
   theme: {
     extend: {
       colors: {
-        primary: '#5c6ac4',
-        secondary: '#ecc94b',
+        primary: '#22d3ee',
+        secondary: '#0891b2',
       },
     },
   },

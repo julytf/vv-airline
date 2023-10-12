@@ -18,8 +18,8 @@ public class SearchController : AppBaseController
         return View();
     }
 
-    [HttpGet("flights-selection")]
-    public async Task<IActionResult> FlightsSelection()
+    [HttpGet("schedules-selection")]
+    public async Task<IActionResult> SchedulesSelection()
     {
         throw new NotImplementedException();
     }

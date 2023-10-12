@@ -1,0 +1,327 @@
+@model vv_airline.Areas.SearchAndBooking.Models.SearchModel
+
+@Html.Partial("Partials/_NavBar.cshtml")
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.selectpicker').select2();
+    });
+</script>
+
+
+<div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+
+    <form asp-controller="Auth" asp-action="Register" asp-route-returnurl='@ViewData["ReturnUrl"]' method="post"
+        class="border-solid border-2 border-primary rounded-md p-6">
+
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            @* <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">ĐĂNG KÝ
+            </h2> *@
+        </div>
+        <div class="mx-auto max-w-2xl">
+            <div class="space-y-12">
+                <div asp-validation-summary="ModelOnly" class="text-red-700"></div>
+                <div class="border-b border-gray-900/10 pb-12">
+                    @* <h2 class="text-lg font-semibold leading-9 text-gray-900">Thông tin cá nhân</h2> *@
+                    @* <p class="mt-1 text-sm leading-6 text-gray-600"></p> *@
+
+                    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+
+                        <div class="sm:col-span-6">
+                            <ul class="w-full gap-6">
+                                <li class="inline-block mr-5">
+                                    <input type="radio" id="hosting-small" name="hosting" value="hosting-small"
+                                        class="hidden peer" required checked>
+                                    <label for="hosting-small"
+                                        class="inline-flex items-center justify-between  p-3 px-4 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                        <div class="block">
+                                            <div class="w-full text-lg font-semibold">Một chiều</div>
+                                            @* <div class="w-full">Good for small websites</div> *@
+                                        </div>
+                                    </label>
+                                </li>
+                                <li class="inline-block">
+                                    <input type="radio" id="hosting-big" name="hosting" value="hosting-big"
+                                        class="hidden peer">
+                                    <label for="hosting-big"
+                                        class="inline-flex items-center justify-between  p-3 px-4 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                        <div class="block">
+                                            <div class="w-full text-lg font-semibold">Khứ hồi</div>
+                                            @* <div class="w-full">Good for large websites</div> *@
+                                        </div>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="sm:col-span-3">
+                            <label asp-for="DepartureAirport" for="lastname"
+                                class="block text-sm font-medium leading-6 text-gray-900">Điểm đi</label>
+                            <select class="selectpicker" style="width: 100%" data-placeholder="Select a city..."
+                                data-allow-clear="false" title="Select city...">
+                                <option>ha noi</option>
+                                <option>Amsterdam</option>
+                                <option>Rotterdam</option>
+                                <option>Den Haag</option>
+                            </select>
+                        </div>
+
+                        <div class="sm:col-span-3">
+                            <label asp-for="DestinationAirport" for="lastname"
+                                class="block text-sm font-medium leading-6 text-gray-900">Điểm đến</label>
+                            <select class="selectpicker" style="width: 100%" data-placeholder="Select a city..."
+                                data-allow-clear="false" title="Select city...">
+                                <option>ha noi</option>
+                                <option>Amsterdam</option>
+                                <option>Rotterdam</option>
+                                <option>Den Haag</option>
+                            </select>
+                        </div>
+
+                        <div class="sm:col-span-6">
+                            <label asp-for="SeatClass" for="seatclass"
+                                class="block text-sm font-medium leading-6 text-gray-900"></label>
+                            <div class="mt-2">
+                                <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
+                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+
+                                    <select id="countries" class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
+                        focus:ring-0 sm:text-sm sm:leading-6">
+                                        <option value="FR">Phổ thông</option>
+                                        <option value="DE">Thương gia</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="SeatClass" class="text-red-700"></span>
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-3">
+                            <label asp-for="Adults" for="adults"
+                                class="block text-sm font-medium leading-6 text-gray-900"></label>
+                            <div class="mt-2">
+                                <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
+                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+
+                                    <input asp-for="Adults" name="adults" id="adults" autocomplete="adults" class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
+                        focus:ring-0 sm:text-sm sm:leading-6">
+                                </div>
+                                <span asp-validation-for="Adults" class="text-red-700"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="sm:col-span-3">
+                            <label asp-for="Children" for="children"
+                                class="block text-sm font-medium leading-6 text-gray-900"></label>
+                            <div class="mt-2">
+                                <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
+                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+
+                                    <input asp-for="Children" name="children" id="children" autocomplete="children"
+                                        class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
+                        focus:ring-0 sm:text-sm sm:leading-6">
+                                </div>
+                                <span asp-validation-for="Children" class="text-red-700"></span>
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-3">
+                            <label asp-for="DepartureDate" for="departureDate"
+                                class="block text-sm font-medium leading-6 text-gray-900"></label>
+                            <div class="mt-2">
+                                <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
+                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+
+                                    <input asp-for="DepartureDate" type="date" name="departureDate" id="departureDate"
+                                        autocomplete="departureDate" class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
+                        focus:ring-0 sm:text-sm sm:leading-6">
+                                </div>
+                                <span asp-validation-for="DepartureDate" class="text-red-700"></span>
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-3">
+                            <label asp-for="ArrivalDate" for="arrivalDate"
+                                class="block text-sm font-medium leading-6 text-gray-900"></label>
+                            <div class="mt-2">
+                                <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
+                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+
+                                    <input asp-for="ArrivalDate" type="date" name="arrivalDate" id="arrivalDate"
+                                        autocomplete="arrivalDate" class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
+                        focus:ring-0 sm:text-sm sm:leading-6">
+                                </div>
+                                <span asp-validation-for="ArrivalDate" class="text-red-700"></span>
+                            </div>
+                        </div>
+                        @*
+                        <div class="sm:col-span-3">
+                        <label asp-for="Email" for="firstname"
+                        class="block text-sm font-medium leading-6 text-gray-900"></label>
+                        <div class="mt-2">
+                        <div
+                        class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
+                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+
+                        <input asp-for="FirstName" name="firstname" id="firstname" autocomplete="firstname"
+                        class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
+                        focus:ring-0 sm:text-sm sm:leading-6">
+                        </div>
+                        <span asp-validation-for="FirstName" class="text-red-700"></span>
+                        </div>
+                        </div>
+
+                        <div class="sm:col-span-6">
+                        <label asp-for="Email" for="firstname"
+                        class="block text-sm font-medium leading-6 text-gray-900"></label>
+                        <div class="mt-2">
+                        <div
+                        class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
+                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+
+                        <input asp-for="DateOfBirth" type="date" name="dateofbirth" id="dateofbirth"
+                        autocomplete="dateofbirth"
+                        class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
+                        focus:ring-0 sm:text-sm sm:leading-6">
+                        </div>
+                        <span asp-validation-for="DateOfBirth" class="text-red-700"></span>
+                        </div>
+                        </div>
+
+                        <div class="sm:col-span-6">
+                        <label asp-for="PhoneNumber" for="phonenumber"
+                        class="block text-sm font-medium leading-6 text-gray-900">Số điện
+                        thoại</label>
+                        <div class="mt-2">
+                        <div
+                        class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
+                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+
+                        <input asp-for="PhoneNumber" name="phonenumber" id="phonenumber"
+                        autocomplete="phonenumber"
+                        class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
+                        focus:ring-0 sm:text-sm sm:leading-6">
+                        </div>
+                        <span asp-validation-for="PhoneNumber" class="text-red-700"></span>
+                        </div>
+                        </div>
+
+                        <div class="mt-6 space-y-6 sm:col-span-6">
+                        <label asp-for="Email" for="gender"
+                        class=" block text-sm font-medium leading-6 text-gray-900"></label>
+
+                        <div class="flex items-center gap-x-3">
+                        <input asp-for="Gender" value="true" id="male" name="gender" type="radio"
+                        class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        <label for="male" class="block text-sm font-medium leading-6 text-gray-900">Nam</label>
+                        </div>
+                        <div class="flex items-center gap-x-3">
+                        <input asp-for="Gender" value="false" id="female" name="gender" type="radio"
+                        class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        <label for="female" class="block text-sm font-medium leading-6 text-gray-900">Nữ</label>
+                        </div>
+                        <span asp-validation-for="Gender" class="text-red-700"></span>
+                        </div>
+
+                        <div class="sm:col-span-2">
+                        <label asp-for="CityId" for="city"
+                        class="block text-sm font-medium leading-6 text-gray-900"></label>
+                        <div class="mt-2">
+                        <input asp-for="CityId" type="text" name="city" id="city" autocomplete="address-level1"
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
+                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600
+                        sm:text-sm sm:leading-6">
+                        </div>
+                        </div>
+
+                        <div class="sm:col-span-2">
+                        <label asp-for="DistrictId" for="district"
+                        class="block text-sm font-medium leading-6 text-gray-900"></label>
+                        <div class="mt-2">
+                        <input asp-for="DistrictId" type="text" name="district" id="district"
+                        autocomplete="district"
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
+                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600
+                        sm:text-sm sm:leading-6">
+                        </div>
+                        </div>
+
+                        <div class="sm:col-span-2">
+                        <label asp-for="WardId" for="ward"
+                        class="block text-sm font-medium leading-6 text-gray-900"></label>
+                        <div class="mt-2">
+                        <input asp-for="WardId" type="text" name="ward" id="ward" autocomplete="ward"
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
+                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600
+                        sm:text-sm sm:leading-6">
+                        </div>
+                        </div>
+
+                        <div class="col-span-full">
+                        <label asp-for="Address" for="address"
+                        class="block text-sm font-medium leading-6 text-gray-900"></label>
+                        <div class="mt-2">
+                        <input asp-for="Address" type="text" name="address" id="address" autocomplete="address"
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
+                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600
+                        sm:text-sm sm:leading-6">
+                        </div>
+                        </div>
+
+                        <div class="col-span-full">
+                        <label asp-for="Address2" for="address2"
+                        class="block text-sm font-medium leading-6 text-gray-900"></label>
+                        <div class="mt-2">
+                        <input asp-for="Address2" type="text" name="address2" id="address2"
+                        autocomplete="address2"
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
+                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600
+                        sm:text-sm sm:leading-6">
+                        </div>
+                        </div>
+                        </div>
+                        </div> *@
+
+
+                        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                            @* <div class="sm:col-span-4">
+                            <label asp-for="Email" for="email"
+                            class="block text-sm font-medium leading-6 text-gray-900"></label>
+                            <div class="mt-2">
+                            <div
+                            class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
+                            focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                            <input asp-for="Email" name="email" id="email" autocomplete="email"
+                            class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
+                            focus:ring-0 sm:text-sm sm:leading-6">
+                            </div>
+                            <span asp-validation-for="Email" class="text-red-700"></span>
+                            </div>
+                            </div>
+                            <div class="sm:col-span-4">
+                            <label asp-for="Password" for="password"
+                            class="block text-sm font-medium leading-6 text-gray-900"></label>
+                            <div class="mt-2">
+                            <div
+                            class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
+                            focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                            <input asp-for="Password" type="password" name="password" id="password"
+                            autocomplete="password"
+                            class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
+                            focus:ring-0 sm:text-sm sm:leading-6">
+                            </div>
+                            <span asp-validation-for="Password" class="text-red-700"></span>
+                            </div>
+                            </div> *@
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 flex items-center justify-end gap-x-6">
+                    <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                    <button type="submit"
+                        class="rounded-md bg-primary  px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">Save</button>
+                </div>
+    </form>
+
+</div>

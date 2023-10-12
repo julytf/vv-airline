@@ -65,8 +65,8 @@ public class AuthController : AppBaseController
             ModelState.AddModelError("Email", "Không tìm thấy tài khoản với email này.");
             return View(model);
         }
-        Console.WriteLine(await _signInManager.CheckPasswordSignInAsync(user, model.Password, false));
-        var result = await _signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: true);
+
+        var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, isPersistent: false, lockoutOnFailure: true);
 
         if (!result.Succeeded)
         {
@@ -74,10 +74,11 @@ public class AuthController : AppBaseController
             return View(model);
         }
 
-        // if (result.RequiresTwoFactor)
-        // {
-        //     return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-        // }
+        if (result.RequiresTwoFactor)
+        {
+            throw new NotImplementedException();
+            // return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+        }
 
         if (result.IsLockedOut)
         {
@@ -85,7 +86,13 @@ public class AuthController : AppBaseController
             return View("Lockout");
         }
 
-        _logger.LogInformation(1, "User logged in.");
+
+        _logger.LogInformation(1, "Đăng nhập thành công");
+        // return Json(new
+        // {
+        //     result.Succeeded,
+        //     User.Identity.IsAuthenticated
+        // });
         return LocalRedirect(returnUrl);
 
     }
@@ -117,9 +124,16 @@ public class AuthController : AppBaseController
 
         if (!ModelState.IsValid)
         {
+            ModelState.AddModelError(string.Empty, "Dữ liệu không hợp lệ.");
+            // foreach (var modelState in ModelState.Values)
+            // {
+            //     foreach (ModelError error in modelState.Errors)
+            //     {
+            //         Console.WriteLine(error.ErrorMessage);
+            //     }
+            // }
             return View(model);
         }
-
         var user = new User()
         {
             Email = model.Email,
@@ -129,9 +143,9 @@ public class AuthController : AppBaseController
             DateOfBirth = model.DateOfBirth,
             Gender = model.Gender,
             IdNumber = model.IdNumber,
-            CityId = model.CityId,
-            DistrictId = model.DistrictId,
-            WardId = model.WardId,
+            ProvinceCode = model.ProvinceCode,
+            DistrictCode = model.DistrictCode,
+            WardCode = model.WardCode,
             Address = model.Address,
             Address2 = model.Address2,
             SecurityStamp = Guid.NewGuid().ToString(),

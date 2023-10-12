@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 namespace vv_airline.Models.Data;
 
 [PrimaryKey("FlightId", "ScheduleId")]
-[Table("Flight_Schedule")]
 [Microsoft.EntityFrameworkCore.Index("ScheduleId", Name = "IX_Flight_Schedule_schedule_id")]
 public partial class FlightSchedule
 {

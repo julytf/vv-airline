@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 namespace vv_airline.Models.Data;
 
 [Microsoft.EntityFrameworkCore.Index("NormalizedEmail", Name = "EmailIndex")]
-[Microsoft.EntityFrameworkCore.Index("CityId", Name = "IX_Users_city_id")]
-[Microsoft.EntityFrameworkCore.Index("DistrictId", Name = "IX_Users_district_id")]
-[Microsoft.EntityFrameworkCore.Index("WardId", Name = "IX_Users_ward_id")]
+[Microsoft.EntityFrameworkCore.Index("ProvinceCode", Name = "IX_Users_province_code")]
+[Microsoft.EntityFrameworkCore.Index("DistrictCode", Name = "IX_Users_district_code")]
+[Microsoft.EntityFrameworkCore.Index("WardCode", Name = "IX_Users_ward_code")]
 public partial class User : IdentityUser
 {
     // [Key]
@@ -37,14 +37,14 @@ public partial class User : IdentityUser
     [Unicode(false)]
     public string? IdNumber { get; set; }
 
-    [Column("city_id")]
-    public long? CityId { get; set; }
+    [Column("province_id")]
+    public string? ProvinceCode { get; set; }
 
     [Column("district_id")]
-    public long? DistrictId { get; set; }
+    public string? DistrictCode { get; set; }
 
     [Column("ward_id")]
-    public long? WardId { get; set; }
+    public string? WardCode { get; set; }
 
     [Column("address")]
     [StringLength(255)]
@@ -91,11 +91,11 @@ public partial class User : IdentityUser
     [InverseProperty("User")]
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
-    [ForeignKey("CityId")]
+    [ForeignKey("ProvinceCode")]
     [InverseProperty("Users")]
-    public virtual City? City { get; set; }
+    public virtual Province? Province { get; set; }
 
-    [ForeignKey("DistrictId")]
+    [ForeignKey("DistrictCode")]
     [InverseProperty("Users")]
     public virtual District? District { get; set; }
 
@@ -108,7 +108,7 @@ public partial class User : IdentityUser
     // [InverseProperty("User")]
     // public virtual ICollection<UserToken> UserTokens { get; set; } = new List<UserToken>();
 
-    // [ForeignKey("WardId")]
+    [ForeignKey("WardCode")]
     [InverseProperty("Users")]
     public virtual Ward? Ward { get; set; }
 

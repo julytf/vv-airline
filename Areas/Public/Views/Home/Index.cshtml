@@ -1,8 +1,13 @@
-<main class="space-y-40 mb-40">
-    @Html.Partial("Partials/_HeroSection")
-    @* @Html.Partial("Partials/_Features")   *@
-    @* @Html.Partial("Partials/_Stats")
-    @Html.Partial("Partials/_Testimonials")
-    @Html.Partial("Partials/_CallToAction")
-    @Html.Partial("Partials/_Blog") *@
-</main>
+@using Microsoft.AspNetCore.Identity
+@using vv_airline.Models.Data
+
+@inject SignInManager<User> _signInManager
+@inject UserManager<User> _userManager
+
+@Html.Partial("Partials/_HeroSection")
+@* @Html.Partial("Partials/_Features")   *@
+@* @Html.Partial("Partials/_Stats")
+@Html.Partial("Partials/_Testimonials")
+@Html.Partial("Partials/_CallToAction")
+@Html.Partial("Partials/_Blog") *@
+@User.Identity.Name
