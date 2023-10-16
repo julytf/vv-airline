@@ -1,6 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using vv_airline.Models.Data;
 using Microsoft.AspNetCore.Mvc;
 using vv_airline.Controllers;
-using vv_airline.Models.Data;
 
 namespace vv_airline.Areas.SearchAndBooking.Controllers;
 
@@ -19,35 +20,52 @@ public class AddressController : AppBaseController
     [HttpGet("provinces")]
     public async Task<IActionResult> Provinces()
     {
-        List<Province> provinces = _appDBContext.Provinces.ToList();
+        List<Province> provinces = _appDBContext
+            .Provinces
+            .ToList();
+
         return Json(new { provinces });
     }
 
     [HttpGet("districts")]
     public async Task<IActionResult> Districts()
     {
-        List<District> districts = _appDBContext.Districts.ToList();
+        List<District> districts = _appDBContext
+            .Districts
+            .ToList();
+
         return Json(new { districts });
     }
 
     [HttpGet("districts/{provinceCode}")]
     public async Task<IActionResult> Districts(string provinceCode)
     {
-        List<District> districts = _appDBContext.Districts.Where(d => d.ProvinceCode == provinceCode).ToList();
+        List<District> districts = _appDBContext
+            .Districts
+            .Where(d => d.Province.Code == provinceCode)
+            .ToList();
+
         return Json(new { districts });
     }
 
     [HttpGet("wards")]
     public async Task<IActionResult> Wards()
     {
-        List<Ward> wards = _appDBContext.Wards.ToList();
+        List<Ward> wards = _appDBContext
+            .Wards
+            .ToList();
+
         return Json(new { wards });
     }
 
     [HttpGet("wards/{districtCode}")]
     public async Task<IActionResult> Wards(string districtCode)
     {
-        List<Ward> wards = _appDBContext.Wards.Where(d => d.DistrictCode == districtCode).ToList();
+        List<Ward> wards = _appDBContext
+            .Wards
+            .Where(d => d.District.Code == districtCode)
+            .ToList();
+
         return Json(new { wards });
     }
 }

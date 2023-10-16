@@ -9,17 +9,13 @@ namespace vv_airline.Models.Data;
 public partial class SeatType
 {
     [Key]
-    [Column("id")]
     public long Id { get; set; }
 
-    [Column("name")]
     [StringLength(255)]
     [Unicode(false)]
     public string Name { get; set; } = null!;
 
-    [Column("surcharge")]
     public long? Surcharge { get; set; }
 
-    [InverseProperty("SeatType")]
-    public virtual ICollection<Seat> Seats { get; set; } = new List<Seat>();
+    public ICollection<Seat> Seats { get; set; } = new List<Seat>();
 }

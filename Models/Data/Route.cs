@@ -6,37 +6,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-[Microsoft.EntityFrameworkCore.Index("DepartureAirport", Name = "IX_Routes_departure_airport")]
-[Microsoft.EntityFrameworkCore.Index("DestinationAirport", Name = "IX_Routes_destination_airport")]
 public partial class Route
 {
     [Key]
-    [Column("id")]
     public long Id { get; set; }
 
-    [Column("departure_airport")]
-    public long DepartureAirport { get; set; }
+    public  Airport DepartureAirport { get; set; } = null!;
 
-    [Column("destination_airport")]
-    public long DestinationAirport { get; set; }
+    public  Airport DestinationAirport { get; set; } = null!;
 
-    [Column("distance")]
     public long? Distance { get; set; }
 
-    [ForeignKey("DepartureAirport")]
-    [InverseProperty("RouteDepartureAirportNavigations")]
-    public virtual Airport DepartureAirportNavigation { get; set; } = null!;
+    public  ICollection<Flight> Flights { get; set; } = new List<Flight>();
 
-    [ForeignKey("DestinationAirport")]
-    [InverseProperty("RouteDestinationAirportNavigations")]
-    public virtual Airport DestinationAirportNavigation { get; set; } = null!;
+    public  ICollection<Price> Prices { get; set; } = new List<Price>();
 
-    [InverseProperty("Route")]
-    public virtual ICollection<Flight> Flights { get; set; } = new List<Flight>();
-
-    [InverseProperty("Route")]
-    public virtual ICollection<Price> Prices { get; set; } = new List<Price>();
-
-    [InverseProperty("Route")]
-    public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
+    public  ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
 }

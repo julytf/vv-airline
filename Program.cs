@@ -1,4 +1,5 @@
-using App;
+using vv_airline;
+using Microsoft.EntityFrameworkCore;
 using vv_airline.Database.Seeders;
 using vv_airline.Models;
 using vv_airline.Models.Data;
@@ -8,9 +9,11 @@ public class Program
     {
         var app = CreateHostBuilder(args).Build();
 
-        // await Test(app.Services);
-        // return;
-
+        if (args.ElementAtOrDefault(0) == "test")
+        {
+            await Test(app.Services);
+            return;
+        }
         if (args.ElementAtOrDefault(0) == "seed")
         {
             await Seed(args, app.Services);
@@ -44,60 +47,58 @@ public class Program
 
     static async Task Test(IServiceProvider serviceProvider)
     {
-
-
-        // await Task.Delay(1);
-        // var config = serviceProvider.GetService<IConfiguration>();
-
-        // Console.WriteLine("here");
-        // Console.WriteLine(config.GetConnectionString("sql"));
-
         using var scope = serviceProvider.CreateScope();
 
         var dbContext = scope.ServiceProvider.GetService<AppDBContext>();
 
+        // Console.WriteLine(
+        //     dbContext
+        //         .Districts
+        //         .Where(d => d.Province.Code == "01")
+        //         .ToQueryString()
+        // );
 
-        // SeatClass seatClass = new()
+        // dbContext.Add(new Airport()
         // {
         //     Name = "test"
-        // };
-        // Console.WriteLine("here");
-        // Console.WriteLine(seatClass.Id);
+        // });
 
-        // dbContext.Add(seatClass);
+        // dbContext.SaveChanges();
 
-        // Console.WriteLine("here");
-        // Console.WriteLine(seatClass.Id);
+        // var flight = dbContext
+        //     .Flights
+        //     // .Include(f => f.Schedules)
+        //     .First();
+        // var schedule = flight.Schedules.First();
+        // Console.WriteLine(flight.Schedules.First().Distance);
 
-        Airport airport = new() { Name = "test" };
+        // var district = dbContext.Districts.First();
+        // Console.WriteLine("-------------------");
+        // Console.WriteLine(district.FullName);
+        // Console.WriteLine("-------------------");
+        // var province = district.Province;
+        // Console.WriteLine("-------------------");
+        // Console.WriteLine(province.FullName);
+        // Console.WriteLine("-------------------");
 
-        Console.WriteLine("here");
-        Console.WriteLine(airport.Id);
 
-        dbContext.Add(airport);
+        var query = dbContext
+            .Provinces
+            .Where(p => p.Code == "01")
+            .Include(p => p.Districts);
+        Console.WriteLine(query.ToQueryString());
 
-        Console.WriteLine("here");
-        Console.WriteLine(airport.Id);
-        ;
-        dbContext.SaveChanges();
+        // var province = query
+        //     .First(p => p.Code == "01");
 
-        Console.WriteLine("here");
-        Console.WriteLine(airport.Id);
+        // List<District> districts = province
+        //     .Districts
+        //     .ToList();
 
-        // await dbContext.CreateDatabase();
-
-        // Model model = new Model
-        // {
-        //     Id = 1,
-        //     Name = "model 1"
-        // };
-
-        // appDBContext.Models.Add(model);
-        // await appDBContext.SaveChangesAsync();
-
-        // User user = new User(){};
-
-        // Console.WriteLine(user.Id);
+        // Console.WriteLine("-----");
+        // Console.WriteLine(province.FullName);
+        // Console.WriteLine("-----");
+        // Console.WriteLine(districts.Count());
     }
 }
 

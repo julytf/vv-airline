@@ -9,7 +9,8 @@ using vv_airline.Models;
 using vv_airline.Models.Data;
 using vv_airline.Models.Enums;
 
-namespace App;
+
+namespace vv_airline;
 public class Startup
 {
     IConfiguration _configuration;
@@ -27,19 +28,23 @@ public class Startup
         // Thêm  dịch vụ Session, dịch vụ này cunng cấp Middleware: 
         services.AddSession();
 
-        // services
-        //     .AddControllers()
-        // //     .AddNewtonsoftJson(options =>
-        // //         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-        // //     )
-        // ;
+        services
+            .AddControllers()
+            .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            )
+        ;
 
         services.AddMvc();
 
         services.AddDbContext<AppDBContext>(options =>
         {
-            options.UseSqlServer(_configuration.GetConnectionString("sql"));
-            //TODO:
+            options
+                .UseSqlServer(_configuration.GetConnectionString("sql"))
+                .LogTo(s => System.Diagnostics.Debug.WriteLine(s))
+                .EnableDetailedErrors(true)
+                .EnableSensitiveDataLogging(true)
+            ;
         });
 
         services.AddIdentity<User, IdentityRole>()
@@ -47,27 +52,27 @@ public class Startup
             .AddDefaultTokenProviders();
 
         services.Configure<IdentityOptions>(options =>
-        {
-            options.Password.RequireDigit = false;
-            options.Password.RequireLowercase = false;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireUppercase = false;
-            options.Password.RequiredLength = 3;
-            options.Password.RequiredUniqueChars = 1;
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 3;
+                options.Password.RequiredUniqueChars = 1;
 
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            options.Lockout.MaxFailedAccessAttempts = 5;
-            options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
 
-            options.User.AllowedUserNameCharacters =
-                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-            options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters =
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
 
-            options.SignIn.RequireConfirmedEmail = false;
-            options.SignIn.RequireConfirmedPhoneNumber = false;
-            options.SignIn.RequireConfirmedAccount = false;
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+                options.SignIn.RequireConfirmedAccount = false;
 
-        });
+            });
 
         // Cấu hình Cookie
         services.ConfigureApplicationCookie(options =>

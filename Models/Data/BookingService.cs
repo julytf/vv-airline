@@ -6,16 +6,16 @@
 
 // namespace vv_airline.Models.Data;
 
-// [PrimaryKey("ScheduleId", "BookingId")]
-// public partial class ScheduleBooking
+// [PrimaryKey("BookingId", "ServiceId")]
+// public partial class BookingService
 // {
-//     [Key]
-//     public long ScheduleId { get; set; }
-
 //     [Key]
 //     public long BookingId { get; set; }
 
+//     [Key]
+//     public long ServiceId { get; set; }
+
 //     public  Booking Booking { get; set; } = null!;
 
-//     public  Schedule Schedule { get; set; } = null!;
+//     public  Service Service { get; set; } = null!;
 // }

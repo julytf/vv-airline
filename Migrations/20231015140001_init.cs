@@ -15,41 +15,41 @@ namespace vv_airline.Migrations
                 name: "Configs",
                 columns: table => new
                 {
-                    key = table.Column<string>(type: "char(20)", unicode: false, fixedLength: true, maxLength: 20, nullable: false),
-                    value = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false)
+                    Key = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
+                    Value = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__configs__DFD83CAE40CE0AED", x => x.key);
+                    table.PrimaryKey("PK_Configs", x => x.Key);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Models",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false)
+                    Name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__model__3213E83F64857539", x => x.id);
+                    table.PrimaryKey("PK_Models", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Provinces",
                 columns: table => new
                 {
-                    code = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    name_en = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    full_name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    full_name_en = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    code_name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                    Code = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    NameEn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    FullNameEn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    CodeName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("provinces_pkey", x => x.code);
+                    table.PrimaryKey("PK_Provinces", x => x.Code);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,97 +70,100 @@ namespace vv_airline.Migrations
                 name: "SeatClasses",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__seat_cla__3213E83FD5D1D927", x => x.id);
+                    table.PrimaryKey("PK_SeatClasses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "SeatTypes",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
-                    surcharge = table.Column<long>(type: "bigint", nullable: true)
+                    Name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
+                    Surcharge = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__seat_typ__3213E83F4BEA9166", x => x.id);
+                    table.PrimaryKey("PK_SeatTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Services",
                 columns: table => new
                 {
-                    name = table.Column<string>(type: "char(50)", unicode: false, fixedLength: true, maxLength: 50, nullable: false),
-                    price = table.Column<decimal>(type: "decimal(18,0)", nullable: true)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__service__72E12F1A07F61963", x => x.name);
+                    table.PrimaryKey("PK_Services", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Aircrafts",
                 columns: table => new
                 {
-                    registration_number = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
-                    model_id = table.Column<long>(type: "bigint", nullable: true),
-                    name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false)
+                    RegistrationNumber = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    ModelId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__aircraft__125DB2A2E604A408", x => x.registration_number);
+                    table.PrimaryKey("PK_Aircrafts", x => x.RegistrationNumber);
                     table.ForeignKey(
-                        name: "FK__aircraft__model___68487DD7",
-                        column: x => x.model_id,
+                        name: "FK_Aircrafts_Models_ModelId",
+                        column: x => x.ModelId,
                         principalTable: "Models",
-                        principalColumn: "id");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "SeatMaps",
                 columns: table => new
                 {
-                    model_id = table.Column<long>(type: "bigint", nullable: false),
-                    no_row = table.Column<byte>(type: "tinyint", nullable: false),
-                    no_col = table.Column<byte>(type: "tinyint", nullable: false)
+                    ModelId = table.Column<long>(type: "bigint", nullable: false),
+                    NoRow = table.Column<byte>(type: "tinyint", nullable: false),
+                    NoCol = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__seat_map__DC39CAF467886AEF", x => x.model_id);
+                    table.PrimaryKey("PK_SeatMaps", x => x.ModelId);
                     table.ForeignKey(
-                        name: "FK__seat_map__model___693CA210",
-                        column: x => x.model_id,
+                        name: "FK_SeatMaps_Models_ModelId",
+                        column: x => x.ModelId,
                         principalTable: "Models",
-                        principalColumn: "id");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Districts",
                 columns: table => new
                 {
-                    code = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    name_en = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    full_name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    full_name_en = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    code_name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    province_code = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true)
+                    Code = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    NameEn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    FullNameEn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    CodeName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    ProvinceCode = table.Column<string>(type: "nvarchar(20)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("districts_pkey", x => x.code);
+                    table.PrimaryKey("PK_Districts", x => x.Code);
                     table.ForeignKey(
-                        name: "districts_province_code_fkey",
-                        column: x => x.province_code,
+                        name: "FK_Districts_Provinces_ProvinceCode",
+                        column: x => x.ProvinceCode,
                         principalTable: "Provinces",
-                        principalColumn: "code");
+                        principalColumn: "Code");
                 });
 
             migrationBuilder.CreateTable(
@@ -188,19 +191,19 @@ namespace vv_airline.Migrations
                 name: "AisleCols",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    model_id = table.Column<long>(type: "bigint", nullable: false),
-                    value = table.Column<byte>(type: "tinyint", nullable: false)
+                    Value = table.Column<byte>(type: "tinyint", nullable: false),
+                    SeatMapModelId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__aisle_co__3213E83F3B06808E", x => x.id);
+                    table.PrimaryKey("PK_AisleCols", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__aisle_col__model__6B24EA82",
-                        column: x => x.model_id,
+                        name: "FK_AisleCols_SeatMaps_SeatMapModelId",
+                        column: x => x.SeatMapModelId,
                         principalTable: "SeatMaps",
-                        principalColumn: "model_id",
+                        principalColumn: "ModelId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -208,19 +211,19 @@ namespace vv_airline.Migrations
                 name: "ExitRows",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    model_id = table.Column<long>(type: "bigint", nullable: false),
-                    value = table.Column<byte>(type: "tinyint", nullable: false)
+                    Value = table.Column<byte>(type: "tinyint", nullable: false),
+                    SeatMapModelId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__exit_row__3213E83F21867537", x => x.id);
+                    table.PrimaryKey("PK_ExitRows", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__exit_row__model___6A30C649",
-                        column: x => x.model_id,
+                        name: "FK_ExitRows_SeatMaps_SeatMapModelId",
+                        column: x => x.SeatMapModelId,
                         principalTable: "SeatMaps",
-                        principalColumn: "model_id",
+                        principalColumn: "ModelId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -228,91 +231,91 @@ namespace vv_airline.Migrations
                 name: "Seats",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    model_id = table.Column<long>(type: "bigint", nullable: false),
-                    row = table.Column<byte>(type: "tinyint", nullable: false),
-                    col = table.Column<byte>(type: "tinyint", nullable: false),
-                    seat_class_id = table.Column<long>(type: "bigint", nullable: false),
-                    seat_type_id = table.Column<long>(type: "bigint", nullable: true),
-                    status = table.Column<string>(type: "char(20)", unicode: false, fixedLength: true, maxLength: 20, nullable: true)
+                    Row = table.Column<byte>(type: "tinyint", nullable: false),
+                    Col = table.Column<byte>(type: "tinyint", nullable: false),
+                    Status = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: true),
+                    SeatMapModelId = table.Column<long>(type: "bigint", nullable: false),
+                    SeatClassId = table.Column<long>(type: "bigint", nullable: false),
+                    SeatTypeId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__seat__3213E83F7530C246", x => x.id);
+                    table.PrimaryKey("PK_Seats", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__seat__model_id__6C190EBB",
-                        column: x => x.model_id,
-                        principalTable: "SeatMaps",
-                        principalColumn: "model_id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK__seat__seat_class__6D0D32F4",
-                        column: x => x.seat_class_id,
+                        name: "FK_Seats_SeatClasses_SeatClassId",
+                        column: x => x.SeatClassId,
                         principalTable: "SeatClasses",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK__seat__seat_type___6E01572D",
-                        column: x => x.seat_type_id,
+                        name: "FK_Seats_SeatMaps_SeatMapModelId",
+                        column: x => x.SeatMapModelId,
+                        principalTable: "SeatMaps",
+                        principalColumn: "ModelId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Seats_SeatTypes_SeatTypeId",
+                        column: x => x.SeatTypeId,
                         principalTable: "SeatTypes",
-                        principalColumn: "id");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Wards",
                 columns: table => new
                 {
-                    code = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    name_en = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    full_name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    full_name_en = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    code_name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    district_code = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true)
+                    Code = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    NameEn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    FullNameEn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    CodeName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    DistrictCode = table.Column<string>(type: "nvarchar(20)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("wards_pkey", x => x.code);
+                    table.PrimaryKey("PK_Wards", x => x.Code);
                     table.ForeignKey(
-                        name: "wards_district_code_fkey",
-                        column: x => x.district_code,
+                        name: "FK_Wards_Districts_DistrictCode",
+                        column: x => x.DistrictCode,
                         principalTable: "Districts",
-                        principalColumn: "code");
+                        principalColumn: "Code");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Airports",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
-                    description = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
-                    longtitude = table.Column<double>(type: "float", nullable: true),
-                    latitude = table.Column<double>(type: "float", nullable: true),
-                    province_code = table.Column<string>(type: "nvarchar(20)", nullable: true),
-                    district_code = table.Column<string>(type: "nvarchar(20)", nullable: true),
-                    ward_code = table.Column<string>(type: "nvarchar(20)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Longitude = table.Column<double>(type: "float", nullable: true),
+                    Latitude = table.Column<double>(type: "float", nullable: true),
+                    ProvinceCode = table.Column<string>(type: "nvarchar(20)", nullable: true),
+                    DistrictCode = table.Column<string>(type: "nvarchar(20)", nullable: true),
+                    WardCode = table.Column<string>(type: "nvarchar(20)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__airport__3213E83FBD0BFB0E", x => x.id);
+                    table.PrimaryKey("PK_Airports", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__airport__distric__787EE5A0",
-                        column: x => x.district_code,
+                        name: "FK_Airports_Districts_DistrictCode",
+                        column: x => x.DistrictCode,
                         principalTable: "Districts",
-                        principalColumn: "code");
+                        principalColumn: "Code");
                     table.ForeignKey(
-                        name: "FK__airport__province_id__778AC167",
-                        column: x => x.province_code,
+                        name: "FK_Airports_Provinces_ProvinceCode",
+                        column: x => x.ProvinceCode,
                         principalTable: "Provinces",
-                        principalColumn: "code");
+                        principalColumn: "Code");
                     table.ForeignKey(
-                        name: "FK__airport__ward_id__797309D9",
-                        column: x => x.ward_code,
+                        name: "FK_Airports_Wards_WardCode",
+                        column: x => x.WardCode,
                         principalTable: "Wards",
-                        principalColumn: "code");
+                        principalColumn: "Code");
                 });
 
             migrationBuilder.CreateTable(
@@ -320,16 +323,16 @@ namespace vv_airline.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    first_name = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    last_name = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    date_of_birth = table.Column<DateTime>(type: "date", nullable: true),
-                    gender = table.Column<bool>(type: "bit", nullable: true),
-                    id_number = table.Column<string>(type: "char(12)", unicode: false, fixedLength: true, maxLength: 12, nullable: true),
-                    province_id = table.Column<string>(type: "nvarchar(20)", nullable: true),
-                    district_id = table.Column<string>(type: "nvarchar(20)", nullable: true),
-                    ward_id = table.Column<string>(type: "nvarchar(20)", nullable: true),
-                    address = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
-                    address2 = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
+                    FirstName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Gender = table.Column<bool>(type: "bit", nullable: true),
+                    IdNumber = table.Column<string>(type: "varchar(12)", unicode: false, maxLength: 12, nullable: true),
+                    Address = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
+                    Address2 = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
+                    ProvinceCode = table.Column<string>(type: "nvarchar(20)", nullable: true),
+                    DistrictCode = table.Column<string>(type: "nvarchar(20)", nullable: true),
+                    WardCode = table.Column<string>(type: "nvarchar(20)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -347,67 +350,67 @@ namespace vv_airline.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__user__3213E83F778C8393", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__user__district_i__66603565",
-                        column: x => x.district_id,
+                        name: "FK_Users_Districts_DistrictCode",
+                        column: x => x.DistrictCode,
                         principalTable: "Districts",
-                        principalColumn: "code");
+                        principalColumn: "Code");
                     table.ForeignKey(
-                        name: "FK__user__province_id__656C112C",
-                        column: x => x.province_id,
+                        name: "FK_Users_Provinces_ProvinceCode",
+                        column: x => x.ProvinceCode,
                         principalTable: "Provinces",
-                        principalColumn: "code");
+                        principalColumn: "Code");
                     table.ForeignKey(
-                        name: "FK__user__ward_id__6754599E",
-                        column: x => x.ward_id,
+                        name: "FK_Users_Wards_WardCode",
+                        column: x => x.WardCode,
                         principalTable: "Wards",
-                        principalColumn: "code");
+                        principalColumn: "Code");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Routes",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    departure_airport = table.Column<long>(type: "bigint", nullable: false),
-                    destination_airport = table.Column<long>(type: "bigint", nullable: false),
-                    distance = table.Column<long>(type: "bigint", nullable: true)
+                    DepartureAirportId = table.Column<long>(type: "bigint", nullable: false),
+                    DestinationAirportId = table.Column<long>(type: "bigint", nullable: false),
+                    Distance = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__route__3213E83F3EC1E94B", x => x.id);
+                    table.PrimaryKey("PK_Routes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__route__departure__6EF57B66",
-                        column: x => x.departure_airport,
+                        name: "FK_Routes_Airports_DepartureAirportId",
+                        column: x => x.DepartureAirportId,
                         principalTable: "Airports",
-                        principalColumn: "id");
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK__route__destinati__6FE99F9F",
-                        column: x => x.destination_airport,
+                        name: "FK_Routes_Airports_DestinationAirportId",
+                        column: x => x.DestinationAirportId,
                         principalTable: "Airports",
-                        principalColumn: "id");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Bookings",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    user_id = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    adults = table.Column<byte>(type: "tinyint", nullable: false),
-                    children = table.Column<byte>(type: "tinyint", nullable: true),
-                    is_roundtrip = table.Column<bool>(type: "bit", nullable: true),
-                    total_price = table.Column<decimal>(type: "decimal(18,0)", nullable: false)
+                    Adults = table.Column<byte>(type: "tinyint", nullable: false),
+                    Children = table.Column<byte>(type: "tinyint", nullable: true),
+                    IsRoundtrip = table.Column<bool>(type: "bit", nullable: true),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__booking__3213E83F278586E2", x => x.id);
+                    table.PrimaryKey("PK_Bookings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__booking__user_id__7D439ABD",
-                        column: x => x.user_id,
+                        name: "FK_Bookings_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
@@ -501,29 +504,28 @@ namespace vv_airline.Migrations
                 name: "Flights",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
-                    aircraft_registration_number = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
-                    departure_time = table.Column<DateTime>(type: "datetime", nullable: false),
-                    arrival_time = table.Column<DateTime>(type: "datetime", nullable: false),
-                    route_id = table.Column<long>(type: "bigint", nullable: false),
-                    status = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    AircraftRegistrationNumber = table.Column<string>(type: "nvarchar(255)", nullable: true),
+                    DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RouteId = table.Column<long>(type: "bigint", nullable: false),
+                    Status = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__flight__3213E83F67464E02", x => x.id);
+                    table.PrimaryKey("PK_Flights", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__flight__aircraft__72C60C4A",
-                        column: x => x.aircraft_registration_number,
+                        name: "FK_Flights_Aircrafts_AircraftRegistrationNumber",
+                        column: x => x.AircraftRegistrationNumber,
                         principalTable: "Aircrafts",
-                        principalColumn: "registration_number",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "RegistrationNumber");
                     table.ForeignKey(
-                        name: "FK__flight__route_id__73BA3083",
-                        column: x => x.route_id,
+                        name: "FK_Flights_Routes_RouteId",
+                        column: x => x.RouteId,
                         principalTable: "Routes",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -531,26 +533,26 @@ namespace vv_airline.Migrations
                 name: "Prices",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    route_id = table.Column<long>(type: "bigint", nullable: false),
-                    seat_class_id = table.Column<long>(type: "bigint", nullable: false),
-                    value = table.Column<decimal>(type: "decimal(18,0)", nullable: false)
+                    Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RouteId = table.Column<long>(type: "bigint", nullable: false),
+                    SeatClassId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__price__3213E83FA4A40A38", x => x.id);
+                    table.PrimaryKey("PK_Prices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__price__route_id__71D1E811",
-                        column: x => x.route_id,
+                        name: "FK_Prices_Routes_RouteId",
+                        column: x => x.RouteId,
                         principalTable: "Routes",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK__price__seat_clas__70DDC3D8",
-                        column: x => x.seat_class_id,
+                        name: "FK_Prices_SeatClasses_SeatClassId",
+                        column: x => x.SeatClassId,
                         principalTable: "SeatClasses",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -558,228 +560,235 @@ namespace vv_airline.Migrations
                 name: "Schedules",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    has_transit = table.Column<bool>(type: "bit", nullable: true),
-                    route_id = table.Column<long>(type: "bigint", nullable: false),
-                    departure_time = table.Column<DateTime>(type: "datetime", nullable: false),
-                    arrival_time = table.Column<DateTime>(type: "datetime", nullable: false),
-                    distance = table.Column<long>(type: "bigint", nullable: true)
+                    HasTransit = table.Column<bool>(type: "bit", nullable: true),
+                    DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Distance = table.Column<long>(type: "bigint", nullable: true),
+                    RouteId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__schedule__3213E83F003A11A8", x => x.id);
+                    table.PrimaryKey("PK_Schedules", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__schedule__route___74AE54BC",
-                        column: x => x.route_id,
+                        name: "FK_Schedules_Routes_RouteId",
+                        column: x => x.RouteId,
                         principalTable: "Routes",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "booking_service",
+                name: "BookingService",
                 columns: table => new
                 {
-                    booking_id = table.Column<long>(type: "bigint", nullable: false),
-                    service_name = table.Column<string>(type: "char(50)", unicode: false, fixedLength: true, maxLength: 50, nullable: false)
+                    BookingsId = table.Column<long>(type: "bigint", nullable: false),
+                    ServicesId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__booking___C94B4842E286A9C8", x => new { x.booking_id, x.service_name });
+                    table.PrimaryKey("PK_BookingService", x => new { x.BookingsId, x.ServicesId });
                     table.ForeignKey(
-                        name: "FK__booking_s__booki__01142BA1",
-                        column: x => x.booking_id,
+                        name: "FK_BookingService_Bookings_BookingsId",
+                        column: x => x.BookingsId,
                         principalTable: "Bookings",
-                        principalColumn: "id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK__booking_s__servi__02084FDA",
-                        column: x => x.service_name,
+                        name: "FK_BookingService_Services_ServicesId",
+                        column: x => x.ServicesId,
                         principalTable: "Services",
-                        principalColumn: "name");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Passengers",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    booking_id = table.Column<long>(type: "bigint", nullable: false),
-                    index = table.Column<int>(type: "int", nullable: false),
-                    type = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
-                    email = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
-                    phone_number = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: true),
-                    first_name = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    last_name = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    date_of_birth = table.Column<DateTime>(type: "date", nullable: true),
-                    gender = table.Column<bool>(type: "bit", nullable: true)
+                    Type = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Gender = table.Column<bool>(type: "bit", nullable: true),
+                    BookingId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__passenge__3213E83FC1DFDF90", x => x.id);
+                    table.PrimaryKey("PK_Passengers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__passenger__booki__00200768",
-                        column: x => x.booking_id,
+                        name: "FK_Passengers_Bookings_BookingId",
+                        column: x => x.BookingId,
                         principalTable: "Bookings",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "FlightSchedules",
+                name: "BookingSchedule",
                 columns: table => new
                 {
-                    flight_id = table.Column<long>(type: "bigint", nullable: false),
-                    schedule_id = table.Column<long>(type: "bigint", nullable: false),
-                    index = table.Column<int>(type: "int", nullable: false)
+                    BookingsId = table.Column<long>(type: "bigint", nullable: false),
+                    SchedulesId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__flight_s__0F36FFC35870B195", x => new { x.flight_id, x.schedule_id });
+                    table.PrimaryKey("PK_BookingSchedule", x => new { x.BookingsId, x.SchedulesId });
                     table.ForeignKey(
-                        name: "FK__flight_sc__fligh__75A278F5",
-                        column: x => x.flight_id,
-                        principalTable: "Flights",
-                        principalColumn: "id");
+                        name: "FK_BookingSchedule_Bookings_BookingsId",
+                        column: x => x.BookingsId,
+                        principalTable: "Bookings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK__flight_sc__sched__76969D2E",
-                        column: x => x.schedule_id,
+                        name: "FK_BookingSchedule_Schedules_SchedulesId",
+                        column: x => x.SchedulesId,
                         principalTable: "Schedules",
-                        principalColumn: "id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ScheduleBookings",
+                name: "FlightSchedule",
                 columns: table => new
                 {
-                    schedule_id = table.Column<long>(type: "bigint", nullable: false),
-                    booking_id = table.Column<long>(type: "bigint", nullable: false),
-                    index = table.Column<byte>(type: "tinyint", nullable: false)
+                    FlightsId = table.Column<long>(type: "bigint", nullable: false),
+                    SchedulesId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__schedule__C1B4B034C4B7CC2E", x => new { x.schedule_id, x.booking_id });
+                    table.PrimaryKey("PK_FlightSchedule", x => new { x.FlightsId, x.SchedulesId });
                     table.ForeignKey(
-                        name: "FK__schedule___booki__7F2BE32F",
-                        column: x => x.booking_id,
-                        principalTable: "Bookings",
-                        principalColumn: "id");
+                        name: "FK_FlightSchedule_Flights_FlightsId",
+                        column: x => x.FlightsId,
+                        principalTable: "Flights",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK__schedule___sched__7E37BEF6",
-                        column: x => x.schedule_id,
+                        name: "FK_FlightSchedule_Schedules_SchedulesId",
+                        column: x => x.SchedulesId,
                         principalTable: "Schedules",
-                        principalColumn: "id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Tickets",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    flight_id = table.Column<long>(type: "bigint", nullable: false),
-                    seat_id = table.Column<long>(type: "bigint", nullable: false),
-                    passenger_id = table.Column<long>(type: "bigint", nullable: false),
-                    price = table.Column<decimal>(type: "decimal(18,0)", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    FlightId = table.Column<long>(type: "bigint", nullable: false),
+                    PassengerId = table.Column<long>(type: "bigint", nullable: false),
+                    SeatId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__ticket__3213E83FB53CA3F1", x => x.id);
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__ticket__flight_i__7A672E12",
-                        column: x => x.flight_id,
+                        name: "FK_Tickets_Flights_FlightId",
+                        column: x => x.FlightId,
                         principalTable: "Flights",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK__ticket__passenge__7C4F7684",
-                        column: x => x.passenger_id,
+                        name: "FK_Tickets_Passengers_PassengerId",
+                        column: x => x.PassengerId,
                         principalTable: "Passengers",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK__ticket__seat_id__7B5B524B",
-                        column: x => x.seat_id,
+                        name: "FK_Tickets_Seats_SeatId",
+                        column: x => x.SeatId,
                         principalTable: "Seats",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Aircrafts_model_id",
+                name: "IX_Aircrafts_ModelId",
                 table: "Aircrafts",
-                column: "model_id");
+                column: "ModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Airports_district_code",
+                name: "IX_Airports_DistrictCode",
                 table: "Airports",
-                column: "district_code");
+                column: "DistrictCode");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Airports_province_code",
+                name: "IX_Airports_ProvinceCode",
                 table: "Airports",
-                column: "province_code");
+                column: "ProvinceCode");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Airports_ward_code",
+                name: "IX_Airports_WardCode",
                 table: "Airports",
-                column: "ward_code");
+                column: "WardCode");
 
             migrationBuilder.CreateIndex(
-                name: "aisle_col_index_1",
+                name: "IX_AisleCols_SeatMapModelId",
                 table: "AisleCols",
-                column: "model_id");
+                column: "SeatMapModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_booking_service_service_name",
-                table: "booking_service",
-                column: "service_name");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Bookings_user_id",
+                name: "IX_Bookings_UserId",
                 table: "Bookings",
-                column: "user_id");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "idx_districts_province",
+                name: "IX_BookingSchedule_SchedulesId",
+                table: "BookingSchedule",
+                column: "SchedulesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookingService_ServicesId",
+                table: "BookingService",
+                column: "ServicesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Districts_ProvinceCode",
                 table: "Districts",
-                column: "province_code");
+                column: "ProvinceCode");
 
             migrationBuilder.CreateIndex(
-                name: "exit_row_index_0",
+                name: "IX_ExitRows_SeatMapModelId",
                 table: "ExitRows",
-                column: "model_id");
+                column: "SeatMapModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Flights_aircraft_registration_number",
+                name: "IX_Flights_AircraftRegistrationNumber",
                 table: "Flights",
-                column: "aircraft_registration_number");
+                column: "AircraftRegistrationNumber");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Flights_route_id",
+                name: "IX_Flights_RouteId",
                 table: "Flights",
-                column: "route_id");
+                column: "RouteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Flight_Schedule_schedule_id",
-                table: "FlightSchedules",
-                column: "schedule_id");
+                name: "IX_FlightSchedule_SchedulesId",
+                table: "FlightSchedule",
+                column: "SchedulesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Passengers_booking_id",
+                name: "IX_Passengers_BookingId",
                 table: "Passengers",
-                column: "booking_id");
+                column: "BookingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prices_route_id",
+                name: "IX_Prices_RouteId",
                 table: "Prices",
-                column: "route_id");
+                column: "RouteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prices_seat_class_id",
+                name: "IX_Prices_SeatClassId",
                 table: "Prices",
-                column: "seat_class_id");
+                column: "SeatClassId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
@@ -794,54 +803,49 @@ namespace vv_airline.Migrations
                 filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Routes_departure_airport",
+                name: "IX_Routes_DepartureAirportId",
                 table: "Routes",
-                column: "departure_airport");
+                column: "DepartureAirportId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Routes_destination_airport",
+                name: "IX_Routes_DestinationAirportId",
                 table: "Routes",
-                column: "destination_airport");
+                column: "DestinationAirportId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Schedule_Booking_booking_id",
-                table: "ScheduleBookings",
-                column: "booking_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Schedules_route_id",
+                name: "IX_Schedules_RouteId",
                 table: "Schedules",
-                column: "route_id");
+                column: "RouteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Seat_model_id",
+                name: "IX_Seats_SeatClassId",
                 table: "Seats",
-                column: "model_id");
+                column: "SeatClassId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Seat_seat_class_id",
+                name: "IX_Seats_SeatMapModelId",
                 table: "Seats",
-                column: "seat_class_id");
+                column: "SeatMapModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Seat_seat_type_id",
+                name: "IX_Seats_SeatTypeId",
                 table: "Seats",
-                column: "seat_type_id");
+                column: "SeatTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_flight_id",
+                name: "IX_Tickets_FlightId",
                 table: "Tickets",
-                column: "flight_id");
+                column: "FlightId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_passenger_id",
+                name: "IX_Tickets_PassengerId",
                 table: "Tickets",
-                column: "passenger_id");
+                column: "PassengerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_seat_id",
+                name: "IX_Tickets_SeatId",
                 table: "Tickets",
-                column: "seat_id");
+                column: "SeatId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserClaims_UserId",
@@ -864,19 +868,19 @@ namespace vv_airline.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_district_code",
+                name: "IX_Users_DistrictCode",
                 table: "Users",
-                column: "district_id");
+                column: "DistrictCode");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_province_code",
+                name: "IX_Users_ProvinceCode",
                 table: "Users",
-                column: "province_id");
+                column: "ProvinceCode");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_ward_code",
+                name: "IX_Users_WardCode",
                 table: "Users",
-                column: "ward_id");
+                column: "WardCode");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
@@ -886,16 +890,9 @@ namespace vv_airline.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "UserNameIndex1",
-                table: "Users",
-                column: "NormalizedUserName",
-                unique: true,
-                filter: "([NormalizedUserName] IS NOT NULL)");
-
-            migrationBuilder.CreateIndex(
-                name: "idx_wards_district",
+                name: "IX_Wards_DistrictCode",
                 table: "Wards",
-                column: "district_code");
+                column: "DistrictCode");
         }
 
         /// <inheritdoc />
@@ -905,7 +902,10 @@ namespace vv_airline.Migrations
                 name: "AisleCols");
 
             migrationBuilder.DropTable(
-                name: "booking_service");
+                name: "BookingSchedule");
+
+            migrationBuilder.DropTable(
+                name: "BookingService");
 
             migrationBuilder.DropTable(
                 name: "Configs");
@@ -914,16 +914,13 @@ namespace vv_airline.Migrations
                 name: "ExitRows");
 
             migrationBuilder.DropTable(
-                name: "FlightSchedules");
+                name: "FlightSchedule");
 
             migrationBuilder.DropTable(
                 name: "Prices");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
-
-            migrationBuilder.DropTable(
-                name: "ScheduleBookings");
 
             migrationBuilder.DropTable(
                 name: "Tickets");
@@ -968,10 +965,10 @@ namespace vv_airline.Migrations
                 name: "Bookings");
 
             migrationBuilder.DropTable(
-                name: "SeatMaps");
+                name: "SeatClasses");
 
             migrationBuilder.DropTable(
-                name: "SeatClasses");
+                name: "SeatMaps");
 
             migrationBuilder.DropTable(
                 name: "SeatTypes");

@@ -22,25 +22,49 @@ namespace vv_airline.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BookingSchedule", b =>
+                {
+                    b.Property<long>("BookingsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SchedulesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("BookingsId", "SchedulesId");
+
+                    b.HasIndex("SchedulesId");
+
+                    b.ToTable("BookingSchedule");
+                });
+
             modelBuilder.Entity("BookingService", b =>
                 {
-                    b.Property<long>("BookingId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("booking_id");
+                    b.Property<long>("BookingsId")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("ServiceName")
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("char(50)")
-                        .HasColumnName("service_name")
-                        .IsFixedLength();
+                    b.Property<long>("ServicesId")
+                        .HasColumnType("bigint");
 
-                    b.HasKey("BookingId", "ServiceName")
-                        .HasName("PK__booking___C94B4842E286A9C8");
+                    b.HasKey("BookingsId", "ServicesId");
 
-                    b.HasIndex(new[] { "ServiceName" }, "IX_booking_service_service_name");
+                    b.HasIndex("ServicesId");
 
-                    b.ToTable("booking_service", (string)null);
+                    b.ToTable("BookingService");
+                });
+
+            modelBuilder.Entity("FlightSchedule", b =>
+                {
+                    b.Property<long>("FlightsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SchedulesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("FlightsId", "SchedulesId");
+
+                    b.HasIndex("SchedulesId");
+
+                    b.ToTable("FlightSchedule");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -180,25 +204,19 @@ namespace vv_airline.Migrations
                 {
                     b.Property<string>("RegistrationNumber")
                         .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("registration_number");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<long?>("ModelId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("model_id");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("RegistrationNumber")
-                        .HasName("PK__aircraft__125DB2A2E604A408");
+                    b.HasKey("RegistrationNumber");
 
-                    b.HasIndex(new[] { "ModelId" }, "IX_Aircrafts_model_id");
+                    b.HasIndex("ModelId");
 
                     b.ToTable("Aircrafts");
                 });
@@ -207,52 +225,41 @@ namespace vv_airline.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Description")
                         .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("description");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("DistrictCode")
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("district_code");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<double?>("Latitude")
-                        .HasColumnType("float")
-                        .HasColumnName("latitude");
+                        .HasColumnType("float");
 
-                    b.Property<double?>("Longtitude")
-                        .HasColumnType("float")
-                        .HasColumnName("longtitude");
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("ProvinceCode")
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("province_code");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("WardCode")
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("ward_code");
+                        .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__airport__3213E83FBD0BFB0E");
+                    b.HasKey("Id");
 
-                    b.HasIndex(new[] { "DistrictCode" }, "IX_Airports_district_code");
+                    b.HasIndex("DistrictCode");
 
-                    b.HasIndex(new[] { "ProvinceCode" }, "IX_Airports_province_code");
+                    b.HasIndex("ProvinceCode");
 
-                    b.HasIndex(new[] { "WardCode" }, "IX_Airports_ward_code");
+                    b.HasIndex("WardCode");
 
                     b.ToTable("Airports");
                 });
@@ -261,23 +268,19 @@ namespace vv_airline.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("ModelId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("model_id");
+                    b.Property<long>("SeatMapModelId")
+                        .HasColumnType("bigint");
 
                     b.Property<byte>("Value")
-                        .HasColumnType("tinyint")
-                        .HasColumnName("value");
+                        .HasColumnType("tinyint");
 
-                    b.HasKey("Id")
-                        .HasName("PK__aisle_co__3213E83F3B06808E");
+                    b.HasKey("Id");
 
-                    b.HasIndex(new[] { "ModelId" }, "aisle_col_index_1");
+                    b.HasIndex("SeatMapModelId");
 
                     b.ToTable("AisleCols");
                 });
@@ -286,35 +289,28 @@ namespace vv_airline.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<byte>("Adults")
-                        .HasColumnType("tinyint")
-                        .HasColumnName("adults");
+                        .HasColumnType("tinyint");
 
                     b.Property<byte?>("Children")
-                        .HasColumnType("tinyint")
-                        .HasColumnName("children");
+                        .HasColumnType("tinyint");
 
                     b.Property<bool?>("IsRoundtrip")
-                        .HasColumnType("bit")
-                        .HasColumnName("is_roundtrip");
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18, 0)")
-                        .HasColumnName("total_price");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("user_id");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__booking__3213E83F278586E2");
+                    b.HasKey("Id");
 
-                    b.HasIndex(new[] { "UserId" }, "IX_Bookings_user_id");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
                 });
@@ -324,19 +320,15 @@ namespace vv_airline.Migrations
                     b.Property<string>("Key")
                         .HasMaxLength(20)
                         .IsUnicode(false)
-                        .HasColumnType("char(20)")
-                        .HasColumnName("key")
-                        .IsFixedLength();
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasMaxLength(255)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("value");
+                        .HasColumnType("varchar(255)");
 
-                    b.HasKey("Key")
-                        .HasName("PK__configs__DFD83CAE40CE0AED");
+                    b.HasKey("Key");
 
                     b.ToTable("Configs");
                 });
@@ -345,44 +337,35 @@ namespace vv_airline.Migrations
                 {
                     b.Property<string>("Code")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("code");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("CodeName")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("code_name");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("FullName")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("full_name");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("FullNameEn")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("full_name_en");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("NameEn")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("name_en");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("ProvinceCode")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("province_code");
+                        .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("Code")
-                        .HasName("districts_pkey");
+                    b.HasKey("Code");
 
-                    b.HasIndex(new[] { "ProvinceCode" }, "idx_districts_province");
+                    b.HasIndex("ProvinceCode");
 
                     b.ToTable("Districts");
                 });
@@ -391,23 +374,19 @@ namespace vv_airline.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("ModelId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("model_id");
+                    b.Property<long>("SeatMapModelId")
+                        .HasColumnType("bigint");
 
                     b.Property<byte>("Value")
-                        .HasColumnType("tinyint")
-                        .HasColumnName("value");
+                        .HasColumnType("tinyint");
 
-                    b.HasKey("Id")
-                        .HasName("PK__exit_row__3213E83F21867537");
+                    b.HasKey("Id");
 
-                    b.HasIndex(new[] { "ModelId" }, "exit_row_index_0");
+                    b.HasIndex("SeatMapModelId");
 
                     b.ToTable("ExitRows");
                 });
@@ -416,81 +395,46 @@ namespace vv_airline.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("AircraftRegistrationNumber")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("aircraft_registration_number");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("ArrivalTime")
-                        .HasColumnType("datetime")
-                        .HasColumnName("arrival_time");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DepartureTime")
-                        .HasColumnType("datetime")
-                        .HasColumnName("departure_time");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<long>("RouteId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("route_id");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Status")
                         .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("status");
+                        .HasColumnType("varchar(50)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__flight__3213E83F67464E02");
+                    b.HasKey("Id");
 
-                    b.HasIndex(new[] { "AircraftRegistrationNumber" }, "IX_Flights_aircraft_registration_number");
+                    b.HasIndex("AircraftRegistrationNumber");
 
-                    b.HasIndex(new[] { "RouteId" }, "IX_Flights_route_id");
+                    b.HasIndex("RouteId");
 
                     b.ToTable("Flights");
-                });
-
-            modelBuilder.Entity("vv_airline.Models.Data.FlightSchedule", b =>
-                {
-                    b.Property<long>("FlightId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("flight_id");
-
-                    b.Property<long>("ScheduleId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("schedule_id");
-
-                    b.Property<int>("Index")
-                        .HasColumnType("int")
-                        .HasColumnName("index");
-
-                    b.HasKey("FlightId", "ScheduleId")
-                        .HasName("PK__flight_s__0F36FFC35870B195");
-
-                    b.HasIndex(new[] { "ScheduleId" }, "IX_Flight_Schedule_schedule_id");
-
-                    b.ToTable("FlightSchedules");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Model", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
@@ -498,11 +442,9 @@ namespace vv_airline.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("name");
+                        .HasColumnType("varchar(255)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__model__3213E83F64857539");
+                    b.HasKey("Id");
 
                     b.ToTable("Models");
                 });
@@ -511,64 +453,48 @@ namespace vv_airline.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<long>("BookingId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("booking_id");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("date")
-                        .HasColumnName("date_of_birth");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(255)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("email");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("first_name");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool?>("Gender")
-                        .HasColumnType("bit")
-                        .HasColumnName("gender");
-
-                    b.Property<int>("Index")
-                        .HasColumnType("int")
-                        .HasColumnName("index");
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("last_name");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(20)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(20)")
-                        .HasColumnName("phone_number");
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(20)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(20)")
-                        .HasColumnName("type");
+                        .HasColumnType("varchar(20)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__passenge__3213E83FC1DFDF90");
+                    b.HasKey("Id");
 
-                    b.HasIndex(new[] { "BookingId" }, "IX_Passengers_booking_id");
+                    b.HasIndex("BookingId");
 
                     b.ToTable("Passengers");
                 });
@@ -577,29 +503,24 @@ namespace vv_airline.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<long>("RouteId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("route_id");
+                        .HasColumnType("bigint");
 
                     b.Property<long>("SeatClassId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("seat_class_id");
+                        .HasColumnType("bigint");
 
                     b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18, 0)")
-                        .HasColumnName("value");
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__price__3213E83FA4A40A38");
+                    b.HasKey("Id");
 
-                    b.HasIndex(new[] { "RouteId" }, "IX_Prices_route_id");
+                    b.HasIndex("RouteId");
 
-                    b.HasIndex(new[] { "SeatClassId" }, "IX_Prices_seat_class_id");
+                    b.HasIndex("SeatClassId");
 
                     b.ToTable("Prices");
                 });
@@ -608,38 +529,31 @@ namespace vv_airline.Migrations
                 {
                     b.Property<string>("Code")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("code");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("CodeName")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("code_name");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("full_name");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("FullNameEn")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("full_name_en");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("NameEn")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("name_en");
+                        .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("Code")
-                        .HasName("provinces_pkey");
+                    b.HasKey("Code");
 
                     b.ToTable("Provinces");
                 });
@@ -648,29 +562,24 @@ namespace vv_airline.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("DepartureAirport")
-                        .HasColumnType("bigint")
-                        .HasColumnName("departure_airport");
+                    b.Property<long>("DepartureAirportId")
+                        .HasColumnType("bigint");
 
-                    b.Property<long>("DestinationAirport")
-                        .HasColumnType("bigint")
-                        .HasColumnName("destination_airport");
+                    b.Property<long>("DestinationAirportId")
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("Distance")
-                        .HasColumnType("bigint")
-                        .HasColumnName("distance");
+                        .HasColumnType("bigint");
 
-                    b.HasKey("Id")
-                        .HasName("PK__route__3213E83F3EC1E94B");
+                    b.HasKey("Id");
 
-                    b.HasIndex(new[] { "DepartureAirport" }, "IX_Routes_departure_airport");
+                    b.HasIndex("DepartureAirportId");
 
-                    b.HasIndex(new[] { "DestinationAirport" }, "IX_Routes_destination_airport");
+                    b.HasIndex("DestinationAirportId");
 
                     b.ToTable("Routes");
                 });
@@ -679,105 +588,67 @@ namespace vv_airline.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("ArrivalTime")
-                        .HasColumnType("datetime")
-                        .HasColumnName("arrival_time");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DepartureTime")
-                        .HasColumnType("datetime")
-                        .HasColumnName("departure_time");
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("Distance")
-                        .HasColumnType("bigint")
-                        .HasColumnName("distance");
+                        .HasColumnType("bigint");
 
                     b.Property<bool?>("HasTransit")
-                        .HasColumnType("bit")
-                        .HasColumnName("has_transit");
+                        .HasColumnType("bit");
 
                     b.Property<long>("RouteId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("route_id");
+                        .HasColumnType("bigint");
 
-                    b.HasKey("Id")
-                        .HasName("PK__schedule__3213E83F003A11A8");
+                    b.HasKey("Id");
 
-                    b.HasIndex(new[] { "RouteId" }, "IX_Schedules_route_id");
+                    b.HasIndex("RouteId");
 
                     b.ToTable("Schedules");
-                });
-
-            modelBuilder.Entity("vv_airline.Models.Data.ScheduleBooking", b =>
-                {
-                    b.Property<long>("ScheduleId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("schedule_id");
-
-                    b.Property<long>("BookingId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("booking_id");
-
-                    b.Property<byte>("Index")
-                        .HasColumnType("tinyint")
-                        .HasColumnName("index");
-
-                    b.HasKey("ScheduleId", "BookingId")
-                        .HasName("PK__schedule__C1B4B034C4B7CC2E");
-
-                    b.HasIndex(new[] { "BookingId" }, "IX_Schedule_Booking_booking_id");
-
-                    b.ToTable("ScheduleBookings");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Seat", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<byte>("Col")
-                        .HasColumnType("tinyint")
-                        .HasColumnName("col");
-
-                    b.Property<long>("ModelId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("model_id");
+                        .HasColumnType("tinyint");
 
                     b.Property<byte>("Row")
-                        .HasColumnType("tinyint")
-                        .HasColumnName("row");
+                        .HasColumnType("tinyint");
 
                     b.Property<long>("SeatClassId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("seat_class_id");
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SeatMapModelId")
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("SeatTypeId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("seat_type_id");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Status")
                         .HasMaxLength(20)
                         .IsUnicode(false)
-                        .HasColumnType("char(20)")
-                        .HasColumnName("status")
-                        .IsFixedLength();
+                        .HasColumnType("varchar(20)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__seat__3213E83F7530C246");
+                    b.HasKey("Id");
 
-                    b.HasIndex(new[] { "ModelId" }, "IX_Seat_model_id");
+                    b.HasIndex("SeatClassId");
 
-                    b.HasIndex(new[] { "SeatClassId" }, "IX_Seat_seat_class_id");
+                    b.HasIndex("SeatMapModelId");
 
-                    b.HasIndex(new[] { "SeatTypeId" }, "IX_Seat_seat_type_id");
+                    b.HasIndex("SeatTypeId");
 
                     b.ToTable("Seats");
                 });
@@ -786,20 +657,16 @@ namespace vv_airline.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__seat_cla__3213E83FD5D1D927");
+                    b.HasKey("Id");
 
                     b.ToTable("SeatClasses");
                 });
@@ -807,19 +674,15 @@ namespace vv_airline.Migrations
             modelBuilder.Entity("vv_airline.Models.Data.SeatMap", b =>
                 {
                     b.Property<long>("ModelId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("model_id");
+                        .HasColumnType("bigint");
 
                     b.Property<byte>("NoCol")
-                        .HasColumnType("tinyint")
-                        .HasColumnName("no_col");
+                        .HasColumnType("tinyint");
 
                     b.Property<byte>("NoRow")
-                        .HasColumnType("tinyint")
-                        .HasColumnName("no_row");
+                        .HasColumnType("tinyint");
 
-                    b.HasKey("ModelId")
-                        .HasName("PK__seat_map__DC39CAF467886AEF");
+                    b.HasKey("ModelId");
 
                     b.ToTable("SeatMaps");
                 });
@@ -828,8 +691,7 @@ namespace vv_airline.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
@@ -837,34 +699,38 @@ namespace vv_airline.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("name");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<long?>("Surcharge")
-                        .HasColumnType("bigint")
-                        .HasColumnName("surcharge");
+                        .HasColumnType("bigint");
 
-                    b.HasKey("Id")
-                        .HasName("PK__seat_typ__3213E83F4BEA9166");
+                    b.HasKey("Id");
 
                     b.ToTable("SeatTypes");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Service", b =>
                 {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("char(50)")
-                        .HasColumnName("name")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18, 0)")
-                        .HasColumnName("price");
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("Name")
-                        .HasName("PK__service__72E12F1A07F61963");
+                    b.HasKey("Id");
 
                     b.ToTable("Services");
                 });
@@ -873,35 +739,29 @@ namespace vv_airline.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<long>("FlightId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("flight_id");
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PassengerId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("passenger_id");
+                        .HasColumnType("bigint");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 0)")
-                        .HasColumnName("price");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("SeatId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("seat_id");
+                        .HasColumnType("bigint");
 
-                    b.HasKey("Id")
-                        .HasName("PK__ticket__3213E83FB53CA3F1");
+                    b.HasKey("Id");
 
-                    b.HasIndex(new[] { "FlightId" }, "IX_Tickets_flight_id");
+                    b.HasIndex("FlightId");
 
-                    b.HasIndex(new[] { "PassengerId" }, "IX_Tickets_passenger_id");
+                    b.HasIndex("PassengerId");
 
-                    b.HasIndex(new[] { "SeatId" }, "IX_Tickets_seat_id");
+                    b.HasIndex("SeatId");
 
                     b.ToTable("Tickets");
                 });
@@ -917,26 +777,22 @@ namespace vv_airline.Migrations
                     b.Property<string>("Address")
                         .HasMaxLength(255)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("address");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Address2")
                         .HasMaxLength(255)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("address2");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("date")
-                        .HasColumnName("date_of_birth");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DistrictCode")
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("district_id");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -949,26 +805,21 @@ namespace vv_airline.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("first_name");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<bool?>("Gender")
-                        .HasColumnType("bit")
-                        .HasColumnName("gender");
+                        .HasColumnType("bit");
 
                     b.Property<string>("IdNumber")
                         .HasMaxLength(12)
                         .IsUnicode(false)
-                        .HasColumnType("char(12)")
-                        .HasColumnName("id_number")
-                        .IsFixedLength();
+                        .HasColumnType("varchar(12)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("last_name");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -994,8 +845,7 @@ namespace vv_airline.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProvinceCode")
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("province_id");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -1008,11 +858,11 @@ namespace vv_airline.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("WardCode")
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("ward_id");
+                        .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("Id")
-                        .HasName("PK__user__3213E83F778C8393");
+                    b.HasKey("Id");
+
+                    b.HasIndex("DistrictCode");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -1022,18 +872,9 @@ namespace vv_airline.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex(new[] { "NormalizedEmail" }, "EmailIndex");
+                    b.HasIndex("ProvinceCode");
 
-                    b.HasIndex(new[] { "DistrictCode" }, "IX_Users_district_code");
-
-                    b.HasIndex(new[] { "ProvinceCode" }, "IX_Users_province_code");
-
-                    b.HasIndex(new[] { "WardCode" }, "IX_Users_ward_code");
-
-                    b.HasIndex(new[] { "NormalizedUserName" }, "UserNameIndex")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex1")
-                        .HasFilter("([NormalizedUserName] IS NOT NULL)");
+                    b.HasIndex("WardCode");
 
                     b.ToTable("Users", (string)null);
                 });
@@ -1042,61 +883,82 @@ namespace vv_airline.Migrations
                 {
                     b.Property<string>("Code")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("code");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("CodeName")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("code_name");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("DistrictCode")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("district_code");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("FullName")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("full_name");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("FullNameEn")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("full_name_en");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("NameEn")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("name_en");
+                        .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("Code")
-                        .HasName("wards_pkey");
+                    b.HasKey("Code");
 
-                    b.HasIndex(new[] { "DistrictCode" }, "idx_wards_district");
+                    b.HasIndex("DistrictCode");
 
                     b.ToTable("Wards");
+                });
+
+            modelBuilder.Entity("BookingSchedule", b =>
+                {
+                    b.HasOne("vv_airline.Models.Data.Booking", null)
+                        .WithMany()
+                        .HasForeignKey("BookingsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("vv_airline.Models.Data.Schedule", null)
+                        .WithMany()
+                        .HasForeignKey("SchedulesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookingService", b =>
                 {
                     b.HasOne("vv_airline.Models.Data.Booking", null)
                         .WithMany()
-                        .HasForeignKey("BookingId")
-                        .IsRequired()
-                        .HasConstraintName("FK__booking_s__booki__01142BA1");
+                        .HasForeignKey("BookingsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("vv_airline.Models.Data.Service", null)
                         .WithMany()
-                        .HasForeignKey("ServiceName")
-                        .IsRequired()
-                        .HasConstraintName("FK__booking_s__servi__02084FDA");
+                        .HasForeignKey("ServicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FlightSchedule", b =>
+                {
+                    b.HasOne("vv_airline.Models.Data.Flight", null)
+                        .WithMany()
+                        .HasForeignKey("FlightsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("vv_airline.Models.Data.Schedule", null)
+                        .WithMany()
+                        .HasForeignKey("SchedulesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1154,8 +1016,7 @@ namespace vv_airline.Migrations
                 {
                     b.HasOne("vv_airline.Models.Data.Model", "Model")
                         .WithMany("Aircraft")
-                        .HasForeignKey("ModelId")
-                        .HasConstraintName("FK__aircraft__model___68487DD7");
+                        .HasForeignKey("ModelId");
 
                     b.Navigation("Model");
                 });
@@ -1164,18 +1025,15 @@ namespace vv_airline.Migrations
                 {
                     b.HasOne("vv_airline.Models.Data.District", "District")
                         .WithMany("Airports")
-                        .HasForeignKey("DistrictCode")
-                        .HasConstraintName("FK__airport__distric__787EE5A0");
+                        .HasForeignKey("DistrictCode");
 
                     b.HasOne("vv_airline.Models.Data.Province", "Province")
                         .WithMany("Airports")
-                        .HasForeignKey("ProvinceCode")
-                        .HasConstraintName("FK__airport__province_id__778AC167");
+                        .HasForeignKey("ProvinceCode");
 
                     b.HasOne("vv_airline.Models.Data.Ward", "Ward")
                         .WithMany("Airports")
-                        .HasForeignKey("WardCode")
-                        .HasConstraintName("FK__airport__ward_id__797309D9");
+                        .HasForeignKey("WardCode");
 
                     b.Navigation("District");
 
@@ -1186,86 +1044,59 @@ namespace vv_airline.Migrations
 
             modelBuilder.Entity("vv_airline.Models.Data.AisleCol", b =>
                 {
-                    b.HasOne("vv_airline.Models.Data.SeatMap", "Model")
+                    b.HasOne("vv_airline.Models.Data.SeatMap", "SeatMap")
                         .WithMany("AisleCols")
-                        .HasForeignKey("ModelId")
+                        .HasForeignKey("SeatMapModelId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__aisle_col__model__6B24EA82");
+                        .IsRequired();
 
-                    b.Navigation("Model");
+                    b.Navigation("SeatMap");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Booking", b =>
                 {
                     b.HasOne("vv_airline.Models.Data.User", "User")
                         .WithMany("Bookings")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("FK__booking__user_id__7D439ABD");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.District", b =>
                 {
-                    b.HasOne("vv_airline.Models.Data.Province", "ProvinceCodeNavigation")
+                    b.HasOne("vv_airline.Models.Data.Province", "Province")
                         .WithMany("Districts")
-                        .HasForeignKey("ProvinceCode")
-                        .HasConstraintName("districts_province_code_fkey");
+                        .HasForeignKey("ProvinceCode");
 
-                    b.Navigation("ProvinceCodeNavigation");
+                    b.Navigation("Province");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.ExitRow", b =>
                 {
-                    b.HasOne("vv_airline.Models.Data.SeatMap", "Model")
+                    b.HasOne("vv_airline.Models.Data.SeatMap", "SeatMap")
                         .WithMany("ExitRows")
-                        .HasForeignKey("ModelId")
+                        .HasForeignKey("SeatMapModelId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__exit_row__model___6A30C649");
+                        .IsRequired();
 
-                    b.Navigation("Model");
+                    b.Navigation("SeatMap");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Flight", b =>
                 {
-                    b.HasOne("vv_airline.Models.Data.Aircraft", "AircraftRegistrationNumberNavigation")
+                    b.HasOne("vv_airline.Models.Data.Aircraft", "Aircraft")
                         .WithMany("Flights")
-                        .HasForeignKey("AircraftRegistrationNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__flight__aircraft__72C60C4A");
+                        .HasForeignKey("AircraftRegistrationNumber");
 
                     b.HasOne("vv_airline.Models.Data.Route", "Route")
                         .WithMany("Flights")
                         .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__flight__route_id__73BA3083");
+                        .IsRequired();
 
-                    b.Navigation("AircraftRegistrationNumberNavigation");
+                    b.Navigation("Aircraft");
 
                     b.Navigation("Route");
-                });
-
-            modelBuilder.Entity("vv_airline.Models.Data.FlightSchedule", b =>
-                {
-                    b.HasOne("vv_airline.Models.Data.Flight", "Flight")
-                        .WithMany("FlightSchedules")
-                        .HasForeignKey("FlightId")
-                        .IsRequired()
-                        .HasConstraintName("FK__flight_sc__fligh__75A278F5");
-
-                    b.HasOne("vv_airline.Models.Data.Schedule", "Schedule")
-                        .WithMany("FlightSchedules")
-                        .HasForeignKey("ScheduleId")
-                        .IsRequired()
-                        .HasConstraintName("FK__flight_sc__sched__76969D2E");
-
-                    b.Navigation("Flight");
-
-                    b.Navigation("Schedule");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Passenger", b =>
@@ -1274,8 +1105,7 @@ namespace vv_airline.Migrations
                         .WithMany("Passengers")
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__passenger__booki__00200768");
+                        .IsRequired();
 
                     b.Navigation("Booking");
                 });
@@ -1286,15 +1116,13 @@ namespace vv_airline.Migrations
                         .WithMany("Prices")
                         .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__price__route_id__71D1E811");
+                        .IsRequired();
 
                     b.HasOne("vv_airline.Models.Data.SeatClass", "SeatClass")
                         .WithMany("Prices")
                         .HasForeignKey("SeatClassId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__price__seat_clas__70DDC3D8");
+                        .IsRequired();
 
                     b.Navigation("Route");
 
@@ -1303,21 +1131,19 @@ namespace vv_airline.Migrations
 
             modelBuilder.Entity("vv_airline.Models.Data.Route", b =>
                 {
-                    b.HasOne("vv_airline.Models.Data.Airport", "DepartureAirportNavigation")
-                        .WithMany("RouteDepartureAirportNavigations")
-                        .HasForeignKey("DepartureAirport")
-                        .IsRequired()
-                        .HasConstraintName("FK__route__departure__6EF57B66");
+                    b.HasOne("vv_airline.Models.Data.Airport", "DepartureAirport")
+                        .WithMany("RouteDepartures")
+                        .HasForeignKey("DepartureAirportId")
+                        .IsRequired();
 
-                    b.HasOne("vv_airline.Models.Data.Airport", "DestinationAirportNavigation")
-                        .WithMany("RouteDestinationAirportNavigations")
-                        .HasForeignKey("DestinationAirport")
-                        .IsRequired()
-                        .HasConstraintName("FK__route__destinati__6FE99F9F");
+                    b.HasOne("vv_airline.Models.Data.Airport", "DestinationAirport")
+                        .WithMany("RouteDestinations")
+                        .HasForeignKey("DestinationAirportId")
+                        .IsRequired();
 
-                    b.Navigation("DepartureAirportNavigation");
+                    b.Navigation("DepartureAirport");
 
-                    b.Navigation("DestinationAirportNavigation");
+                    b.Navigation("DestinationAirport");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Schedule", b =>
@@ -1325,56 +1151,32 @@ namespace vv_airline.Migrations
                     b.HasOne("vv_airline.Models.Data.Route", "Route")
                         .WithMany("Schedules")
                         .HasForeignKey("RouteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__schedule__route___74AE54BC");
+                        .IsRequired();
 
                     b.Navigation("Route");
                 });
 
-            modelBuilder.Entity("vv_airline.Models.Data.ScheduleBooking", b =>
-                {
-                    b.HasOne("vv_airline.Models.Data.Booking", "Booking")
-                        .WithMany("ScheduleBookings")
-                        .HasForeignKey("BookingId")
-                        .IsRequired()
-                        .HasConstraintName("FK__schedule___booki__7F2BE32F");
-
-                    b.HasOne("vv_airline.Models.Data.Schedule", "Schedule")
-                        .WithMany("ScheduleBookings")
-                        .HasForeignKey("ScheduleId")
-                        .IsRequired()
-                        .HasConstraintName("FK__schedule___sched__7E37BEF6");
-
-                    b.Navigation("Booking");
-
-                    b.Navigation("Schedule");
-                });
-
             modelBuilder.Entity("vv_airline.Models.Data.Seat", b =>
                 {
-                    b.HasOne("vv_airline.Models.Data.SeatMap", "Model")
-                        .WithMany("Seats")
-                        .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__seat__model_id__6C190EBB");
-
                     b.HasOne("vv_airline.Models.Data.SeatClass", "SeatClass")
                         .WithMany("Seats")
                         .HasForeignKey("SeatClassId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__seat__seat_class__6D0D32F4");
+                        .IsRequired();
+
+                    b.HasOne("vv_airline.Models.Data.SeatMap", "SeatMap")
+                        .WithMany("Seats")
+                        .HasForeignKey("SeatMapModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("vv_airline.Models.Data.SeatType", "SeatType")
                         .WithMany("Seats")
-                        .HasForeignKey("SeatTypeId")
-                        .HasConstraintName("FK__seat__seat_type___6E01572D");
-
-                    b.Navigation("Model");
+                        .HasForeignKey("SeatTypeId");
 
                     b.Navigation("SeatClass");
+
+                    b.Navigation("SeatMap");
 
                     b.Navigation("SeatType");
                 });
@@ -1384,8 +1186,7 @@ namespace vv_airline.Migrations
                     b.HasOne("vv_airline.Models.Data.Model", "Model")
                         .WithOne("SeatMap")
                         .HasForeignKey("vv_airline.Models.Data.SeatMap", "ModelId")
-                        .IsRequired()
-                        .HasConstraintName("FK__seat_map__model___693CA210");
+                        .IsRequired();
 
                     b.Navigation("Model");
                 });
@@ -1396,22 +1197,19 @@ namespace vv_airline.Migrations
                         .WithMany("Tickets")
                         .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__ticket__flight_i__7A672E12");
+                        .IsRequired();
 
                     b.HasOne("vv_airline.Models.Data.Passenger", "Passenger")
                         .WithMany("Tickets")
                         .HasForeignKey("PassengerId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__ticket__passenge__7C4F7684");
+                        .IsRequired();
 
                     b.HasOne("vv_airline.Models.Data.Seat", "Seat")
                         .WithMany("Tickets")
                         .HasForeignKey("SeatId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__ticket__seat_id__7B5B524B");
+                        .IsRequired();
 
                     b.Navigation("Flight");
 
@@ -1424,18 +1222,15 @@ namespace vv_airline.Migrations
                 {
                     b.HasOne("vv_airline.Models.Data.District", "District")
                         .WithMany("Users")
-                        .HasForeignKey("DistrictCode")
-                        .HasConstraintName("FK__user__district_i__66603565");
+                        .HasForeignKey("DistrictCode");
 
                     b.HasOne("vv_airline.Models.Data.Province", "Province")
                         .WithMany("Users")
-                        .HasForeignKey("ProvinceCode")
-                        .HasConstraintName("FK__user__province_id__656C112C");
+                        .HasForeignKey("ProvinceCode");
 
                     b.HasOne("vv_airline.Models.Data.Ward", "Ward")
                         .WithMany("Users")
-                        .HasForeignKey("WardCode")
-                        .HasConstraintName("FK__user__ward_id__6754599E");
+                        .HasForeignKey("WardCode");
 
                     b.Navigation("District");
 
@@ -1446,12 +1241,11 @@ namespace vv_airline.Migrations
 
             modelBuilder.Entity("vv_airline.Models.Data.Ward", b =>
                 {
-                    b.HasOne("vv_airline.Models.Data.District", "DistrictCodeNavigation")
+                    b.HasOne("vv_airline.Models.Data.District", "District")
                         .WithMany("Wards")
-                        .HasForeignKey("DistrictCode")
-                        .HasConstraintName("wards_district_code_fkey");
+                        .HasForeignKey("DistrictCode");
 
-                    b.Navigation("DistrictCodeNavigation");
+                    b.Navigation("District");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Aircraft", b =>
@@ -1461,16 +1255,14 @@ namespace vv_airline.Migrations
 
             modelBuilder.Entity("vv_airline.Models.Data.Airport", b =>
                 {
-                    b.Navigation("RouteDepartureAirportNavigations");
+                    b.Navigation("RouteDepartures");
 
-                    b.Navigation("RouteDestinationAirportNavigations");
+                    b.Navigation("RouteDestinations");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Booking", b =>
                 {
                     b.Navigation("Passengers");
-
-                    b.Navigation("ScheduleBookings");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.District", b =>
@@ -1484,8 +1276,6 @@ namespace vv_airline.Migrations
 
             modelBuilder.Entity("vv_airline.Models.Data.Flight", b =>
                 {
-                    b.Navigation("FlightSchedules");
-
                     b.Navigation("Tickets");
                 });
 
@@ -1517,13 +1307,6 @@ namespace vv_airline.Migrations
                     b.Navigation("Prices");
 
                     b.Navigation("Schedules");
-                });
-
-            modelBuilder.Entity("vv_airline.Models.Data.Schedule", b =>
-                {
-                    b.Navigation("FlightSchedules");
-
-                    b.Navigation("ScheduleBookings");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Seat", b =>

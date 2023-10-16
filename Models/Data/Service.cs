@@ -9,15 +9,15 @@ namespace vv_airline.Models.Data;
 public partial class Service
 {
     [Key]
-    [Column("name")]
+    public long Id { get; set; }
+
     [StringLength(50)]
-    [Unicode(false)]
     public string Name { get; set; } = null!;
 
-    [Column("price", TypeName = "decimal(18, 0)")]
+    [StringLength(255)]
+    public string Description { get; set; } = null!;
+
     public decimal? Price { get; set; }
 
-    [ForeignKey("ServiceName")]
-    [InverseProperty("ServiceNames")]
-    public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+    public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 }

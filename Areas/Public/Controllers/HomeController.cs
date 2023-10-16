@@ -10,7 +10,6 @@ namespace vv_airline.Areas.Public.Controllers;
 
 [Area("Public")]
 [Route("/")]
-[Route("[controller]")]
 public class HomeController : AppBaseController
 {
     private readonly ILogger<HomeController> _logger;

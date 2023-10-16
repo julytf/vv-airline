@@ -40,14 +40,14 @@ public static class TestSeed
         SeatMap newSeatMap = new() { ModelId = newModel.Id, NoCol = 8, NoRow = 50 };
 
         var aisle_cols = new[] {
-            new AisleCol(){ ModelId = newModel.Id, Value = 2},
-            new AisleCol(){ ModelId = newModel.Id, Value = 3},
-            new AisleCol(){ ModelId = newModel.Id, Value = 6},
-            new AisleCol(){ ModelId = newModel.Id, Value = 7},
+            new AisleCol(){ SeatMap = newSeatMap, Value = 2},
+            new AisleCol(){ SeatMap = newSeatMap, Value = 3},
+            new AisleCol(){ SeatMap = newSeatMap, Value = 6},
+            new AisleCol(){ SeatMap = newSeatMap, Value = 7},
         };
         var exit_rows = new[] {
-            new ExitRow(){ ModelId = newModel.Id, Value = 30},
-            new ExitRow(){ ModelId = newModel.Id, Value = 35},
+            new ExitRow(){ SeatMap = newSeatMap, Value = 30},
+            new ExitRow(){ SeatMap = newSeatMap, Value = 35},
         };
 
         var EconomySeatClass = _dbContext.
@@ -65,10 +65,10 @@ public static class TestSeed
             {
                 seats.Add(new Seat()
                 {
-                    ModelId = newModel.Id,
+                    SeatMap = newSeatMap,
                     Row = y,
                     Col = x,
-                    SeatClassId = EconomySeatClass.Id,
+                    SeatClass = EconomySeatClass,
                     Status = SeatEnums.Statuses.Available.ToString()
                 });
             }
@@ -77,7 +77,7 @@ public static class TestSeed
         var newAircrafts = new[] {
             new Aircraft(){
                 RegistrationNumber = "madangky123123",
-                ModelId = newModel.Id,
+                Model = newModel,
                 Name = "VN 19"
             },
         };
@@ -116,22 +116,26 @@ public static class TestSeed
         var flight = new Flight()
         {
             Name = "test flight",
-            AircraftRegistrationNumber = aircraft.RegistrationNumber,
+            Aircraft = aircraft,
             DepartureTime = DateTime.Now,
             ArrivalTime = DateTime.Now.AddHours(5),
-            RouteId = route.Id
+            Route = route
         };
+        _dbContext.Add(flight);
+
+        _dbContext.SaveChanges();
 
         var schedule = new Schedule()
         {
             HasTransit = false,
-            RouteId = flight.RouteId,
+            Route = flight.Route,
             DepartureTime = flight.DepartureTime,
             ArrivalTime = flight.ArrivalTime,
             Distance = route.Distance
         };
+        schedule.Flights.Add(flight);
 
-        _dbContext.Add(flight);
+        _dbContext.Add(schedule);
 
         _dbContext.SaveChanges();
     }
@@ -156,8 +160,8 @@ public static class TestSeed
 
         var routes = new[] {
             new Models.Data.Route() {
-                DepartureAirport = CanThoAirport.Id,
-                DestinationAirport = HCMAirport.Id,
+                DepartureAirport = CanThoAirport,
+                DestinationAirport = HCMAirport,
                 Distance = 50
             }
         };
