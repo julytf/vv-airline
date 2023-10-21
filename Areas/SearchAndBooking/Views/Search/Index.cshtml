@@ -1,6 +1,7 @@
 @model vv_airline.Areas.SearchAndBooking.Models.SearchModel
 
 @Html.Partial("Partials/_NavBar.cshtml")
+
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -84,7 +85,7 @@
                                 class="block text-sm font-medium leading-6 text-gray-900"></label>
                             <div class="mt-2">
                                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
-                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                        focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
 
                                     <select id="countries" class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
                         focus:ring-0 sm:text-sm sm:leading-6">
@@ -101,7 +102,7 @@
                                 class="block text-sm font-medium leading-6 text-gray-900"></label>
                             <div class="mt-2">
                                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
-                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                        focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
 
                                     <input asp-for="Adults" name="adults" id="adults" autocomplete="adults" class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
                         focus:ring-0 sm:text-sm sm:leading-6">
@@ -116,7 +117,7 @@
                                 class="block text-sm font-medium leading-6 text-gray-900"></label>
                             <div class="mt-2">
                                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
-                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                        focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
 
                                     <input asp-for="Children" name="children" id="children" autocomplete="children"
                                         class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
@@ -131,7 +132,7 @@
                                 class="block text-sm font-medium leading-6 text-gray-900"></label>
                             <div class="mt-2">
                                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
-                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                        focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
 
                                     <input asp-for="DepartureDate" type="date" name="departureDate" id="departureDate"
                                         autocomplete="departureDate" class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
@@ -146,7 +147,7 @@
                                 class="block text-sm font-medium leading-6 text-gray-900"></label>
                             <div class="mt-2">
                                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
-                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                        focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
 
                                     <input asp-for="ArrivalDate" type="date" name="arrivalDate" id="arrivalDate"
                                         autocomplete="arrivalDate" class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
@@ -162,7 +163,7 @@
                         <div class="mt-2">
                         <div
                         class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
-                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                        focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
 
                         <input asp-for="FirstName" name="firstname" id="firstname" autocomplete="firstname"
                         class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
@@ -178,7 +179,7 @@
                         <div class="mt-2">
                         <div
                         class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
-                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                        focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
 
                         <input asp-for="DateOfBirth" type="date" name="dateofbirth" id="dateofbirth"
                         autocomplete="dateofbirth"
@@ -196,7 +197,7 @@
                         <div class="mt-2">
                         <div
                         class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
-                        focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                        focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
 
                         <input asp-for="PhoneNumber" name="phonenumber" id="phonenumber"
                         autocomplete="phonenumber"
@@ -213,12 +214,12 @@
 
                         <div class="flex items-center gap-x-3">
                         <input asp-for="Gender" value="true" id="male" name="gender" type="radio"
-                        class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        class="h-4 w-4 border-gray-300 text-primary focus:ring-primary">
                         <label for="male" class="block text-sm font-medium leading-6 text-gray-900">Nam</label>
                         </div>
                         <div class="flex items-center gap-x-3">
                         <input asp-for="Gender" value="false" id="female" name="gender" type="radio"
-                        class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        class="h-4 w-4 border-gray-300 text-primary focus:ring-primary">
                         <label for="female" class="block text-sm font-medium leading-6 text-gray-900">Nữ</label>
                         </div>
                         <span asp-validation-for="Gender" class="text-red-700"></span>
@@ -230,7 +231,7 @@
                         <div class="mt-2">
                         <input asp-for="CityId" type="text" name="city" id="city" autocomplete="address-level1"
                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
-                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600
+                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary
                         sm:text-sm sm:leading-6">
                         </div>
                         </div>
@@ -242,7 +243,7 @@
                         <input asp-for="DistrictId" type="text" name="district" id="district"
                         autocomplete="district"
                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
-                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600
+                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary
                         sm:text-sm sm:leading-6">
                         </div>
                         </div>
@@ -253,7 +254,7 @@
                         <div class="mt-2">
                         <input asp-for="WardId" type="text" name="ward" id="ward" autocomplete="ward"
                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
-                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600
+                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary
                         sm:text-sm sm:leading-6">
                         </div>
                         </div>
@@ -264,7 +265,7 @@
                         <div class="mt-2">
                         <input asp-for="Address" type="text" name="address" id="address" autocomplete="address"
                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
-                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600
+                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary
                         sm:text-sm sm:leading-6">
                         </div>
                         </div>
@@ -276,7 +277,7 @@
                         <input asp-for="Address2" type="text" name="address2" id="address2"
                         autocomplete="address2"
                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
-                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600
+                        ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary
                         sm:text-sm sm:leading-6">
                         </div>
                         </div>
@@ -291,7 +292,7 @@
                             <div class="mt-2">
                             <div
                             class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
-                            focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                            focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
                             <input asp-for="Email" name="email" id="email" autocomplete="email"
                             class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
                             focus:ring-0 sm:text-sm sm:leading-6">
@@ -305,7 +306,7 @@
                             <div class="mt-2">
                             <div
                             class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2
-                            focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                            focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
                             <input asp-for="Password" type="password" name="password" id="password"
                             autocomplete="password"
                             class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400

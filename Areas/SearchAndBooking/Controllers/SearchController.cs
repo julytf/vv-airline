@@ -21,13 +21,13 @@ public class SearchController : AppBaseController
     [HttpGet("schedules-selection")]
     public async Task<IActionResult> SchedulesSelection()
     {
-        throw new NotImplementedException();
+        return View();
     }
 
     [HttpGet("seats-selection")]
     public async Task<IActionResult> SeatsSelection()
     {
-        throw new NotImplementedException();
+        return View();
     }
 
     [HttpGet("addition-services-selection")]
@@ -39,7 +39,7 @@ public class SearchController : AppBaseController
     [HttpGet("passengers-information")]
     public async Task<IActionResult> PassengersInformation()
     {
-        throw new NotImplementedException();
+        return View();
     }
 
     [HttpGet("checkout")]

@@ -11,7 +11,7 @@ public partial class User : IdentityUser
 {
     // [Key]
     // public string Id { get; set; } = null!;
-    
+
     [StringLength(50)]
     [Unicode(false)]
     public string FirstName { get; set; } = null!;
@@ -19,6 +19,15 @@ public partial class User : IdentityUser
     [StringLength(50)]
     [Unicode(false)]
     public string LastName { get; set; } = null!;
+
+    [NotMapped]
+    public string FullName
+    {
+        get
+        {
+            return LastName + " " + FirstName;
+        }
+    }
 
     public DateTime? DateOfBirth { get; set; }
 

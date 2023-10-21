@@ -46,29 +46,25 @@ icon = "fa-regular fa-credit-card"
 };
 }
 
-<div>
-    <div>
-        <ol class=" grid grid-cols-1 overflow-hidden border-2 border-gray-200 text-sm text-gray-500 sm:grid-cols-6">
-            @foreach (var step in steps)
-            {
-                <a asp-controller="Search" asp-action="@step.method">
-                    <li class="relative">
-                        <div
-                            class=' mx-auto my-auto flex-1 relative flex items-center justify-center gap-2 !border-0 pl-4 p-4  @(step.index == stepIndex ? "bg-primary" : "")'>
-                            <i class="@step.icon h-7 w-7 shrink-0 text-2xl"></i>
+<ol class="grid grid-cols-1 overflow-hidden border-2 border-primary text-sm text-gray-500 sm:grid-cols-6 bg-white sticky top-0 z-50">
+    @foreach (var step in steps)
+    {
+        <a asp-controller="Search" asp-action="@step.method">
+            <li class="relative">
+                <div
+                    class=' mx-auto my-auto flex-1 relative flex items-center justify-center gap-2 !border-0 pl-4 p-4  @(step.index == stepIndex ? "bg-primary" : "")'>
+                    <i class="@step.icon h-7 w-7 shrink-0 text-2xl"></i>
 
-                            <p class="leading-none">
-                                <strong class='block font-large @(step.index > stepIndex ? "text-gray-300" : "")'>
-                                    @step.title </strong>
-                                @* <small class="mt-1"> Where we sending it? </small> *@
-                            </p>
-                        </div>
-                        <span
-                            class='absolute top-0 right-0 translate-x-1/2 hidden h-[calc(60px/1.41)] w-[calc(60px/1.41)] translate-y-2 -translate-x-5 rotate-45 border-2 border-gray-200 border-b-0 border-s-0 sm:block z-10 @(step.index == stepIndex ? "bg-primary" : "bg-white")'>
-                        </span>
-                    </li>
-                </a>
-            }
-        </ol>
-    </div>
-</div>
+                    <p class="leading-none">
+                        <strong class='block font-large @(step.index > stepIndex ? "text-gray-300" : "")'>
+                            @step.title </strong>
+                        @* <small class="mt-1"> Where we sending it? </small> *@
+                    </p>
+                </div>
+                <span
+                    class='absolute top-0 right-0 translate-x-1/2 hidden h-[calc(60px/1.41)] w-[calc(60px/1.41)] translate-y-2 -translate-x-5 rotate-45 border-2 border-gray-200 border-b-0 border-s-0 sm:block z-10 @(step.index == stepIndex ? "bg-primary" : "bg-white")'>
+                </span>
+            </li>
+        </a>
+    }
+</ol>

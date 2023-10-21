@@ -1,6 +1,8 @@
 @using vv_airline.Models.Data 
 @model vv_airline.Areas.Public.Models.RegisterModel
 
+@Html.Partial("Partials/_NavBar.cshtml")
+
 <script defer>
 
     loadAddressOptions("Province")
@@ -26,7 +28,7 @@
     }
         
 </script>
-<div class="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+<div class="mx-auto max-w-2xl">
   <form
     asp-controller="Auth"
     asp-action="Register"
@@ -34,14 +36,11 @@
     method="post"
     class="border-solid border-2 border-primary rounded-md p-6"
   >
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">ĐĂNG KÝ</h2>
-    </div>
+    <h2 class="text-lg font-semibold leading-9 text-gray-900 border-b-2 border-primary sm:-m-6 -m-8 p-2 ">Thông tin cá nhân - Khách hàng 1</h2>
     <div class="mx-auto max-w-2xl">
       <div class="space-y-12">
         <div asp-validation-summary="ModelOnly" class="text-red-700"></div>
         <div class="border-b border-gray-900/10 pb-12">
-          <h2 class="text-lg font-semibold leading-9 text-gray-900">Thông tin cá nhân</h2>
           @*
           <p class="mt-1 text-sm leading-6 text-gray-600"></p>
           *@
@@ -106,6 +105,157 @@
                 <span asp-validation-for="PhoneNumber" class="text-red-700"></span>
               </div>
             </div>
+            <div class="sm:col-span-6">
+              <label asp-for="Email" class="block text-sm font-medium leading-6 text-gray-900">
+                </label>
+              <div class="mt-2">
+                <div
+                  class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md"
+                >
+                  <input
+                    asp-for="Email"
+                    class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  />
+                </div>
+                <span asp-validation-for="Email" class="text-red-700"></span>
+              </div>
+            </div>
+
+            <div class="mt-6 space-y-6 sm:col-span-6">
+              <label asp-for="Gender" class="block text-sm font-medium leading-6 text-gray-900"></label>
+
+              <div class="gap-x-3 inline-block">
+                <input
+                  asp-for="Gender"
+                  id="gender-true"
+                  value="true"
+                  type="radio"
+                  class="h-4 w-4 border-gray-300 text-primary focus:ring-primary inline-block"
+                />
+                <label for="male" class="block text-sm font-medium leading-6 text-gray-900 inline-block ml-2">Nam</label>
+              </div>
+              <div class="gap-x-3 inline-block ml-3">
+                <input
+                  asp-for="Gender"
+                  id="gender-false"
+                  value="false"
+                  type="radio"
+                  class="h-4 w-4 border-gray-300 text-primary focus:ring-primary inline-block"
+                />
+                <label for="female" class="block text-sm font-medium leading-6 text-gray-900 inline-block ml-2">Nữ</label>
+              </div>
+              <span asp-validation-for="Gender" class="text-red-700"></span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+     
+    </div>
+    <div class="mt-6 flex items-center justify-end gap-x-6">
+      <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+      <button
+        type="submit"
+        class="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>
+<div class="mx-auto max-w-2xl">
+  <form
+    asp-controller="Auth"
+    asp-action="Register"
+    asp-route-returnurl='@ViewData["ReturnUrl"]'
+    method="post"
+    class="border-solid border-2 border-primary rounded-md p-6"
+  >
+    <h2 class="text-lg font-semibold leading-9 text-gray-900 border-b-2 border-primary sm:-m-6 -m-8 p-2 ">Thông tin cá nhân - Khách hàng 1</h2>
+    <div class="mx-auto max-w-2xl">
+      <div class="space-y-12">
+        <div asp-validation-summary="ModelOnly" class="text-red-700"></div>
+        <div class="border-b border-gray-900/10 pb-12">
+          @*
+          <p class="mt-1 text-sm leading-6 text-gray-600"></p>
+          *@
+
+          <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="sm:col-span-3">
+              <label asp-for="LastName" class="block text-sm font-medium leading-6 text-gray-900"></label>
+              <div class="mt-2">
+                <div
+                  class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md"
+                >
+                  <input
+                    asp-for="LastName"
+                    class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  />
+                </div>
+                <span asp-validation-for="LastName" class="text-red-700"></span>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label asp-for="FirstName" class="block text-sm font-medium leading-6 text-gray-900"></label>
+              <div class="mt-2">
+                <div
+                  class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md"
+                >
+                  <input
+                    asp-for="FirstName"
+                    class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  />
+                </div>
+                <span asp-validation-for="FirstName" class="text-red-700"></span>
+              </div>
+            </div>
+
+            <div class="sm:col-span-6">
+              <label asp-for="DateOfBirth" class="block text-sm font-medium leading-6 text-gray-900"></label>
+              <div class="mt-2">
+                <div
+                  class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md"
+                >
+                  <input
+                    asp-for="DateOfBirth"
+                    type="date"
+                    class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  />
+                </div>
+                <span asp-validation-for="DateOfBirth" class="text-red-700"></span>
+              </div>
+            </div>
+            <div class="sm:col-span-6">
+              <label asp-for="PhoneNumber" class="block text-sm font-medium leading-6 text-gray-900"></label>
+              <div class="mt-2">
+                <div
+                  class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md"
+                >
+                  <input
+                    asp-for="PhoneNumber"
+                    class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  />
+                </div>
+                <span asp-validation-for="PhoneNumber" class="text-red-700"></span>
+              </div>
+            </div>
+            <div class="sm:col-span-6">
+              <label asp-for="Email" class="block text-sm font-medium leading-6 text-gray-900">
+                </label>
+              <div class="mt-2">
+                <div
+                  class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md"
+                >
+                  <input
+                    asp-for="Email"
+                    class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  />
+                </div>
+                <span asp-validation-for="Email" class="text-red-700"></span>
+              </div>
+            </div>
 
             <div class="mt-6 space-y-6 sm:col-span-6">
               <label asp-for="Gender" class="block text-sm font-medium leading-6 text-gray-900"></label>
@@ -133,122 +283,11 @@
               <span asp-validation-for="Gender" class="text-red-700"></span>
             </div>
 
-            <div class="sm:col-span-2">
-              <label asp-for="ProvinceCode" class="block text-sm font-medium leading-6 text-gray-900"></label>
-              <div class="mt-2">
-                <div
-                  class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md"
-                >
-                  <select
-                    asp-for="ProvinceCode"
-                    class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    onchange="provinceChangeHandler(this.value)"
-                  >
-                    <option value="">Chọn</option>
-                  </select>
-                </div>
-                <span asp-validation-for="ProvinceCode" class="text-red-700"></span>
-              </div>
-            </div>
-
-            <div class="sm:col-span-2">
-              <label asp-for="DistrictCode" class="block text-sm font-medium leading-6 text-gray-900"></label>
-              <div class="mt-2">
-                <div
-                  class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md"
-                >
-                  <select
-                    asp-for="DistrictCode"
-                    class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    onchange="DistrictChangeHandler(this.value)"
-                  >
-                    <option value="">Chọn</option>
-                  </select>
-                </div>
-                <span asp-validation-for="DistrictCode" class="text-red-700"></span>
-              </div>
-            </div>
-
-            <div class="sm:col-span-2">
-              <label asp-for="WardCode" class="block text-sm font-medium leading-6 text-gray-900"></label>
-              <div class="mt-2">
-                <div
-                  class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md"
-                >
-                  <select
-                    asp-for="WardCode"
-                    class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                  >
-                    <option value="">Chọn</option>
-                  </select>
-                </div>
-                <span asp-validation-for="WardCode" class="text-red-700"></span>
-              </div>
-            </div>
-            <div class="col-span-full">
-              <label asp-for="Address" class="block text-sm font-medium leading-6 text-gray-900"></label>
-              <div class="mt-2">
-                <input
-                  asp-for="Address"
-                  type="text"
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-                />
-              </div>
-              <span asp-validation-for="Address" class="text-red-700"></span>
-            </div>
-            <div class="col-span-full">
-              <label asp-for="Address2" class="block text-sm font-medium leading-6 text-gray-900"></label>
-              <div class="mt-2">
-                <input
-                  asp-for="Address2"
-                  type="text"
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-                />
-              </div>
-              <span asp-validation-for="Address2" class="text-red-700"></span>
-            </div>
           </div>
         </div>
       </div>
 
-      <div class="border-b border-gray-900/10 pb-12">
-        <h2 class="text-lg font-semibold leading-7 text-gray-900">Thông tin tài khoản</h2>
-        @*
-        <p class="mt-1 text-sm leading-6 text-gray-600"></p>
-        *@
-
-        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          <div class="sm:col-span-4">
-            <label asp-for="Email" class="block text-sm font-medium leading-6 text-gray-900"></label>
-            <div class="mt-2">
-              <div
-                class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md"
-              >
-                <input
-                  asp-for="Email"
-                  class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                />
-              </div>
-              <span asp-validation-for="Email" class="text-red-700"></span>
-            </div>
-          </div>
-          <div class="sm:col-span-4">
-            <label asp-for="Password" class="block text-sm font-medium leading-6 text-gray-900"></label>
-            <div class="mt-2">
-              <div
-                class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md"
-              >
-                <input
-                  asp-for="Password"
-                  type="password"
-                  class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                />
-              </div>
-              <span asp-validation-for="Password" class="text-red-700"></span>
-            </div>
-          </div>
-        </div>
-      </div>
+     
     </div>
     <div class="mt-6 flex items-center justify-end gap-x-6">
       <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>

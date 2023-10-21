@@ -1,3 +1,8 @@
+@using Microsoft.AspNetCore.Identity;
+@using vv_airline.Models.Data;
+@inject UserManager<User> _userManager
+@inject SignInManager<User> _signInManager
+
 @{
     var links = new[]
     {
@@ -17,6 +22,9 @@ To = "/#reviews",
 Label = "Reviews",
 },
 };
+
+
+
 }
 @* <script>
 let isToggled = false;
@@ -103,19 +111,37 @@ toggleNavlinks();
                             </li> *@
                         </ul>
                     </div>
+                    @if (_signInManager.IsSignedIn(User))
+                    {
+                        var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-                    <div class="mt-12 lg:mt-0">
-                        <a href="/login"
-                            class="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
-                            <span class="relative text-sm font-semibold text-primary">Đăng Nhập</span>
-                        </a>
-                    </div>
-                    <div class="mt-12 lg:mt-0">
-                        <a href="/register"
-                            class="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
-                            <span class="relative text-sm font-semibold text-white">Đăng ký</span>
-                        </a>
-                    </div>
+                        <div class="mt-12 lg:mt-0">
+                            <span class="relative text-sm font-semibold text-primary px-4">Xin chào @user.FullName</span>
+                        </div>
+                        <div class="mt-12 lg:mt-0">
+                            <a href="/logout"
+                                class="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
+                                <span class="relative text-sm font-semibold text-white">Đăng Xuất</span>
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+
+
+                        <div class="mt-12 lg:mt-0">
+                            <a href="/login"
+                                class="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
+                                <span class="relative text-sm font-semibold text-primary">Đăng Nhập</span>
+                            </a>
+                        </div>
+                        <div class="mt-12 lg:mt-0">
+                            <a href="/register"
+                                class="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
+                                <span class="relative text-sm font-semibold text-white">Đăng ký</span>
+                            </a>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

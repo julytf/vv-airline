@@ -14,14 +14,17 @@ public class HomeController : AppBaseController
 {
     private readonly ILogger<HomeController> _logger;
     private readonly UserManager<User> _userManager;
+    private readonly SignInManager<User> _signInManager;
 
     public HomeController(
         ILogger<HomeController> logger,
-        UserManager<User> userManager
+        UserManager<User> userManager,
+        SignInManager<User> signInManager
      )
     {
         _logger = logger;
         _userManager = userManager;
+        _signInManager = signInManager;
     }
 
     [HttpGet]
@@ -32,20 +35,22 @@ public class HomeController : AppBaseController
     }
 
     [HttpGet("/test")]
-    public async Task<IActionResult> Test(HttpContext context)
+    public async Task<IActionResult> Test()
     {
-        var session = context.Session;
+        // _userManager.FindByNameAsync
+        // var session = context.Session;
 
-        TestModel testModel = new TestModel()
-        {
-            title = "test title",
-            value = "1111"
-        };
+        // TestModel testModel = new TestModel()
+        // {
+        //     title = "test title",
+        //     value = "1111"
+        // };
 
         // Session["testModel"] = testModel;
 
         return Json(new
         {
+            value = _signInManager.IsSignedIn(User)
         });
     }
 

@@ -97,8 +97,7 @@ public class AuthController : AppBaseController
 
     }
 
-    [HttpPost("/logout")]
-    [ValidateAntiForgeryToken]
+    [HttpGet("/logout")]
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
@@ -113,7 +112,7 @@ public class AuthController : AppBaseController
         ViewData["ReturnUrl"] = returnUrl;
         return View();
     }
-    //
+    
     // POST: /Account/Register
     [HttpPost("/register")]
     [AllowAnonymous]
