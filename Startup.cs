@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using vv_airline.Areas.SearchAndBooking.Models.Services;
 using vv_airline.Models;
 using vv_airline.Models.Data;
 using vv_airline.Models.Enums;
@@ -24,7 +25,7 @@ public class Startup
         services.AddOptions();
 
         // Thêm dịch vụ dùng bộ nhớ lưu cache (session sử dụng dịch vụ này)
-        // services.AddDistributedMemoryCache();
+        services.AddDistributedMemoryCache();
         // Thêm  dịch vụ Session, dịch vụ này cunng cấp Middleware: 
         services.AddSession();
 
@@ -127,6 +128,8 @@ public class Startup
         // services.Configure<MailSettings>(_configuration.GetSection("MailSettings"));               // đăng ký để Inject
 
         // services.AddTransient<IEmailSender, SendMailService>();        // Đăng ký dịch vụ Mail
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddTransient<SearchAndBookingService, SearchAndBookingService>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

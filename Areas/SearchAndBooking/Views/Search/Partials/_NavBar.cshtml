@@ -1,68 +1,82 @@
-@{
-    int stepIndex = 2;
-    var steps = new[] {
-new {
-index = 1,
-path = "search",
-method = "Index",
-title = "Tìm kiếm",
-icon = "fa-solid fa-magnifying-glass"
-},
-new {
-index = 2,
-path = "flights-selection",
-method = "SchedulesSelection",
-title = "Chọn chuyến bay",
-icon = "fa-regular fa-plane"
-},
-new {
-index = 3,
-path = "seats-selection",
-method = "SeatsSelection",
-title = "Chọn chỗ ngồi",
-icon = "fa-regular fa-person-seat"
-},
-new {
-index = 4,
-path = "addition-services-selection",
-method = "AdditionServicesSelection",
-title = "Dịch vụ hỗ trợ",
-icon = "fa-regular fa-suitcase"
-},
-new {
-index = 5,
-path = "passengers-information",
-method = "PassengersInformation",
-title = "Thông tin khách",
-icon = "fa-regular fa-user-pen"
-},
-new {
-index = 6,
-path = "checkout",
-method = "Checkout",
-title = "Thanh toán",
-icon = "fa-regular fa-credit-card"
-},
-};
-}
+@using vv_airline.Areas.SearchAndBooking.Models
 
-<ol class="grid grid-cols-1 overflow-hidden border-2 border-primary text-sm text-gray-500 sm:grid-cols-6 bg-white sticky top-0 z-50">
-    @foreach (var step in steps)
+@{
+    StepModel[] steps =
     {
-        <a asp-controller="Search" asp-action="@step.method">
+        new StepModel
+        {
+            Index = 0,
+            Path = "/search",
+            Method = "Index",
+            Title = "Tìm kiếm",
+            Icon = "fa-solid fa-magnifying-glass"
+        },
+        new StepModel
+        {
+            Index = 1,
+            Path = "/search/schedules-selection",
+            Method = "SchedulesSelection",
+            Title = "Chọn chuyến bay",
+            Icon = "fa-regular fa-plane"
+        },
+        new StepModel
+        {
+            Index = 2,
+            Path = "/search/passengers-information",
+            Method = "PassengersInformation",
+            Title = "Thông tin khách",
+            Icon = "fa-regular fa-user-pen"
+        },
+        new StepModel
+        {
+            Index = 3,
+            Path = "/search/addition-services-selection",
+            Method = "AdditionServicesSelection",
+            Title = "Dịch vụ hỗ trợ",
+            Icon = "fa-regular fa-suitcase"
+        },
+        new StepModel
+        {
+            Index = 4,
+            Path = "/search/seats-selection",
+            Method = "SeatsSelection",
+            Title = "Chọn chỗ ngồi",
+            Icon = "fa-regular fa-person-seat"
+        },
+        new StepModel
+        {
+            Index = 5,
+            Path = "/search/checkout",
+            Method = "Checkout",
+            Title = "Thanh toán",
+            Icon = "fa-regular fa-credit-card"
+        }
+    };
+
+
+    string currentPath = Context.Request.Path;
+    int currentStepIndex = Array.FindIndex(steps, step => step.Path == currentPath);
+}
+<ol
+    class="grid grid-cols-1 overflow-hidden border-2 border-primary text-sm text-gray-500 sm:grid-cols-6 bg-white sticky top-0 z-50">
+    @foreach (StepModel step in steps)
+    {
+        @* <a asp-controller="Search" asp-action="@(step.Index > currentStepIndex ? "" : step.Method)"> *@
+        <a asp-controller="Search" asp-action="@step.Method">
             <li class="relative">
                 <div
-                    class=' mx-auto my-auto flex-1 relative flex items-center justify-center gap-2 !border-0 pl-4 p-4  @(step.index == stepIndex ? "bg-primary" : "")'>
-                    <i class="@step.icon h-7 w-7 shrink-0 text-2xl"></i>
+                    class=' mx-auto my-auto flex-1 relative flex items-center justify-center gap-2 !border-0 pl-4 p-4  @(step.Index == currentStepIndex ? "bg-primary" : "")'>
+                    <i class="@step.Icon h-7 w-7 shrink-0 text-2xl @(step.Index > currentStepIndex ? "text-gray-300" : "")"></i>
 
                     <p class="leading-none">
-                        <strong class='block font-large @(step.index > stepIndex ? "text-gray-300" : "")'>
-                            @step.title </strong>
+                        <strong class='block font-large @(step.Index > currentStepIndex ? "text-gray-300" : "")'>
+                            @step.Title
+                        </strong>
                         @* <small class="mt-1"> Where we sending it? </small> *@
                     </p>
                 </div>
                 <span
-                    class='absolute top-0 right-0 translate-x-1/2 hidden h-[calc(60px/1.41)] w-[calc(60px/1.41)] translate-y-2 -translate-x-5 rotate-45 border-2 border-gray-200 border-b-0 border-s-0 sm:block z-10 @(step.index == stepIndex ? "bg-primary" : "bg-white")'>
+                    class='absolute top-0 right-0 translate-x-1/2 hidden h-[calc(60px/1.41)] w-[calc(60px/1.41)] translate-y-2 -translate-x-5 rotate-45 border-2 border-gray-200 border-b-0 border-s-0 sm:block z-10 @(step.Index == currentStepIndex ? "bg-primary" : "bg-white")'>
                 </span>
             </li>
         </a>

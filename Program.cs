@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using vv_airline.Database.Seeders;
 using vv_airline.Models;
 using vv_airline.Models.Data;
+using vv_airline.Models.Enums;
 public class Program
 {
     static async Task Main(string[] args)
@@ -51,54 +52,20 @@ public class Program
 
         var dbContext = scope.ServiceProvider.GetService<AppDBContext>();
 
-        // Console.WriteLine(
-        //     dbContext
-        //         .Districts
-        //         .Where(d => d.Province.Code == "01")
-        //         .ToQueryString()
-        // );
+        var schedule = dbContext
+                    .Schedules
+                    .Include(s => s.Flights)
+                    .First();
 
-        // dbContext.Add(new Airport()
-        // {
-        //     Name = "test"
-        // });
+        var flight = schedule.Flights[0];
+        Console.WriteLine(flight.Id);
 
-        // dbContext.SaveChanges();
+        // var aircraft = flight.Aircraft;
+        // Console.WriteLine(aircraft.RegistrationNumber);
 
-        // var flight = dbContext
-        //     .Flights
-        //     // .Include(f => f.Schedules)
-        //     .First();
-        // var schedule = flight.Schedules.First();
-        // Console.WriteLine(flight.Schedules.First().Distance);
+            
 
-        // var district = dbContext.Districts.First();
-        // Console.WriteLine("-------------------");
-        // Console.WriteLine(district.FullName);
-        // Console.WriteLine("-------------------");
-        // var province = district.Province;
-        // Console.WriteLine("-------------------");
-        // Console.WriteLine(province.FullName);
-        // Console.WriteLine("-------------------");
-
-
-        var query = dbContext
-            .Provinces
-            .Where(p => p.Code == "01")
-            .Include(p => p.Districts);
-        Console.WriteLine(query.ToQueryString());
-
-        // var province = query
-        //     .First(p => p.Code == "01");
-
-        // List<District> districts = province
-        //     .Districts
-        //     .ToList();
-
-        // Console.WriteLine("-----");
-        // Console.WriteLine(province.FullName);
-        // Console.WriteLine("-----");
-        // Console.WriteLine(districts.Count());
+        return;
     }
 }
 

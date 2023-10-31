@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Q02Q4YcNeZfilMcya/aa6BRPtWdq5wvkktATChCg5m429gkvAVKGTRIbJAJs/Q/z5nXyn67skNDWTTXND0u9Ug==",
+  "dgSpecHash": "O/mxPuzhG6Xqnh3gkkKepTxjWtUgkewKrX3rsS5kqkBBqsoq2Q89AeyX0pQajauwER56DpHwQuCzfWy32mDuRQ==",
   "success": true,
   "projectFilePath": "D:\\Workspace\\vv-airline\\vv-airline.csproj",
   "expectedPackageFiles": [
@@ -112,7 +112,7 @@
     "C:\\Users\\chanv\\.nuget\\packages\\microsoft.diasymreader\\1.4.0\\microsoft.diasymreader.1.4.0.nupkg.sha512",
     "C:\\Users\\chanv\\.nuget\\packages\\microsoft.dotnet.scaffolding.shared\\7.0.10\\microsoft.dotnet.scaffolding.shared.7.0.10.nupkg.sha512",
     "C:\\Users\\chanv\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.11\\microsoft.entityframeworkcore.7.0.11.nupkg.sha512",
-    "C:\\Users\\chanv\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.11\\microsoft.entityframeworkcore.abstractions.7.0.11.nupkg.sha512",
+    "C:\\Users\\chanv\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.13\\microsoft.entityframeworkcore.abstractions.7.0.13.nupkg.sha512",
     "C:\\Users\\chanv\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.11\\microsoft.entityframeworkcore.analyzers.7.0.11.nupkg.sha512",
     "C:\\Users\\chanv\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.11\\microsoft.entityframeworkcore.design.7.0.11.nupkg.sha512",
     "C:\\Users\\chanv\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.11\\microsoft.entityframeworkcore.relational.7.0.11.nupkg.sha512",

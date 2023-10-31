@@ -114,7 +114,9 @@ namespace vv_airline.Migrations
                 {
                     RegistrationNumber = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    ModelId = table.Column<long>(type: "bigint", nullable: true)
+                    ModelId = table.Column<long>(type: "bigint", nullable: true),
+                    RemainingSeats = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -235,7 +237,7 @@ namespace vv_airline.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Row = table.Column<byte>(type: "tinyint", nullable: false),
                     Col = table.Column<byte>(type: "tinyint", nullable: false),
-                    Status = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     SeatMapModelId = table.Column<long>(type: "bigint", nullable: false),
                     SeatClassId = table.Column<long>(type: "bigint", nullable: false),
                     SeatTypeId = table.Column<long>(type: "bigint", nullable: true)
@@ -369,7 +371,7 @@ namespace vv_airline.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Routes",
+                name: "FlightRoutes",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -380,14 +382,14 @@ namespace vv_airline.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Routes", x => x.Id);
+                    table.PrimaryKey("PK_FlightRoutes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Routes_Airports_DepartureAirportId",
+                        name: "FK_FlightRoutes_Airports_DepartureAirportId",
                         column: x => x.DepartureAirportId,
                         principalTable: "Airports",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Routes_Airports_DestinationAirportId",
+                        name: "FK_FlightRoutes_Airports_DestinationAirportId",
                         column: x => x.DestinationAirportId,
                         principalTable: "Airports",
                         principalColumn: "Id");
@@ -510,7 +512,7 @@ namespace vv_airline.Migrations
                     AircraftRegistrationNumber = table.Column<string>(type: "nvarchar(255)", nullable: true),
                     DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RouteId = table.Column<long>(type: "bigint", nullable: false),
+                    FlightRouteId = table.Column<long>(type: "bigint", nullable: false),
                     Status = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true)
                 },
                 constraints: table =>
@@ -522,9 +524,9 @@ namespace vv_airline.Migrations
                         principalTable: "Aircrafts",
                         principalColumn: "RegistrationNumber");
                     table.ForeignKey(
-                        name: "FK_Flights_Routes_RouteId",
-                        column: x => x.RouteId,
-                        principalTable: "Routes",
+                        name: "FK_Flights_FlightRoutes_FlightRouteId",
+                        column: x => x.FlightRouteId,
+                        principalTable: "FlightRoutes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -536,16 +538,16 @@ namespace vv_airline.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    RouteId = table.Column<long>(type: "bigint", nullable: false),
+                    FlightRouteId = table.Column<long>(type: "bigint", nullable: false),
                     SeatClassId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Prices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Prices_Routes_RouteId",
-                        column: x => x.RouteId,
-                        principalTable: "Routes",
+                        name: "FK_Prices_FlightRoutes_FlightRouteId",
+                        column: x => x.FlightRouteId,
+                        principalTable: "FlightRoutes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -566,15 +568,15 @@ namespace vv_airline.Migrations
                     DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Distance = table.Column<long>(type: "bigint", nullable: true),
-                    RouteId = table.Column<long>(type: "bigint", nullable: false)
+                    FlightRouteId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Schedules", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Schedules_Routes_RouteId",
-                        column: x => x.RouteId,
-                        principalTable: "Routes",
+                        name: "FK_Schedules_FlightRoutes_FlightRouteId",
+                        column: x => x.FlightRouteId,
+                        principalTable: "FlightRoutes",
                         principalColumn: "Id");
                 });
 
@@ -685,7 +687,8 @@ namespace vv_airline.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     FlightId = table.Column<long>(type: "bigint", nullable: false),
                     PassengerId = table.Column<long>(type: "bigint", nullable: false),
-                    SeatId = table.Column<long>(type: "bigint", nullable: false)
+                    SeatId = table.Column<long>(type: "bigint", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -761,14 +764,24 @@ namespace vv_airline.Migrations
                 column: "SeatMapModelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FlightRoutes_DepartureAirportId",
+                table: "FlightRoutes",
+                column: "DepartureAirportId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FlightRoutes_DestinationAirportId",
+                table: "FlightRoutes",
+                column: "DestinationAirportId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Flights_AircraftRegistrationNumber",
                 table: "Flights",
                 column: "AircraftRegistrationNumber");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Flights_RouteId",
+                name: "IX_Flights_FlightRouteId",
                 table: "Flights",
-                column: "RouteId");
+                column: "FlightRouteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FlightSchedule_SchedulesId",
@@ -781,9 +794,9 @@ namespace vv_airline.Migrations
                 column: "BookingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prices_RouteId",
+                name: "IX_Prices_FlightRouteId",
                 table: "Prices",
-                column: "RouteId");
+                column: "FlightRouteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Prices_SeatClassId",
@@ -803,19 +816,9 @@ namespace vv_airline.Migrations
                 filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Routes_DepartureAirportId",
-                table: "Routes",
-                column: "DepartureAirportId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Routes_DestinationAirportId",
-                table: "Routes",
-                column: "DestinationAirportId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Schedules_RouteId",
+                name: "IX_Schedules_FlightRouteId",
                 table: "Schedules",
-                column: "RouteId");
+                column: "FlightRouteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Seats_SeatClassId",
@@ -959,7 +962,7 @@ namespace vv_airline.Migrations
                 name: "Aircrafts");
 
             migrationBuilder.DropTable(
-                name: "Routes");
+                name: "FlightRoutes");
 
             migrationBuilder.DropTable(
                 name: "Bookings");

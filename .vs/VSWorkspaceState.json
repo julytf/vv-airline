@@ -2,11 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\Areas",
-    "\\Areas\\Public",
-    "\\Areas\\Public\\Views",
-    "\\Areas\\Public\\Views\\Shared",
-    "\\Areas\\Public\\Views\\Shared\\Partials"
+    "\\Areas\\SearchAndBooking",
+    "\\Areas\\SearchAndBooking\\Views",
+    "\\Areas\\SearchAndBooking\\Views\\Search",
+    "\\Areas\\SearchAndBooking\\Views\\Search\\Partials"
   ],
-  "SelectedNode": "\\Areas\\Public\\Views\\Shared\\Partials\\_Header.cshtml",
+  "SelectedNode": "\\Areas\\SearchAndBooking\\Views\\Search\\SeatsSelection.cshtml",
   "PreviewInSolutionExplorer": false
 }

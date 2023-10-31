@@ -214,6 +214,12 @@ namespace vv_airline.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<int>("RemainingSeats")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("RegistrationNumber");
 
                     b.HasIndex("ModelId");
@@ -408,13 +414,13 @@ namespace vv_airline.Migrations
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<long>("FlightRouteId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<long>("RouteId")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Status")
                         .HasMaxLength(50)
@@ -425,9 +431,35 @@ namespace vv_airline.Migrations
 
                     b.HasIndex("AircraftRegistrationNumber");
 
-                    b.HasIndex("RouteId");
+                    b.HasIndex("FlightRouteId");
 
                     b.ToTable("Flights");
+                });
+
+            modelBuilder.Entity("vv_airline.Models.Data.FlightRoute", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("DepartureAirportId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("DestinationAirportId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("Distance")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartureAirportId");
+
+                    b.HasIndex("DestinationAirportId");
+
+                    b.ToTable("FlightRoutes");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Model", b =>
@@ -507,7 +539,7 @@ namespace vv_airline.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("RouteId")
+                    b.Property<long>("FlightRouteId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("SeatClassId")
@@ -518,7 +550,7 @@ namespace vv_airline.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RouteId");
+                    b.HasIndex("FlightRouteId");
 
                     b.HasIndex("SeatClassId");
 
@@ -558,32 +590,6 @@ namespace vv_airline.Migrations
                     b.ToTable("Provinces");
                 });
 
-            modelBuilder.Entity("vv_airline.Models.Data.Route", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("DepartureAirportId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("DestinationAirportId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("Distance")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartureAirportId");
-
-                    b.HasIndex("DestinationAirportId");
-
-                    b.ToTable("Routes");
-                });
-
             modelBuilder.Entity("vv_airline.Models.Data.Schedule", b =>
                 {
                     b.Property<long>("Id")
@@ -601,15 +607,15 @@ namespace vv_airline.Migrations
                     b.Property<long?>("Distance")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("FlightRouteId")
+                        .HasColumnType("bigint");
+
                     b.Property<bool?>("HasTransit")
                         .HasColumnType("bit");
 
-                    b.Property<long>("RouteId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RouteId");
+                    b.HasIndex("FlightRouteId");
 
                     b.ToTable("Schedules");
                 });
@@ -637,10 +643,8 @@ namespace vv_airline.Migrations
                     b.Property<long?>("SeatTypeId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Status")
-                        .HasMaxLength(20)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(20)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -754,6 +758,9 @@ namespace vv_airline.Migrations
 
                     b.Property<long>("SeatId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -1088,15 +1095,32 @@ namespace vv_airline.Migrations
                         .WithMany("Flights")
                         .HasForeignKey("AircraftRegistrationNumber");
 
-                    b.HasOne("vv_airline.Models.Data.Route", "Route")
+                    b.HasOne("vv_airline.Models.Data.FlightRoute", "FlightRoute")
                         .WithMany("Flights")
-                        .HasForeignKey("RouteId")
+                        .HasForeignKey("FlightRouteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Aircraft");
 
-                    b.Navigation("Route");
+                    b.Navigation("FlightRoute");
+                });
+
+            modelBuilder.Entity("vv_airline.Models.Data.FlightRoute", b =>
+                {
+                    b.HasOne("vv_airline.Models.Data.Airport", "DepartureAirport")
+                        .WithMany("FlightRouteDepartures")
+                        .HasForeignKey("DepartureAirportId")
+                        .IsRequired();
+
+                    b.HasOne("vv_airline.Models.Data.Airport", "DestinationAirport")
+                        .WithMany("FlightRouteDestinations")
+                        .HasForeignKey("DestinationAirportId")
+                        .IsRequired();
+
+                    b.Navigation("DepartureAirport");
+
+                    b.Navigation("DestinationAirport");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Passenger", b =>
@@ -1112,9 +1136,9 @@ namespace vv_airline.Migrations
 
             modelBuilder.Entity("vv_airline.Models.Data.Price", b =>
                 {
-                    b.HasOne("vv_airline.Models.Data.Route", "Route")
+                    b.HasOne("vv_airline.Models.Data.FlightRoute", "FlightRoute")
                         .WithMany("Prices")
-                        .HasForeignKey("RouteId")
+                        .HasForeignKey("FlightRouteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1124,36 +1148,19 @@ namespace vv_airline.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Route");
+                    b.Navigation("FlightRoute");
 
                     b.Navigation("SeatClass");
                 });
 
-            modelBuilder.Entity("vv_airline.Models.Data.Route", b =>
-                {
-                    b.HasOne("vv_airline.Models.Data.Airport", "DepartureAirport")
-                        .WithMany("RouteDepartures")
-                        .HasForeignKey("DepartureAirportId")
-                        .IsRequired();
-
-                    b.HasOne("vv_airline.Models.Data.Airport", "DestinationAirport")
-                        .WithMany("RouteDestinations")
-                        .HasForeignKey("DestinationAirportId")
-                        .IsRequired();
-
-                    b.Navigation("DepartureAirport");
-
-                    b.Navigation("DestinationAirport");
-                });
-
             modelBuilder.Entity("vv_airline.Models.Data.Schedule", b =>
                 {
-                    b.HasOne("vv_airline.Models.Data.Route", "Route")
+                    b.HasOne("vv_airline.Models.Data.FlightRoute", "FlightRoute")
                         .WithMany("Schedules")
-                        .HasForeignKey("RouteId")
+                        .HasForeignKey("FlightRouteId")
                         .IsRequired();
 
-                    b.Navigation("Route");
+                    b.Navigation("FlightRoute");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Seat", b =>
@@ -1255,9 +1262,9 @@ namespace vv_airline.Migrations
 
             modelBuilder.Entity("vv_airline.Models.Data.Airport", b =>
                 {
-                    b.Navigation("RouteDepartures");
+                    b.Navigation("FlightRouteDepartures");
 
-                    b.Navigation("RouteDestinations");
+                    b.Navigation("FlightRouteDestinations");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Booking", b =>
@@ -1279,6 +1286,15 @@ namespace vv_airline.Migrations
                     b.Navigation("Tickets");
                 });
 
+            modelBuilder.Entity("vv_airline.Models.Data.FlightRoute", b =>
+                {
+                    b.Navigation("Flights");
+
+                    b.Navigation("Prices");
+
+                    b.Navigation("Schedules");
+                });
+
             modelBuilder.Entity("vv_airline.Models.Data.Model", b =>
                 {
                     b.Navigation("Aircraft");
@@ -1298,15 +1314,6 @@ namespace vv_airline.Migrations
                     b.Navigation("Districts");
 
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("vv_airline.Models.Data.Route", b =>
-                {
-                    b.Navigation("Flights");
-
-                    b.Navigation("Prices");
-
-                    b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Seat", b =>
