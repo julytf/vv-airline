@@ -17,9 +17,9 @@ public partial class Airport
     [StringLength(255)]
     public string? Description { get; set; }
 
-    public double? Longitude { get; set; }
+    // public double? Longitude { get; set; }
 
-    public double? Latitude { get; set; }
+    // public double? Latitude { get; set; }
 
     public Province? Province { get; set; }
 
@@ -28,9 +28,9 @@ public partial class Airport
     public Ward? Ward { get; set; }
 
     [InverseProperty("DepartureAirport")]
-    public ICollection<Route> RouteDepartures { get; set; } = new List<Route>();
+    public List<FlightRoute> FlightRouteDepartures { get; set; } = new List<FlightRoute>();
 
     [InverseProperty("DestinationAirport")]
-    public ICollection<Route> RouteDestinations { get; set; } = new List<Route>();
+    public List<FlightRoute> FlightRouteDestinations { get; set; } = new List<FlightRoute>();
 
 }

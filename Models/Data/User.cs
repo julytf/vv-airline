@@ -45,7 +45,7 @@ public partial class User : IdentityUser
     [Unicode(false)]
     public string? Address2 { get; set; }
 
-    public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+    public List<Booking> Bookings { get; set; } = new List<Booking>();
 
     public Province? Province { get; set; }
 

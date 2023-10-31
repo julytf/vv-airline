@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-public partial class Route
+public partial class FlightRoute
 {
     [Key]
     public long Id { get; set; }
@@ -17,9 +17,9 @@ public partial class Route
 
     public long? Distance { get; set; }
 
-    public  ICollection<Flight> Flights { get; set; } = new List<Flight>();
+    public List<Flight> Flights { get; set; } = new List<Flight>();
 
-    public  ICollection<Price> Prices { get; set; } = new List<Price>();
+    public List<Price> Prices { get; set; } = new List<Price>();
 
-    public  ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
+    public List<Schedule> Schedules { get; set; } = new List<Schedule>();
 }

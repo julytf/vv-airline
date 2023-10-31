@@ -31,7 +31,7 @@ public partial class Ward
 
     public District? District { get; set; }
 
-    public ICollection<Airport> Airports { get; set; } = new List<Airport>();
+    public List<Airport> Airports { get; set; } = new List<Airport>();
 
-    public ICollection<User> Users { get; set; } = new List<User>();
+    public List<User> Users { get; set; } = new List<User>();
 }

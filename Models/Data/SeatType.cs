@@ -17,5 +17,5 @@ public partial class SeatType
 
     public long? Surcharge { get; set; }
 
-    public ICollection<Seat> Seats { get; set; } = new List<Seat>();
+    public List<Seat> Seats { get; set; } = new List<Seat>();
 }

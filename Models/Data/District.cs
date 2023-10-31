@@ -30,9 +30,9 @@ public partial class District
     [StringLength(20)]
     public  Province? Province { get; set; }
 
-    public  ICollection<Ward> Wards { get; set; } = new List<Ward>();
+    public List<Ward> Wards { get; set; } = new List<Ward>();
 
-    public  ICollection<Airport> Airports { get; set; } = new List<Airport>();
+    public List<Airport> Airports { get; set; } = new List<Airport>();
 
-    public  ICollection<User> Users { get; set; } = new List<User>();
+    public List<User> Users { get; set; } = new List<User>();
 }

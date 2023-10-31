@@ -14,7 +14,7 @@ public partial class SeatClass
     [StringLength(255)]
     public string Name { get; set; } = null!;
 
-    public  ICollection<Price> Prices { get; set; } = new List<Price>();
+    public List<Price> Prices { get; set; } = new List<Price>();
 
-    public  ICollection<Seat> Seats { get; set; } = new List<Seat>();
+    public List<Seat> Seats { get; set; } = new List<Seat>();
 }

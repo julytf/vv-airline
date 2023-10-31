@@ -19,9 +19,13 @@ public partial class Schedule
 
     public long? Distance { get; set; }
 
-    public  ICollection<Flight> Flights { get; set; } = new List<Flight>();
+    public List<Flight> Flights { get; set; } = new List<Flight>();
 
-    public  Route Route { get; set; } = null!;
+    public FlightRoute FlightRoute { get; set; } = null!;
 
-    public  ICollection<Booking> Bookings { get; set; }
+    public List<Booking> Bookings { get; set; }
+
+    [NotMapped]
+    public IDictionary<String, decimal> Prices { get; set; } = new Dictionary<String, decimal>();
+
 }

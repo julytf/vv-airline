@@ -50,7 +50,7 @@ public partial class AppDBContext : IdentityDbContext<User>
 
     public virtual DbSet<Price> Prices { get; set; }
 
-    public virtual DbSet<Route> Routes { get; set; }
+    public virtual DbSet<FlightRoute> FlightRoutes { get; set; }
 
     public virtual DbSet<Schedule> Schedules { get; set; }
 
@@ -115,16 +115,16 @@ public partial class AppDBContext : IdentityDbContext<User>
             }
         }
 
-        modelBuilder.Entity<Route>(entity =>
+        modelBuilder.Entity<FlightRoute>(entity =>
         {
             entity
                 .HasOne(e => e.DepartureAirport)
-                .WithMany(e => e.RouteDepartures)
+                .WithMany(e => e.FlightRouteDepartures)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity
                 .HasOne(e => e.DestinationAirport)
-                .WithMany(e => e.RouteDestinations)
+                .WithMany(e => e.FlightRouteDestinations)
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
@@ -142,7 +142,7 @@ public partial class AppDBContext : IdentityDbContext<User>
                 .WithMany(e => e.Schedules);
 
             entity
-                .HasOne(e => e.Route)
+                .HasOne(e => e.FlightRoute)
                 .WithMany(e => e.Schedules)
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });

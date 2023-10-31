@@ -15,11 +15,11 @@ public partial class SeatMap
 
     public byte NoCol { get; set; }
 
-    public  ICollection<AisleCol> AisleCols { get; set; } = new List<AisleCol>();
+    public  List<AisleCol> AisleCols { get; set; } = new List<AisleCol>();
 
-    public  ICollection<ExitRow> ExitRows { get; set; } = new List<ExitRow>();
+    public  List<ExitRow> ExitRows { get; set; } = new List<ExitRow>();
 
     public  Model Model { get; set; } = null!;
 
-    public  ICollection<Seat> Seats { get; set; } = new List<Seat>();
+    public  List<Seat> Seats { get; set; } = new List<Seat>();
 }

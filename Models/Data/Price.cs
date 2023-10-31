@@ -13,7 +13,7 @@ public partial class Price
 
     public decimal Value { get; set; }
 
-    public  Route Route { get; set; } = null!;
+    public  FlightRoute FlightRoute { get; set; } = null!;
 
     public  SeatClass SeatClass { get; set; } = null!;
 }

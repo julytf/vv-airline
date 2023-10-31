@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using vv_airline.Models.Enums;
 
 namespace vv_airline.Models.Data;
 
@@ -18,4 +19,6 @@ public partial class Ticket
     public Passenger Passenger { get; set; } = null!;
 
     public Seat Seat { get; set; } = null!;
+
+    public TicketEnums.Statuses Status { get; set; }
 }

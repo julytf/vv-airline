@@ -20,11 +20,11 @@ public partial class Booking
 
     public decimal TotalPrice { get; set; }
 
-    public  ICollection<Passenger> Passengers { get; set; } = new List<Passenger>();
+    public List<Passenger> Passengers { get; set; } = new List<Passenger>();
 
-    public  ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
+    public List<Schedule> Schedules { get; set; } = new List<Schedule>();
 
     public  User? User { get; set; }
     
-    public  ICollection<Service> Services { get; set; } = new List<Service>();
+    public List<Service> Services { get; set; } = new List<Service>();
 }

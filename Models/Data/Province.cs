@@ -29,9 +29,9 @@ public partial class Province
     public string? CodeName { get; set; }
 
     [InverseProperty("Province")]
-    public ICollection<District> Districts { get; set; } = new List<District>();
+    public List<District> Districts { get; set; } = new List<District>();
 
-    public ICollection<Airport> Airports { get; set; } = new List<Airport>();
+    public List<Airport> Airports { get; set; } = new List<Airport>();
 
-    public ICollection<User> Users { get; set; } = new List<User>();
+    public List<User> Users { get; set; } = new List<User>();
 }

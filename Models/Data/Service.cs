@@ -19,5 +19,5 @@ public partial class Service
 
     public decimal? Price { get; set; }
 
-    public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+    public List<Booking> Bookings { get; set; } = new List<Booking>();
 }

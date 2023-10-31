@@ -22,13 +22,13 @@ public partial class Flight
 
     public DateTime ArrivalTime { get; set; }
 
-    public  Route Route { get; set; } = null!;
+    public  FlightRoute FlightRoute { get; set; } = null!;
 
     [StringLength(50)]
     [Unicode(false)]
     public string? Status { get; set; }
 
-    public ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
+    public List<Schedule> Schedules { get; set; } = new List<Schedule>();
 
-    public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+    public List<Ticket> Tickets { get; set; } = new List<Ticket>();
 }
