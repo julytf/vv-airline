@@ -55,8 +55,9 @@
                         <div class="sm:col-span-3">
                             <label asp-for="DepartureAirportId" for="lastname"
                                 class="block text-sm font-medium leading-6 text-gray-900">Điểm đi</label>
-                            <select asp-for="DepartureAirportId" class="selectpicker" style="width: 100%"
-                                data-placeholder="Chọn điểm đi" data-allow-clear="false" title="Select city...">
+                            <select asp-for="DepartureAirportId" class="selectpicker rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
+                        focus:ring-0 sm:text-sm sm:leading-6" style="width: 100%" data-placeholder="Chọn điểm đi"
+                                data-allow-clear="false" title="Select city...">
                                 <option></option>
                                 @foreach (var airport in ViewBag.airports)
                                 {
@@ -70,8 +71,11 @@
                         <div class="sm:col-span-3">
                             <label asp-for="DestinationAirportId" for="lastname"
                                 class="block text-sm font-medium leading-6 text-gray-900">Điểm đến</label>
-                            <select asp-for="DestinationAirportId" class="selectpicker" style="width: 100%"
-                                data-placeholder="Chọn điểm đến" data-allow-clear="false" title="Select city...">
+                            <select asp-for="DestinationAirportId"
+                                class="selectpicker rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400
+                        focus:ring-0 sm:text-sm sm:leading-6"
+                                style="width: 100%" data-placeholder="Chọn điểm đến" data-allow-clear="false"
+                                title="Select city...">
                                 <option></option>
                                 @foreach (var airport in ViewBag.airports)
                                 {
@@ -324,7 +328,9 @@
                 <div class="mt-6 flex items-center justify-end gap-x-6">
                     @* <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button> *@
                     <button type="submit"
-                        class="rounded-md bg-primary  px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">Tìm</button>
+                        class="rounded-md bg-primary  px-6 py-2 text-lg font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
+                        Tìm chuyến bay
+                    </button>
                 </div>
     </form>
 
@@ -333,7 +339,7 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        $('.selectpicker').select2();
+    $('.selectpicker').select2();
     });
 </script>
 <script>

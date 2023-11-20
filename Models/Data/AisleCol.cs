@@ -11,7 +11,7 @@ public partial class AisleCol
     [Key]
     public long Id { get; set; }
 
-    public byte Value { get; set; }
+    public char Value { get; set; }
 
     public  SeatMap SeatMap { get; set; } = null!;
 }

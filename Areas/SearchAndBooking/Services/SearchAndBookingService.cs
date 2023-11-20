@@ -64,9 +64,10 @@ public class SearchAndBookingService
         {
             ScheduleId = scheduleSelectionModel.ScheduleId,
             ClassName = scheduleSelectionModel.ClassName,
-            Leg1 = new FlightModel()
+            Leg1 = new()
             {
-                FlightId = schedule.Flights[0].Id
+                FlightId = schedule.Flights[0].Id,
+                AdultsSeats = new SeatModel[Data.Search.Adults],
             }
         };
         // Console.WriteLine(Data.GoSchedule.Leg1.FlightId);
@@ -85,11 +86,14 @@ public class SearchAndBookingService
                 Gender = passengersInformationModel.Adults[0].Gender,
             }
         };
+        Data.AdultsPassengers = new PassengerModel[0];
         SaveToSession();
     }
     public void Step4AdditionServicesSelection(AdditionServicesSelectionModel additionServicesSelectionModel) { }
     public void Step5SeatsSelection(SeatSelectionModel seatSelectionModel)
     {
+        Seat seat = _appDBContext.Seats.First(s => s.Id == seatSelectionModel.SeatId);
+
         ScheduleModel scheduleModel;
         if (seatSelectionModel.Turn == SeatSelectionModel.TurnEnum.Go)
         {
@@ -108,21 +112,21 @@ public class SearchAndBookingService
         {
             flightModel = scheduleModel.Leg2;
         }
-        List<SeatModel> seatModels;
+        SeatModel[] seats;
         if (seatSelectionModel.PassengerType == PassengerEnums.Type.Adult)
         {
-            seatModels = flightModel.AdultsSeats;
+            seats = flightModel.AdultsSeats;
         }
         else
         {
-            seatModels = flightModel.ChildrenSeats;
+            seats = flightModel.ChildrenSeats;
         }
-        seatModels[seatSelectionModel.PassengerIndex] =
-            new SeatModel()
-            {
-                SeatId = seatSelectionModel.SeatId,
-            }
-        ;
+
+        seats[seatSelectionModel.PassengerIndex] = new SeatModel(){
+            SeatId = seatSelectionModel.SeatId,
+            Col = seat.Col,
+            Row = seat.Row,
+        };
         SaveToSession();
     }
     public void Step6Checkout(CheckoutModel checkoutModel) { }

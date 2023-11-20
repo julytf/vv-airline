@@ -101,7 +101,7 @@ namespace vv_airline.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    Price = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -195,7 +195,7 @@ namespace vv_airline.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Value = table.Column<byte>(type: "tinyint", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     SeatMapModelId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -236,7 +236,7 @@ namespace vv_airline.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Row = table.Column<byte>(type: "tinyint", nullable: false),
-                    Col = table.Column<byte>(type: "tinyint", nullable: false),
+                    Col = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     SeatMapModelId = table.Column<long>(type: "bigint", nullable: false),
                     SeatClassId = table.Column<long>(type: "bigint", nullable: false),
@@ -294,8 +294,6 @@ namespace vv_airline.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Longitude = table.Column<double>(type: "float", nullable: true),
-                    Latitude = table.Column<double>(type: "float", nullable: true),
                     ProvinceCode = table.Column<string>(type: "nvarchar(20)", nullable: true),
                     DistrictCode = table.Column<string>(type: "nvarchar(20)", nullable: true),
                     WardCode = table.Column<string>(type: "nvarchar(20)", nullable: true)
@@ -404,7 +402,7 @@ namespace vv_airline.Migrations
                     Adults = table.Column<byte>(type: "tinyint", nullable: false),
                     Children = table.Column<byte>(type: "tinyint", nullable: true),
                     IsRoundtrip = table.Column<bool>(type: "bit", nullable: true),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalPrice = table.Column<long>(type: "bigint", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -537,7 +535,7 @@ namespace vv_airline.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Value = table.Column<long>(type: "bigint", nullable: false),
                     FlightRouteId = table.Column<long>(type: "bigint", nullable: false),
                     SeatClassId = table.Column<long>(type: "bigint", nullable: false)
                 },
@@ -564,7 +562,7 @@ namespace vv_airline.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HasTransit = table.Column<bool>(type: "bit", nullable: true),
+                    HasTransit = table.Column<bool>(type: "bit", nullable: false),
                     DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Distance = table.Column<long>(type: "bigint", nullable: true),
@@ -610,7 +608,7 @@ namespace vv_airline.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
                     PhoneNumber = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -684,11 +682,9 @@ namespace vv_airline.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     FlightId = table.Column<long>(type: "bigint", nullable: false),
                     PassengerId = table.Column<long>(type: "bigint", nullable: false),
-                    SeatId = table.Column<long>(type: "bigint", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    SeatId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {

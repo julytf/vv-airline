@@ -18,7 +18,7 @@ public partial class Booking
 
     public bool? IsRoundtrip { get; set; }
 
-    public decimal TotalPrice { get; set; }
+    public long TotalPrice { get; set; }
 
     public List<Passenger> Passengers { get; set; } = new List<Passenger>();
 

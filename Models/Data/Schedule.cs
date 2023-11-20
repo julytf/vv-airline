@@ -11,7 +11,7 @@ public partial class Schedule
     [Key]
     public long Id { get; set; }
 
-    public bool? HasTransit { get; set; }
+    public bool HasTransit { get; set; } = false;
 
     public DateTime DepartureTime { get; set; }
 
@@ -26,6 +26,6 @@ public partial class Schedule
     public List<Booking> Bookings { get; set; }
 
     [NotMapped]
-    public IDictionary<String, decimal> Prices { get; set; } = new Dictionary<String, decimal>();
+    public IDictionary<String, long> Prices { get; set; } = new Dictionary<String, long>();
 
 }

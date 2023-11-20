@@ -12,7 +12,7 @@ public partial class Ticket
     [Key]
     public long Id { get; set; }
 
-    public decimal Price { get; set; }
+    // public long Price { get; set; }
 
     public Flight Flight { get; set; } = null!;
 
@@ -20,5 +20,5 @@ public partial class Ticket
 
     public Seat Seat { get; set; } = null!;
 
-    public TicketEnums.Statuses Status { get; set; }
+    // public TicketEnums.Statuses Status { get; set; }
 }

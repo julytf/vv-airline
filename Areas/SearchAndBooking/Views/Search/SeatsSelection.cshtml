@@ -1,4 +1,6 @@
 @using System.Linq
+@using vv_airline.Models.Data
+@using vv_airline.Areas.SearchAndBooking.Models.searchAndBookingService
 
 @model vv_airline.Areas.SearchAndBooking.Models.SeatSelectionModel
 
@@ -15,257 +17,285 @@ $('.selectpicker').select2();
 });
 </script> *@
 
-
-<div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-    <ul class="relative z-0">
-        <li class="inline-block">
-            <a href="#" class="border-solid border-2 border-primary bg-sky-200 rounded-md p-6 pt-2 -mb-4 inline-block">
-                <div class="block">
-                    <div class="w-full text-lg font-semibold">HN to HCM</div>
-                </div>
-            </a>
-        </li>
-        <li class="inline-block">
-            <a href="#" class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
-                <div class="block">
-                    <div class="w-full text-lg font-semibold">HCM to Paris</div>
-                </div>
-            </a>
-        </li>
-        <li class="inline-block">
-            <a href="#" class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
-                <div class="block">
-                    <div class="w-full text-lg font-semibold">HCM to Paris</div>
-                </div>
-            </a>
-        </li>
-        <li class="inline-block">
-            <a href="#" class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
-                <div class="block">
-                    <div class="w-full text-lg font-semibold">HCM to Paris</div>
-                </div>
-            </a>
-        </li>
-    </ul>
-    <form method="post" class="mx-auto border-solid border-2 border-primary rounded-md p-6 bg-white z-10 relative ">
-
-        <input asp-for="Turn" type="hidden">
-        <input asp-for="Leg" type="hidden">
-        <input asp-for="PassengerType" type="hidden">
-        <input asp-for="PassengerIndex" type="hidden">
-
-        <ul class="py-3">
-            <li class="mb-3">
-                <input type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer" required
-                    checked>
-                <label for="hosting-small"
-                    class="w-1/2 inline-flex items-center justify-between p-2 px-4 text-gray-500 bg-white border border-gray-200 rounded cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+<form method="post">
+    <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+        <ul class="relative z-0">
+            <li class="inline-block">
+                <a href="#"
+                    class="border-solid border-2 border-primary bg-sky-200 rounded-md p-6 pt-2 -mb-4 inline-block">
                     <div class="block">
-                        <div class="w-full text-lg font-semibold">Khách A</div>
+                        <div class="w-full text-lg font-semibold">HN to HCM</div>
                     </div>
-                </label>
+                </a>
             </li>
-            <li class="mb-3">
-                <input type="radio" id="hosting-big" name="hosting" value="hosting-big" class="hidden peer">
-                <label for="hosting-big"
-                    class="w-1/2 inline-flex items-center justify-between p-2 px-4 text-gray-500 bg-white border border-gray-200 rounded cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <li class="inline-block">
+                <a href="#" class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
                     <div class="block">
-                        <div class="w-full text-lg font-semibold">Khách B</div>
+                        <div class="w-full text-lg font-semibold">HCM to Paris</div>
                     </div>
-                </label>
+                </a>
+            </li>
+            <li class="inline-block">
+                <a href="#" class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
+                    <div class="block">
+                        <div class="w-full text-lg font-semibold">HCM to Paris</div>
+                    </div>
+                </a>
+            </li>
+            <li class="inline-block">
+                <a href="#" class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
+                    <div class="block">
+                        <div class="w-full text-lg font-semibold">HCM to Paris</div>
+                    </div>
+                </a>
             </li>
         </ul>
+        <div class="mx-auto border-solid border-2 border-primary rounded-md p-6 bg-white z-10 relative ">
 
-        <div class="flex flex-col justify-center">
-            @* <ul class="">
-            <li class="inline-block">
-            <input type="radio" id="khach1" name="khach" value="khach1" class="hidden peer" required checked>
-            <label for="khach1"
-            class="border-solid border-2 border-primary bg-sky-200 rounded-md p-6 pt-2 -mb-4 inline-block">
-            <div class="block">
-            <div class="w-full text-lg font-semibold">HN to HCM</div>
-            </div>
-            </label>
-            </li>
-            <li class="inline-block">
-            <input type="radio" id="khach2" name="khach" value="khach2" class="hidden peer">
-            <label for="khach2"
-            class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
-            <div class="block">
-            <div class="w-full text-lg font-semibold">HCM to Paris</div>
-            </div>
-            </label>
-            </li>
-            <li class="inline-block">
-            <input type="radio" id="khach2" name="khach" value="khach2" class="hidden peer">
-            <label for="khach2"
-            class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
-            <div class="block">
-            <div class="w-full text-lg font-semibold">HCM to Paris</div>
-            </div>
-            </label>
-            </li>
-            <li class="inline-block">
-            <input type="radio" id="khach2" name="khach" value="khach2" class="hidden peer">
-            <label for="khach2"
-            class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
-            <div class="block">
-            <div class="w-full text-lg font-semibold">HCM to Paris</div>
-            </div>
-            </label>
-            </li>
-            </ul> *@
-            @* <div>
-            <div class="border-solid border-2 border-primary bg-secondary rounded-md p-6 pt-2 -mb-4 inline-block">
-            HN to HCM
-            </div>
-            <div class="border-solid border-2 border-primary rounded-md p-6 pt-2 -mb-4 inline-block">
-            HCM to Paris
-            </div>
-            </div> *@
-            <div
-                class="flex flex-col justify-center border-solid border-2 border-primary rounded-md p-6 inline-block bg-white">
-                <div class="w-full flex justify-around mt-2 text-2xl mb-6">
-                    Boing 444
-                </div>
-                <table class="border-spacing-6">
-                    <thead>
-                        <tr class="text-center">
-                            <th></th>
-                            @for (var c = 0; c < seatMap.NoCol; c++)
-                            {
-                                char ch = (char)('A' + c);
-                                <td class="p-6">
-                                    @(seatMap.AisleCols.Find(ac => ac.Value == c + 1) == null ? ch : "")
-                                </td>
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (var r = 0; r < seatMap.NoRow; r++)
-                        {
-                            <tr class="text-center">
-                                <th class="pr-3">@(r + 1)</th>
+            <input asp-for="Turn" type="hidden">
+            <input asp-for="Leg" type="hidden">
+            <input asp-for="PassengerType" type="hidden">
+            <input asp-for="PassengerIndex" type="hidden">
+            @* <input asp-for="SeatId" type="hidden"> *@
 
-                                @for (var c = 0; c < seatMap.NoCol; c++)
+            <ul class="py-3">
+                @for (int i = 0; i < ViewBag.passengers.Length; i++)
+                {
+                    var passenger = ViewBag.passengers[i];
+                    <li class="mb-3">
+                        <input type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer"
+                            required checked>
+                        <label for="hosting-small"
+                            class="w-1/2 inline-flex items-center justify-between p-2 px-4 text-gray-500 bg-white border border-gray-200 rounded cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <div class="w-full text-lg font-semibold flex justify-between">
+                                <div>
+                                    @passenger.FullName
+                                </div>
+                                @if (ViewBag.seats[i] != null)
                                 {
-                                    char ch = (char)('A' + c);
-                                    <td class="p-2">
-                                        @* @if(seatMap.AisleCols.Find(ac => ac.Value == j + 1) == null ){ *@
-                                        @{
-                                            var seat = seatMap.Seats.Find(s => s.Col == c && s.Row == r);
-                                        }
-                                        @if (seat != null)
-                                        {
+                                    <div>
+                                        @ViewBag.seats[i].Col-@ViewBag.seats[i].Row
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        (chưa chọn ghế)
+                                    </div>
+                                }
+                            </div>
+                        </label>
+                    </li>
+                }
+                @* <li class="mb-3">
+                <input type="radio" id="hosting-big" name="hosting" value="hosting-big" class="hidden peer">
+                <label for="hosting-big"
+                class="w-1/2 inline-flex items-center justify-between p-2 px-4 text-gray-500 bg-white border
+                border-gray-200
+                rounded cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500
+                peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100
+                dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <div class="block">
+                <div class="w-full text-lg font-semibold">Khách B</div>
+                </div>
+                </label>
+                </li> *@
+            </ul>
 
-                                            <button name="SeatId" value="@seat.Id"
-                                                class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10 hover:ring-4 hover:ring-green-800">
-                                                @ch-@(r + 1)
-                                            </button>
-                                        }
+            <div class="flex flex-col justify-center">
+                @* <ul class="">
+                <li class="inline-block">
+                <input type="radio" id="khach1" name="khach" value="khach1" class="hidden peer" required checked>
+                <label for="khach1"
+                class="border-solid border-2 border-primary bg-sky-200 rounded-md p-6 pt-2 -mb-4 inline-block">
+                <div class="block">
+                <div class="w-full text-lg font-semibold">HN to HCM</div>
+                </div>
+                </label>
+                </li>
+                <li class="inline-block">
+                <input type="radio" id="khach2" name="khach" value="khach2" class="hidden peer">
+                <label for="khach2"
+                class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
+                <div class="block">
+                <div class="w-full text-lg font-semibold">HCM to Paris</div>
+                </div>
+                </label>
+                </li>
+                <li class="inline-block">
+                <input type="radio" id="khach2" name="khach" value="khach2" class="hidden peer">
+                <label for="khach2"
+                class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
+                <div class="block">
+                <div class="w-full text-lg font-semibold">HCM to Paris</div>
+                </div>
+                </label>
+                </li>
+                <li class="inline-block">
+                <input type="radio" id="khach2" name="khach" value="khach2" class="hidden peer">
+                <label for="khach2"
+                class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
+                <div class="block">
+                <div class="w-full text-lg font-semibold">HCM to Paris</div>
+                </div>
+                </label>
+                </li>
+                </ul> *@
+                @* <div>
+                <div class="border-solid border-2 border-primary bg-secondary rounded-md p-6 pt-2 -mb-4 inline-block">
+                HN to HCM
+                </div>
+                <div class="border-solid border-2 border-primary rounded-md p-6 pt-2 -mb-4 inline-block">
+                HCM to Paris
+                </div>
+                </div> *@
+                <div
+                    class="flex flex-col justify-center border-solid border-2 border-primary rounded-md p-6 inline-block bg-white">
+                    <div class="w-full flex justify-around mt-2 text-2xl mb-6">
+                        Boing 444
+                    </div>
+                    <table class="border-spacing-6">
+                        <thead>
+                            <tr class="text-center">
+                                <th></th>
+                                @for (var c = 'A'; c < 'A' + seatMap.NoCol; c++)
+                                {
+                                    <td class="p-6">
+                                        @(seatMap.AisleCols.Find(ac => ac.Value == c) == null ? c : "")
                                     </td>
                                 }
-                                @* <td class="p-2">
-                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                            </div>
-                            </td>
-                            <td class="p-2">
-                            </td>
-                            <td class="p-2">
-                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                            </div>
-                            </td>
-                            <td class="p-2">
-                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                            </div>
-                            </td>
-                            <td class="p-2">
-                            </td>
-                            <td class="p-2">
-                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                            </div>
-                            </td>
-                            <td class="p-2">
-                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                            </div>
-                            </td> *@
                             </tr>
-                        }
-                        @* <tr class="text-center">
-                        <th class="pr-3">1</th>
-                        <td class="p-2">
-                        <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                        </div>
-                        </td>
-                        <td class="p-2">
-                        <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                        </div>
-                        </td>
-                        <td class="p-2">
-                        </td>
-                        <td class="p-2">
-                        <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                        </div>
-                        </td>
-                        <td class="p-2">
-                        <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                        </div>
-                        </td>
-                        <td class="p-2">
-                        </td>
-                        <td class="p-2">
-                        <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                        </div>
-                        </td>
-                        <td class="p-2">
-                        <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                        </div>
-                        </td>
-                        </tr>
-                        <tr class="text-center">
-                        <th class="pr-3">1</th>
-                        <td class="p-2">
-                        <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                        </div>
-                        </td>
-                        <td class="p-2">
-                        <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                        </div>
-                        </td>
-                        <td class="p-2">
-                        </td>
-                        <td class="p-2">
-                        <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                        </div>
-                        </td>
-                        <td class="p-2">
-                        <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                        </div>
-                        </td>
-                        <td class="p-2">
-                        </td>
-                        <td class="p-2">
-                        <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                        </div>
-                        </td>
-                        <td class="p-2">
-                        <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
-                        </div>
-                        </td>
-                        </tr> *@
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @for (var r = 1; r <= seatMap.NoRow; r++)
+                            {
+                                SeatModel[] seats = ViewBag.seats;
+
+                                <tr class="text-center">
+                                    <th class="pr-3">@r</th>
+
+                                    @for (var c = 'A'; c < 'A' + seatMap.NoCol; c++)
+                                    {
+                                        var seat = seatMap.Seats.Find(s => s.Col == c && s.Row == r);
+                                        bool isWaitingSeat = Array.Find<SeatModel>(seats, s => s != null && seat != null &&
+                                        s.SeatId
+                                        == seat.Id) != null;
+
+                                        <td class="p-2">
+                                            @if (seat != null && !isWaitingSeat)
+                                            {
+                                                <button name="SeatId" value="@seat.Id"
+                                                    class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10 hover:ring-4 hover:ring-green-800">
+                                                    @c-@r
+                                                </button>
+                                            }
+                                        </td>
+                                    }
+                                    @* <td class="p-2">
+                                <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                                </div>
+                                </td>
+                                <td class="p-2">
+                                </td>
+                                <td class="p-2">
+                                <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                                </div>
+                                </td>
+                                <td class="p-2">
+                                <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                                </div>
+                                </td>
+                                <td class="p-2">
+                                </td>
+                                <td class="p-2">
+                                <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                                </div>
+                                </td>
+                                <td class="p-2">
+                                <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                                </div>
+                                </td> *@
+                                </tr>
+                            }
+                            @* <tr class="text-center">
+                            <th class="pr-3">1</th>
+                            <td class="p-2">
+                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                            </div>
+                            </td>
+                            <td class="p-2">
+                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                            </div>
+                            </td>
+                            <td class="p-2">
+                            </td>
+                            <td class="p-2">
+                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                            </div>
+                            </td>
+                            <td class="p-2">
+                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                            </div>
+                            </td>
+                            <td class="p-2">
+                            </td>
+                            <td class="p-2">
+                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                            </div>
+                            </td>
+                            <td class="p-2">
+                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                            </div>
+                            </td>
+                            </tr>
+                            <tr class="text-center">
+                            <th class="pr-3">1</th>
+                            <td class="p-2">
+                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                            </div>
+                            </td>
+                            <td class="p-2">
+                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                            </div>
+                            </td>
+                            <td class="p-2">
+                            </td>
+                            <td class="p-2">
+                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                            </div>
+                            </td>
+                            <td class="p-2">
+                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                            </div>
+                            </td>
+                            <td class="p-2">
+                            </td>
+                            <td class="p-2">
+                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                            </div>
+                            </td>
+                            <td class="p-2">
+                            <div class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10">test
+                            </div>
+                            </td>
+                            </tr> *@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class=" mx-auto max-w-2xl mb-20">
+            <div class="mt-6 flex items-center justify-center gap-x-20">
+                <button type="button" class="text-sm font-semibold leading-6 text-gray-900">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Quay lại
+                </button>
+                <button type="submit" name="action" value="next"
+                    class="rounded-md bg-primary px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
+                    Tiếp tục
+                </button>
             </div>
         </div>
-
-    </form>
-
-</div>
-
-<script>
-
-    let TurnInput = document.querySelector("#Turn")
-    let LegInput = document.querySelector("#Leg")
-    let PassengerTypeInput = document.querySelector("#PassengerType")
-    let PassengerIndexInput = document.querySelector("#PassengerIndex")
-</script>
+    </div>
+</form>

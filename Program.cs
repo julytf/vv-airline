@@ -52,17 +52,24 @@ public class Program
 
         var dbContext = scope.ServiceProvider.GetService<AppDBContext>();
 
-        var schedule = dbContext
-                    .Schedules
-                    .Include(s => s.Flights)
-                    .First();
+        // var schedule = dbContext
+        //             .Schedules
+        //             .Include(s => s.Flights)
+        //             .First();
 
-        var flight = schedule.Flights[0];
-        Console.WriteLine(flight.Id);
+        // var flight = schedule.Flights[0];
+        // Console.WriteLine(flight.Id);
 
         // var aircraft = flight.Aircraft;
         // Console.WriteLine(aircraft.RegistrationNumber);
 
+
+        long price = dbContext.Prices.Single(p =>
+                p.FlightRoute.Id == 1
+                && p.SeatClass.Name == SeatEnums.Classes.Economy.ToString()
+            ).Value;
+
+            Console.WriteLine(price);
             
 
         return;

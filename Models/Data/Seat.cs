@@ -14,7 +14,7 @@ public partial class Seat
 
     public byte Row { get; set; }
 
-    public byte Col { get; set; }
+    public char Col { get; set; }
 
     public SeatEnums.Statuses Status { get; set; }
 

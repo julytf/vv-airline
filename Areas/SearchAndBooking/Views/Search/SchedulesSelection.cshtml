@@ -52,12 +52,12 @@ $('.selectpicker').select2();
                     </div>
                 </div>
                 <div class="w-1/2 p-3 flex">
-                    <button data-ScheduleId="@schedule.Id" data-ClassName="Economy"
+                    <button data-ScheduleId="@schedule.Id" data-ClassName="@SeatEnums.Classes.Economy.ToString()"
                         class="w-1/2 border border-gray-400 rounded-md p-2 m-1 text-center text-3xl hover:border-primary hover:bg-sky-100"
                         onclick="return submitHandler(this)">
                         @schedule.Prices[SeatEnums.Classes.Economy.ToString()]
                     </button>
-                    <button data-ScheduleId="@schedule.Id" data-ClassName="Bussiness"
+                    <button data-ScheduleId="@schedule.Id" data-ClassName="@SeatEnums.Classes.Business.ToString()"
                         class="w-1/2 border border-gray-400 rounded-md p-2 m-1 text-center text-3xl hover:border-primary hover:bg-sky-100"
                         onclick="return submitHandler(this)">
                         @schedule.Prices[SeatEnums.Classes.Business.ToString()]

@@ -3,6 +3,6 @@ public class FlightModel
 {
     public long FlightId { get; set; }
 
-    public List<SeatModel> AdultsSeats { get; set; } = new();
-    public List<SeatModel> ChildrenSeats { get; set; } = new();
+    public SeatModel[] AdultsSeats { get; set; } = new SeatModel[0];
+    public SeatModel[] ChildrenSeats { get; set; } = new SeatModel[0];
 }

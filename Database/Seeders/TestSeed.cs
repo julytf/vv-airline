@@ -41,8 +41,8 @@ public static class TestSeed
 
         var aisle_cols = new[] {
             // new AisleCol(){ SeatMap = newSeatMap, Value = 2},
-            new AisleCol(){ SeatMap = newSeatMap, Value = 3},
-            new AisleCol(){ SeatMap = newSeatMap, Value = 6},
+            new AisleCol(){ SeatMap = newSeatMap, Value = 'C'},
+            new AisleCol(){ SeatMap = newSeatMap, Value = 'F'},
             // new AisleCol(){ SeatMap = newSeatMap, Value = 7},
         };
         var exit_rows = new[] {
@@ -57,11 +57,11 @@ public static class TestSeed
 
         List<Seat> seats = new();
 
-        for (byte x = 0; x < 8; x++)
+        for (char x = 'A'; x < 'H'+1; x++)
         {
-            if (x == 2 || x == 5) continue;
+            if (x == 'C' || x == 'F') continue;
 
-            for (byte y = 0; y < 50; y++)
+            for (byte y = 1; y <=50; y++)
             {
                 seats.Add(new Seat()
                 {

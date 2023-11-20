@@ -12,7 +12,7 @@ using vv_airline.Models.Data;
 namespace vv_airline.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20231026022216_init")]
+    [Migration("20231107140941_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -245,12 +245,6 @@ namespace vv_airline.Migrations
                     b.Property<string>("DistrictCode")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<double?>("Latitude")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("Longitude")
-                        .HasColumnType("float");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -284,8 +278,9 @@ namespace vv_airline.Migrations
                     b.Property<long>("SeatMapModelId")
                         .HasColumnType("bigint");
 
-                    b.Property<byte>("Value")
-                        .HasColumnType("tinyint");
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
 
                     b.HasKey("Id");
 
@@ -311,8 +306,8 @@ namespace vv_airline.Migrations
                     b.Property<bool?>("IsRoundtrip")
                         .HasColumnType("bit");
 
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long>("TotalPrice")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -521,11 +516,8 @@ namespace vv_airline.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(20)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(20)");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -548,8 +540,8 @@ namespace vv_airline.Migrations
                     b.Property<long>("SeatClassId")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long>("Value")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -613,7 +605,7 @@ namespace vv_airline.Migrations
                     b.Property<long>("FlightRouteId")
                         .HasColumnType("bigint");
 
-                    b.Property<bool?>("HasTransit")
+                    b.Property<bool>("HasTransit")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -631,8 +623,9 @@ namespace vv_airline.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<byte>("Col")
-                        .HasColumnType("tinyint");
+                    b.Property<string>("Col")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<byte>("Row")
                         .HasColumnType("tinyint");
@@ -734,8 +727,8 @@ namespace vv_airline.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long?>("Price")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -756,14 +749,8 @@ namespace vv_airline.Migrations
                     b.Property<long>("PassengerId")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<long>("SeatId")
                         .HasColumnType("bigint");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -11,7 +11,7 @@ public partial class Price
     [Key]
     public long Id { get; set; }
 
-    public decimal Value { get; set; }
+    public long Value { get; set; }
 
     public  FlightRoute FlightRoute { get; set; } = null!;
 

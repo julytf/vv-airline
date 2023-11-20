@@ -1,0 +1,194 @@
+@using vv_airline.Models.Data
+@model vv_airline.Areas.SearchAndBooking.Models.PassengersInformationModel
+
+@Html.Partial("Partials/_NavBar.cshtml")
+
+
+<div class=" mx-auto max-w-2xl mb-20">
+    <div class="border-solid border-2 border-primary rounded-md">
+        <h2 class="text-lg font-semibold leading-9 text-gray-900 border-b-2 border-primary p-2 relative z-20">
+            Chi Tiết
+            <span class="absolute right-0 pr-2">
+                50,000,000
+            </span>
+        </h2>
+        <div class="bg-sky-200 p-2 shadow-md relative z-10">
+            @ViewBag.GoSchedule.FlightRoute.DepartureAirport.Name
+            <i class="fa-duotone fa-plane px-2"></i>
+            @ViewBag.GoSchedule.FlightRoute.DestinationAirport.Name
+            <span class="absolute right-0 pr-2">
+                10,000,000
+            </span>
+        </div>
+        @if (ViewBag.GoSchedule.HasTransit)
+        {
+            <div class="bg-sky-50 p-2 shadow-md relative">
+                &emsp;
+                HN -> HCM
+            </div>
+        }
+        <div class="p-1 text-xs relative">
+            &emsp;&emsp;
+            Boing 999
+        </div>
+        <div class="p-1 text-xs relative">
+            &emsp;&emsp;
+            Khởi hành: 9h 23/12/2023
+        </div>
+        <div class="p-1 text-xs relative">
+            &emsp;&emsp;
+            Thời gian: 10h30
+        </div>
+        @if (ViewBag.GoSchedule.HasTransit)
+        {
+            <div class="bg-sky-50 p-2 shadow-md relative">
+                &emsp;
+                HN -> HCM
+            </div>
+            <div class="p-1 text-xs relative">
+                &emsp;&emsp;
+                Boing 999
+            </div>
+            <div class="p-1 text-xs relative">
+                &emsp;&emsp;
+                Khởi hành: 9h 23/12/2023
+            </div>
+            <div class="p-1 text-xs relative">
+                &emsp;&emsp;
+                Thời gian: 10h30
+            </div>
+            <div class="bg-yellow-100 p-1 text-xs relative">
+                &emsp;&emsp;&emsp;
+                Dịch vụ: Luxury meal x2
+                <span class="absolute right-0 pr-2">
+                    +100,000
+                </span>
+            </div>
+            <div class="bg-yellow-100 p-1 text-xs relative">
+                &emsp;&emsp;&emsp;
+                Ghế đặt biệt: Ghế cửa sổ x2
+                <span class="absolute right-0 pr-2">
+                    +1,000,000
+                </span>
+            </div>
+        }
+        @* <div class="bg-sky-200 p-2 shadow-md relative z-10">
+        HN -> Can Tho
+        <span class="absolute right-0 pr-2">
+        10,000,000
+        </span>
+        </div>
+        <div class="bg-sky-50 p-2 shadow-md relative">
+        &emsp;
+        HN -> HCM
+        </div>
+        <div class="p-1 text-xs relative">
+        &emsp;&emsp;
+        Boing 999
+        </div>
+        <div class="p-1 text-xs relative">
+        &emsp;&emsp;
+        Khởi hành: 9h 23/12/2023
+        </div>
+        <div class="p-1 text-xs relative">
+        &emsp;&emsp;
+        Thời gian: 10h30
+        </div>
+        <div class="bg-sky-50 p-2 shadow-md relative">
+        &emsp;
+        HN -> HCM
+        </div>
+        <div class="p-1 text-xs relative">
+        &emsp;&emsp;
+        Boing 999
+        </div>
+        <div class="p-1 text-xs relative">
+        &emsp;&emsp;
+        Khởi hành: 9h 23/12/2023
+        </div>
+        <div class="p-1 text-xs relative">
+        &emsp;&emsp;
+        Thời gian: 10h30
+        </div>
+        <div class="bg-yellow-100 p-1 text-xs relative">
+        &emsp;&emsp;&emsp;
+        Dịch vụ: Luxury meal x2
+        <span class="absolute right-0 pr-2">
+        +100,000
+        </span>
+        </div>
+        <div class="bg-yellow-100 p-1 text-xs relative">
+        &emsp;&emsp;&emsp;
+        Ghế đặt biệt: Ghế cửa sổ x2
+        <span class="absolute right-0 pr-2">
+        +1,000,000
+        </span>
+        </div> *@
+        @* <div class="bg-sky-200 p-2 shadow-md relative z-10">
+        HN -> Can Tho
+        <span class="absolute right-0 pr-2">
+        10,000,000
+        </span>
+        </div>
+        <div class="bg-sky-50 p-2 shadow-md relative">
+        &emsp;
+        HN -> HCM
+        </div>
+        <div class="p-1 text-xs relative">
+        &emsp;&emsp;
+        Boing 999
+        </div>
+        <div class="p-1 text-xs relative">
+        &emsp;&emsp;
+        Khởi hành: 9h 23/12/2023
+        </div>
+        <div class="p-1 text-xs relative">
+        &emsp;&emsp;
+        Thời gian: 10h30
+        </div>
+        <div class="bg-sky-50 p-2 shadow-md relative">
+        &emsp;
+        HN -> HCM
+        </div>
+        <div class="p-1 text-xs relative">
+        &emsp;&emsp;
+        Boing 999
+        </div>
+        <div class="p-1 text-xs relative">
+        &emsp;&emsp;
+        Khởi hành: 9h 23/12/2023
+        </div>
+        <div class="p-1 text-xs relative">
+        &emsp;&emsp;
+        Thời gian: 10h30
+        </div> *@
+    </div>
+</div>
+
+
+<div class=" mx-auto max-w-2xl mb-20">
+    <div class="mt-6 flex items-center justify-center gap-x-20">
+        <button type="submit"
+            class="rounded-md bg-primary px-5 py-3 font-semibold text-2xl text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
+            Thanh toán với Stripe
+            <img src="/images/stripe_logo.png" class="inline w-8 rounded-md">
+        </button>
+    </div>
+</div>
+<div class=" mx-auto max-w-2xl mb-20">
+    <div class="mt-6 flex items-center justify-center gap-x-20">
+        <a asp-controller="Search" asp-action="CheckoutSuccess"
+            class="rounded-md bg-primary px-5 py-3 font-semibold text-2xl text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
+            Thanh toán thành công (DEBUG)
+        </a>
+    </div>
+</div>
+
+<div class=" mx-auto max-w-2xl mb-20">
+    <div class="mt-6 flex items-center justify-center gap-x-20">
+        <button type="button" class="text-sm font-semibold leading-6 text-gray-900">
+            <i class="fa-solid fa-arrow-left"></i>
+            Quay lại
+        </button>
+    </div>
+</div>

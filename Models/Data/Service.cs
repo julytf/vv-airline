@@ -17,7 +17,7 @@ public partial class Service
     [StringLength(255)]
     public string Description { get; set; } = null!;
 
-    public decimal? Price { get; set; }
+    public long? Price { get; set; }
 
     public List<Booking> Bookings { get; set; } = new List<Booking>();
 }
