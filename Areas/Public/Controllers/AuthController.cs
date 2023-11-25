@@ -117,7 +117,7 @@ public class AuthController : AppBaseController
     [HttpPost("/register")]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Register(RegisterModel model, string returnUrl = "/")
+    public async Task<IActionResult> Register(UserModel model, string returnUrl = "/")
     {
         ViewData["ReturnUrl"] = returnUrl;
 
@@ -142,9 +142,9 @@ public class AuthController : AppBaseController
             DateOfBirth = model.DateOfBirth,
             Gender = model.Gender,
             IdNumber = model.IdNumber,
-            Province = _appDBContext.Provinces.Where(p => p.Code == model.ProvinceCode).First(),
-            District = _appDBContext.Districts.Where(d => d.Code == model.DistrictCode).First(),
-            Ward = _appDBContext.Wards.Where(w => w.Code == model.WardCode).First(),
+            Province = _appDBContext.Provinces.Where(p => p.Code == model.ProvinceCode).FirstOrDefault(),
+            District = _appDBContext.Districts.Where(d => d.Code == model.DistrictCode).FirstOrDefault(),
+            Ward = _appDBContext.Wards.Where(w => w.Code == model.WardCode).FirstOrDefault(),
             Address = model.Address,
             Address2 = model.Address2,
             SecurityStamp = Guid.NewGuid().ToString(),

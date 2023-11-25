@@ -49,6 +49,7 @@ public partial class AppDBContext : IdentityDbContext<User>
     public virtual DbSet<Passenger> Passengers { get; set; }
 
     public virtual DbSet<Price> Prices { get; set; }
+    public virtual DbSet<DefaultPrice> DefaultPrices { get; set; }
 
     public virtual DbSet<FlightRoute> FlightRoutes { get; set; }
 

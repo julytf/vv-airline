@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace vv_airline.Models.Data;
 
-public partial class Price
+public partial class DefaultPrice
 {
     [Key]
     public long Id { get; set; }
 
     public long Value { get; set; }
 
-    public  Schedule Schedule { get; set; } = null!;
+    public  FlightRoute FlightRoute { get; set; } = null!;
 
     public  SeatClass SeatClass { get; set; } = null!;
 }

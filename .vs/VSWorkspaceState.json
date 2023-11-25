@@ -1,12 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Areas",
-    "\\Areas\\SearchAndBooking",
-    "\\Areas\\SearchAndBooking\\Views",
     "\\Areas\\SearchAndBooking\\Views\\Search",
-    "\\Areas\\SearchAndBooking\\Views\\Search\\Partials"
+    "\\Areas\\SearchAndBooking\\Views\\Search\\Partials",
+    "\\Database",
+    "\\Database\\Seeders"
   ],
-  "SelectedNode": "\\Areas\\SearchAndBooking\\Views\\Search\\SeatsSelection.cshtml",
+  "SelectedNode": "\\Database\\Seeders\\TestSeed.cs",
   "PreviewInSolutionExplorer": false
 }

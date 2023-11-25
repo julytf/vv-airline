@@ -1,0 +1,182 @@
+@using vv_airline.Models.Data
+@inject AppDBContext _appDBContext;
+
+@foreach (Booking booking in @ViewBag.bookings)
+{
+    int passengersCount = booking.Passengers.Count;
+    Console.WriteLine(booking.Schedules.Count);
+    Console.WriteLine(booking.Schedules[0].Flights.Count);
+    SeatClass goSeatClass = booking
+    .Passengers[0]
+    .Tickets
+    .First(t => t.Flight == booking.Schedules[0].Flights[0])
+    .Seat
+    .SeatClass;
+    Console.WriteLine(goSeatClass.Name);
+
+    SeatClass returnSeatClass = null!;
+    if (booking.Schedules.Count == 2)
+    {
+        returnSeatClass = booking
+        .Passengers[0]
+        .Tickets
+        .First(t => t.Flight == booking.Schedules[1].Flights[0])
+        .Seat
+        .SeatClass;
+    }
+
+    Price goPrice = _appDBContext
+    .Prices
+    .Single(p =>
+    p.Schedule == booking.Schedules[0]
+    && p.SeatClass == goSeatClass
+    );
+
+    Price returnPrice = null!;
+    if (booking.Schedules.Count == 2)
+    {
+        returnPrice = _appDBContext
+        .Prices
+        .Single(p =>
+        p.Schedule == booking.Schedules[1]
+        && p.SeatClass == returnSeatClass
+        );
+    }
+    <div class=" mx-auto max-w-2xl mb-20">
+        <div class="border-solid border-2 border-primary rounded-md">
+            <h2 class="text-lg font-semibold leading-9 text-gray-900 border-b-2 border-primary p-2 relative z-20">
+                Chi Tiết
+                <span class="absolute right-0 pr-2">
+                    @booking.TotalPrice.ToString("N0")
+                </span>
+            </h2>
+            <div>
+                <div class="bg-sky-200 p-2 shadow-md relative z-10">
+                    @booking.Schedules[0].FlightRoute.DepartureAirport.Name
+                    <i class="fa-duotone fa-plane px-2"></i>
+                    @booking.Schedules[0].FlightRoute.DestinationAirport.Name
+                    <span class="absolute right-0 pr-2">
+                        @passengersCount
+                        x
+                        @goPrice.Value.ToString("N0")
+                    </span>
+                </div>
+                @if (booking.Schedules[0].HasTransit)
+                {
+                    <div class="bg-sky-50 p-2 shadow-md relative">
+                        &emsp;
+                        @booking.Schedules[0].Flights[0].FlightRoute.DepartureAirport.Name
+                        đến
+                        @booking.Schedules[0].Flights[0].FlightRoute.DestinationAirport.Name
+                    </div>
+                }
+                <div class="p-1 text-xs relative">
+                    &emsp;&emsp;
+                    @booking.Schedules[0].Flights[0].Aircraft.Name
+                </div>
+                <div class="p-1 text-xs relative">
+                    &emsp;&emsp;
+                    Khởi hành: @booking.Schedules[0].Flights[0].DepartureTime.ToString("HH:mm dd-MM-yyyy")
+                </div>
+                <div class="p-1 text-xs relative">
+                    &emsp;&emsp;
+                    Thời gian:
+                    @((int)booking.Schedules[0].Flights[0].Duration.TotalHours)
+                    tiếng
+                    @(booking.Schedules[0].Flights[0].Duration.Minutes != 0 ?
+                        (int)booking.Schedules[0].Flights[0].Duration.Minutes : "")
+                </div>
+                @if (booking.Schedules[0].HasTransit)
+                {
+                    <div class="bg-sky-50 p-2 shadow-md relative">
+                        &emsp;
+                        @booking.Schedules[0].Flights[1].FlightRoute.DepartureAirport.Name
+                        đến
+                        @booking.Schedules[0].Flights[1].FlightRoute.DestinationAirport.Name
+                    </div>
+                    <div class="p-1 text-xs relative">
+                        &emsp;&emsp;
+                        @booking.Schedules[0].Flights[1].Aircraft.Name
+                    </div>
+                    <div class="p-1 text-xs relative">
+                        &emsp;&emsp;
+                        Khởi hành: @booking.Schedules[0].Flights[1].DepartureTime.ToString("HH:mm dd-MM-yyyy")
+                    </div>
+                    <div class="p-1 text-xs relative">
+                        &emsp;&emsp;
+                        Thời gian:
+                        @((int)booking.Schedules[0].Flights[1].Duration.TotalHours)
+                        tiếng
+                        @(booking.Schedules[0].Flights[1].Duration.Minutes != 0 ?
+                            (int)booking.Schedules[0].Flights[1].Duration.Minutes : "")
+                    </div>
+                }
+            </div>
+            @if (booking.Schedules.Count == 2)
+            {
+                <div>
+                    <div class="bg-sky-200 p-2 shadow-md relative z-10">
+                        @booking.Schedules[1].FlightRoute.DepartureAirport.Name
+                        <i class="fa-duotone fa-plane px-2"></i>
+                        @booking.Schedules[1].FlightRoute.DestinationAirport.Name
+                        <span class="absolute right-0 pr-2">
+                            @passengersCount
+                            x
+                            @returnPrice.Value.ToString("N0")
+                        </span>
+                    </div>
+                    @if (booking.Schedules[1].HasTransit)
+                    {
+                        <div class="bg-sky-50 p-2 shadow-md relative">
+                            &emsp;
+                            @booking.Schedules[1].Flights[0].FlightRoute.DepartureAirport.Name
+                            đến
+                            @booking.Schedules[1].Flights[0].FlightRoute.DestinationAirport.Name
+                        </div>
+                    }
+                    <div class="p-1 text-xs relative">
+                        &emsp;&emsp;
+                        @booking.Schedules[1].Flights[0].Aircraft.Name
+                    </div>
+                    <div class="p-1 text-xs relative">
+                        &emsp;&emsp;
+                        Khởi hành: @booking.Schedules[1].Flights[0].DepartureTime.ToString("HH:mm dd-MM-yyyy")
+                    </div>
+                    <div class="p-1 text-xs relative">
+                        &emsp;&emsp;
+                        Thời gian:
+                        @((int)booking.Schedules[1].Flights[0].Duration.TotalHours)
+                        tiếng
+                        @(booking.Schedules[1].Flights[0].Duration.Minutes != 0 ?
+                            (int)booking.Schedules[1].Flights[0].Duration.Minutes : "")
+                    </div>
+                    @if (booking.Schedules[1].HasTransit)
+                    {
+                        <div class="bg-sky-50 p-2 shadow-md relative">
+                            &emsp;
+                            @booking.Schedules[1].Flights[1].FlightRoute.DepartureAirport.Name
+                            đến
+                            @booking.Schedules[1].Flights[1].FlightRoute.DestinationAirport.Name
+                        </div>
+                        <div class="p-1 text-xs relative">
+                            &emsp;&emsp;
+                            @booking.Schedules[1].Flights[1].Aircraft.Name
+                        </div>
+                        <div class="p-1 text-xs relative">
+                            &emsp;&emsp;
+                            Khởi hành: @booking.Schedules[1].Flights[1].DepartureTime.ToString("HH:mm dd-MM-yyyy")
+                        </div>
+                        <div class="p-1 text-xs relative">
+                            &emsp;&emsp;
+                            Thời gian:
+                            @((int)booking.Schedules[1].Flights[1].Duration.TotalHours)
+                            tiếng
+                            @(booking.Schedules[1].Flights[1].Duration.Minutes != 0 ?
+                                (int)booking.Schedules[1].Flights[1].Duration.Minutes : "")
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}

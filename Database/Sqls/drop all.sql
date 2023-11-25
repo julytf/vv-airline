@@ -15,6 +15,8 @@ use mvcapp;
 drop database vv_airline;
 
 use vv_airline;
+
+
 select * from Flights;
 select * from Schedules;
 select * from FlightSchedule;
@@ -30,3 +32,30 @@ select * from airports;
 select * from Routes;
 
 select * from provinces;
+
+select * from FlightRoutes;
+select * from Flights;
+select * from airports;
+select * from users;
+
+
+select * from Schedules;
+select * from FlightSchedule;
+select * from Flights;
+select * from prices;
+select * from defaultPrices;
+
+select * from Bookings;
+select * from BookingSchedule;
+select * from BookingSchedule
+
+ Bookings;
+
+
+
+
+
+
+
+
+

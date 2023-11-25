@@ -1,4 +1,5 @@
 @using vv_airline.Models.Data
+@using vv_airline.Models.Enums
 @model vv_airline.Areas.SearchAndBooking.Models.PassengersInformationModel
 
 @Html.Partial("Partials/_NavBar.cshtml")
@@ -9,159 +10,136 @@
         <h2 class="text-lg font-semibold leading-9 text-gray-900 border-b-2 border-primary p-2 relative z-20">
             Chi Tiết
             <span class="absolute right-0 pr-2">
-                50,000,000
+                @ViewBag.totalPrice.ToString("N0")
             </span>
         </h2>
-        <div class="bg-sky-200 p-2 shadow-md relative z-10">
-            @ViewBag.GoSchedule.FlightRoute.DepartureAirport.Name
-            <i class="fa-duotone fa-plane px-2"></i>
-            @ViewBag.GoSchedule.FlightRoute.DestinationAirport.Name
-            <span class="absolute right-0 pr-2">
-                10,000,000
-            </span>
-        </div>
-        @if (ViewBag.GoSchedule.HasTransit)
-        {
-            <div class="bg-sky-50 p-2 shadow-md relative">
-                &emsp;
-                HN -> HCM
-            </div>
-        }
-        <div class="p-1 text-xs relative">
-            &emsp;&emsp;
-            Boing 999
-        </div>
-        <div class="p-1 text-xs relative">
-            &emsp;&emsp;
-            Khởi hành: 9h 23/12/2023
-        </div>
-        <div class="p-1 text-xs relative">
-            &emsp;&emsp;
-            Thời gian: 10h30
-        </div>
-        @if (ViewBag.GoSchedule.HasTransit)
-        {
-            <div class="bg-sky-50 p-2 shadow-md relative">
-                &emsp;
-                HN -> HCM
-            </div>
-            <div class="p-1 text-xs relative">
-                &emsp;&emsp;
-                Boing 999
-            </div>
-            <div class="p-1 text-xs relative">
-                &emsp;&emsp;
-                Khởi hành: 9h 23/12/2023
-            </div>
-            <div class="p-1 text-xs relative">
-                &emsp;&emsp;
-                Thời gian: 10h30
-            </div>
-            <div class="bg-yellow-100 p-1 text-xs relative">
-                &emsp;&emsp;&emsp;
-                Dịch vụ: Luxury meal x2
+        <div>
+            <div class="bg-sky-200 p-2 shadow-md relative z-10">
+                @ViewBag.goSchedule.FlightRoute.DepartureAirport.Name
+                <i class="fa-duotone fa-plane px-2"></i>
+                @ViewBag.goSchedule.FlightRoute.DestinationAirport.Name
                 <span class="absolute right-0 pr-2">
-                    +100,000
+                    @ViewBag.passengersCount
+                    x
+                    @ViewBag.goPrice.ToString("N0")
                 </span>
             </div>
-            <div class="bg-yellow-100 p-1 text-xs relative">
-                &emsp;&emsp;&emsp;
-                Ghế đặt biệt: Ghế cửa sổ x2
-                <span class="absolute right-0 pr-2">
-                    +1,000,000
-                </span>
+            @if (ViewBag.goSchedule.HasTransit)
+            {
+                <div class="bg-sky-50 p-2 shadow-md relative">
+                    &emsp;
+                    @ViewBag.goSchedule.Flights[0].FlightRoute.DepartureAirport.Name
+                    đến
+                    @ViewBag.goSchedule.Flights[0].FlightRoute.DestinationAirport.Name
+                </div>
+            }
+            <div class="p-1 text-xs relative">
+                &emsp;&emsp;
+                @ViewBag.goSchedule.Flights[0].Aircraft.Name
+            </div>
+            <div class="p-1 text-xs relative">
+                &emsp;&emsp;
+                Khởi hành: @ViewBag.goSchedule.Flights[0].DepartureTime.ToString("HH:mm dd-MM-yyyy")
+            </div>
+            <div class="p-1 text-xs relative">
+                &emsp;&emsp;
+                Thời gian:
+                @((int)ViewBag.goSchedule.Flights[0].Duration.TotalHours)
+                tiếng
+                @(ViewBag.goSchedule.Flights[0].Duration.Minutes != 0 ?
+                    (int)ViewBag.goSchedule.Flights[0].Duration.Minutes : "")
+            </div>
+            @if (ViewBag.goSchedule.HasTransit)
+            {
+                <div class="bg-sky-50 p-2 shadow-md relative">
+                    &emsp;
+                    @ViewBag.goSchedule.Flights[1].FlightRoute.DepartureAirport.Name
+                    đến
+                    @ViewBag.goSchedule.Flights[1].FlightRoute.DestinationAirport.Name
+                </div>
+                <div class="p-1 text-xs relative">
+                    &emsp;&emsp;
+                    @ViewBag.goSchedule.Flights[1].Aircraft.Name
+                </div>
+                <div class="p-1 text-xs relative">
+                    &emsp;&emsp;
+                    Khởi hành: @ViewBag.goSchedule.Flights[1].DepartureTime.ToString("HH:mm dd-MM-yyyy")
+                </div>
+                <div class="p-1 text-xs relative">
+                    &emsp;&emsp;
+                    Thời gian:
+                    @((int)ViewBag.goSchedule.Flights[1].Duration.TotalHours)
+                    tiếng
+                    @(ViewBag.goSchedule.Flights[1].Duration.Minutes != 0 ?
+                        (int)ViewBag.goSchedule.Flights[1].Duration.Minutes : "")
+                </div>
+            }
+        </div>
+        @if (ViewBag.data.Search.IsRoundtrip)
+        {
+            <div>
+                <div class="bg-sky-200 p-2 shadow-md relative z-10">
+                    @ViewBag.returnSchedule.FlightRoute.DepartureAirport.Name
+                    <i class="fa-duotone fa-plane px-2"></i>
+                    @ViewBag.returnSchedule.FlightRoute.DestinationAirport.Name
+                    <span class="absolute right-0 pr-2">
+                        @ViewBag.passengersCount
+                        x
+                        @ViewBag.returnPrice.ToString("N0")
+                    </span>
+                </div>
+                @if (ViewBag.returnSchedule.HasTransit)
+                {
+                    <div class="bg-sky-50 p-2 shadow-md relative">
+                        &emsp;
+                        @ViewBag.returnSchedule.Flights[0].FlightRoute.DepartureAirport.Name
+                        đến
+                        @ViewBag.returnSchedule.Flights[0].FlightRoute.DestinationAirport.Name
+                    </div>
+                }
+                <div class="p-1 text-xs relative">
+                    &emsp;&emsp;
+                    @ViewBag.returnSchedule.Flights[0].Aircraft.Name
+                </div>
+                <div class="p-1 text-xs relative">
+                    &emsp;&emsp;
+                    Khởi hành: @ViewBag.returnSchedule.Flights[0].DepartureTime.ToString("HH:mm dd-MM-yyyy")
+                </div>
+                <div class="p-1 text-xs relative">
+                    &emsp;&emsp;
+                    Thời gian:
+                    @((int)ViewBag.returnSchedule.Flights[0].Duration.TotalHours)
+                    tiếng
+                    @(ViewBag.returnSchedule.Flights[0].Duration.Minutes != 0 ?
+                        (int)ViewBag.returnSchedule.Flights[0].Duration.Minutes : "")
+                </div>
+                @if (ViewBag.returnSchedule.HasTransit)
+                {
+                    <div class="bg-sky-50 p-2 shadow-md relative">
+                        &emsp;
+                        @ViewBag.returnSchedule.Flights[1].FlightRoute.DepartureAirport.Name
+                        đến
+                        @ViewBag.returnSchedule.Flights[1].FlightRoute.DestinationAirport.Name
+                    </div>
+                    <div class="p-1 text-xs relative">
+                        &emsp;&emsp;
+                        @ViewBag.returnSchedule.Flights[1].Aircraft.Name
+                    </div>
+                    <div class="p-1 text-xs relative">
+                        &emsp;&emsp;
+                        Khởi hành: @ViewBag.returnSchedule.Flights[1].DepartureTime.ToString("HH:mm dd-MM-yyyy")
+                    </div>
+                    <div class="p-1 text-xs relative">
+                        &emsp;&emsp;
+                        Thời gian:
+                        @((int)ViewBag.returnSchedule.Flights[1].Duration.TotalHours)
+                        tiếng
+                        @(ViewBag.returnSchedule.Flights[1].Duration.Minutes != 0 ?
+                            (int)ViewBag.returnSchedule.Flights[1].Duration.Minutes : "")
+                    </div>
+                }
             </div>
         }
-        @* <div class="bg-sky-200 p-2 shadow-md relative z-10">
-        HN -> Can Tho
-        <span class="absolute right-0 pr-2">
-        10,000,000
-        </span>
-        </div>
-        <div class="bg-sky-50 p-2 shadow-md relative">
-        &emsp;
-        HN -> HCM
-        </div>
-        <div class="p-1 text-xs relative">
-        &emsp;&emsp;
-        Boing 999
-        </div>
-        <div class="p-1 text-xs relative">
-        &emsp;&emsp;
-        Khởi hành: 9h 23/12/2023
-        </div>
-        <div class="p-1 text-xs relative">
-        &emsp;&emsp;
-        Thời gian: 10h30
-        </div>
-        <div class="bg-sky-50 p-2 shadow-md relative">
-        &emsp;
-        HN -> HCM
-        </div>
-        <div class="p-1 text-xs relative">
-        &emsp;&emsp;
-        Boing 999
-        </div>
-        <div class="p-1 text-xs relative">
-        &emsp;&emsp;
-        Khởi hành: 9h 23/12/2023
-        </div>
-        <div class="p-1 text-xs relative">
-        &emsp;&emsp;
-        Thời gian: 10h30
-        </div>
-        <div class="bg-yellow-100 p-1 text-xs relative">
-        &emsp;&emsp;&emsp;
-        Dịch vụ: Luxury meal x2
-        <span class="absolute right-0 pr-2">
-        +100,000
-        </span>
-        </div>
-        <div class="bg-yellow-100 p-1 text-xs relative">
-        &emsp;&emsp;&emsp;
-        Ghế đặt biệt: Ghế cửa sổ x2
-        <span class="absolute right-0 pr-2">
-        +1,000,000
-        </span>
-        </div> *@
-        @* <div class="bg-sky-200 p-2 shadow-md relative z-10">
-        HN -> Can Tho
-        <span class="absolute right-0 pr-2">
-        10,000,000
-        </span>
-        </div>
-        <div class="bg-sky-50 p-2 shadow-md relative">
-        &emsp;
-        HN -> HCM
-        </div>
-        <div class="p-1 text-xs relative">
-        &emsp;&emsp;
-        Boing 999
-        </div>
-        <div class="p-1 text-xs relative">
-        &emsp;&emsp;
-        Khởi hành: 9h 23/12/2023
-        </div>
-        <div class="p-1 text-xs relative">
-        &emsp;&emsp;
-        Thời gian: 10h30
-        </div>
-        <div class="bg-sky-50 p-2 shadow-md relative">
-        &emsp;
-        HN -> HCM
-        </div>
-        <div class="p-1 text-xs relative">
-        &emsp;&emsp;
-        Boing 999
-        </div>
-        <div class="p-1 text-xs relative">
-        &emsp;&emsp;
-        Khởi hành: 9h 23/12/2023
-        </div>
-        <div class="p-1 text-xs relative">
-        &emsp;&emsp;
-        Thời gian: 10h30
-        </div> *@
     </div>
 </div>
 

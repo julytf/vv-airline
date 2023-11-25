@@ -1,6 +1,8 @@
 @using System.Linq
 @using vv_airline.Models.Data
+@using vv_airline.Areas.SearchAndBooking.Models
 @using vv_airline.Areas.SearchAndBooking.Models.searchAndBookingService
+@using vv_airline.Models.Enums
 
 @model vv_airline.Areas.SearchAndBooking.Models.SeatSelectionModel
 
@@ -18,37 +20,68 @@ $('.selectpicker').select2();
 </script> *@
 
 <form method="post">
-    <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <ul class="relative z-0">
             <li class="inline-block">
-                <a href="#"
-                    class="border-solid border-2 border-primary bg-sky-200 rounded-md p-6 pt-2 -mb-4 inline-block">
+                <button name="action" value="toGoLeg1"
+                    class="border-solid border-2 rounded-md p-6 pt-2 -mb-4 inline-block @(Model.Turn == SeatSelectionModel.TurnEnum.Go && Model.Leg == SeatSelectionModel.LegEnum.One ? " border-primary bg-sky-200" : "")">
                     <div class="block">
-                        <div class="w-full text-lg font-semibold">HN to HCM</div>
+                        <div class="w-full text-lg font-semibold">
+                            @ViewBag.goSchedule.Flights[0].FlightRoute.DepartureAirport.Name
+                            <div class="text-sm inline">đến</div>
+                            @ViewBag.goSchedule.Flights[0].FlightRoute.DestinationAirport.Name
+                        </div>
                     </div>
-                </a>
+                </button>
             </li>
-            <li class="inline-block">
-                <a href="#" class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
-                    <div class="block">
-                        <div class="w-full text-lg font-semibold">HCM to Paris</div>
-                    </div>
-                </a>
-            </li>
-            <li class="inline-block">
-                <a href="#" class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
-                    <div class="block">
-                        <div class="w-full text-lg font-semibold">HCM to Paris</div>
-                    </div>
-                </a>
-            </li>
-            <li class="inline-block">
-                <a href="#" class="border-solid border-2 border-primar rounded-md p-6 pt-2 -mb-4 inline-block">
-                    <div class="block">
-                        <div class="w-full text-lg font-semibold">HCM to Paris</div>
-                    </div>
-                </a>
-            </li>
+            @if (@ViewBag.goSchedule.HasTransit)
+            {
+
+                <li class="inline-block">
+                    <button name="action" value="toGoLeg2"
+                        class="border-solid border-2 rounded-md p-6 pt-2 -mb-4 inline-block @(Model.Turn == SeatSelectionModel.TurnEnum.Go && Model.Leg == SeatSelectionModel.LegEnum.Two ? " border-primary bg-sky-200" : "")">
+                        <div class="block">
+                        <div class="w-full text-lg font-semibold">
+                            @ViewBag.goSchedule.Flights[1].FlightRoute.DepartureAirport.Name
+                            <div class="text-sm inline">đến</div>
+                            @ViewBag.goSchedule.Flights[1].FlightRoute.DestinationAirport.Name
+                        </div>
+                        </div>
+                    </button>
+                </li>
+            }
+            @if (@ViewBag.search.IsRoundtrip)
+            {
+
+                <li class="inline-block ml-6">
+                    <button name="action" value="toReturnLeg1"
+                        class="border-solid border-2 rounded-md p-6 pt-2 -mb-4 inline-block @(Model.Turn == SeatSelectionModel.TurnEnum.Return && Model.Leg == SeatSelectionModel.LegEnum.One ? " border-primary bg-sky-200" : "")">
+                        <div class="block">
+                        <div class="w-full text-lg font-semibold">
+                            @ViewBag.returnSchedule.Flights[0].FlightRoute.DepartureAirport.Name
+                            <div class="text-sm inline">về</div>
+                            @ViewBag.returnSchedule.Flights[0].FlightRoute.DestinationAirport.Name
+                        </div>
+                        </div>
+                    </button>
+                </li>
+                @if (@ViewBag.returnSchedule?.HasTransit)
+                {
+
+                    <li class="inline-block">
+                        <button name="action" value="toReturnLeg2"
+                            class="border-solid border-2 rounded-md p-6 pt-2 -mb-4 inline-block @(Model.Turn == SeatSelectionModel.TurnEnum.Return && Model.Leg == SeatSelectionModel.LegEnum.Two ? " border-primary bg-sky-200" : "")">
+                            <div class="block">
+                        <div class="w-full text-lg font-semibold">
+                            @ViewBag.returnSchedule.Flights[1].FlightRoute.DepartureAirport.Name
+                            <div class="text-sm inline">về</div>
+                            @ViewBag.returnSchedule.Flights[1].FlightRoute.DestinationAirport.Name
+                        </div>
+                            </div>
+                        </button>
+                    </li>
+                }
+            }
         </ul>
         <div class="mx-auto border-solid border-2 border-primary rounded-md p-6 bg-white z-10 relative ">
 
@@ -59,22 +92,23 @@ $('.selectpicker').select2();
             @* <input asp-for="SeatId" type="hidden"> *@
 
             <ul class="py-3">
-                @for (int i = 0; i < ViewBag.passengers.Length; i++)
+                @for (int i = 0; i < ViewBag.adultPassengers.Length; i++)
                 {
-                    var passenger = ViewBag.passengers[i];
+                    var passenger = ViewBag.adultPassengers[i];
                     <li class="mb-3">
-                        <input type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer"
-                            required checked>
-                        <label for="hosting-small"
+                        <input type="radio" id="psg-a@(i)" name="PassengerIndex" class="hidden peer" required
+                            onclick="choosePassengerHanlder('@PassengerEnums.Type.Adult',@(i))" @(Model.PassengerType ==
+                        PassengerEnums.Type.Adult && Model.PassengerIndex == i ? "checked" : "")>
+                        <label for="psg-a@(i)"
                             class="w-1/2 inline-flex items-center justify-between p-2 px-4 text-gray-500 bg-white border border-gray-200 rounded cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="w-full text-lg font-semibold flex justify-between">
                                 <div>
                                     @passenger.FullName
                                 </div>
-                                @if (ViewBag.seats[i] != null)
+                                @if (ViewBag.adultSeats[i] != null)
                                 {
                                     <div>
-                                        @ViewBag.seats[i].Col-@ViewBag.seats[i].Row
+                                        @ViewBag.adultSeats[i].Col-@ViewBag.adultSeats[i].Row
                                     </div>
                                 }
                                 else
@@ -87,19 +121,35 @@ $('.selectpicker').select2();
                         </label>
                     </li>
                 }
-                @* <li class="mb-3">
-                <input type="radio" id="hosting-big" name="hosting" value="hosting-big" class="hidden peer">
-                <label for="hosting-big"
-                class="w-1/2 inline-flex items-center justify-between p-2 px-4 text-gray-500 bg-white border
-                border-gray-200
-                rounded cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500
-                peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100
-                dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                <div class="block">
-                <div class="w-full text-lg font-semibold">Khách B</div>
-                </div>
-                </label>
-                </li> *@
+                @for (int i = 0; i < ViewBag.childrenPassengers.Length; i++)
+                {
+                    var passenger = ViewBag.childrenPassengers[i];
+                    <li class="mb-3">
+                        <input type="radio" id="psg-c@(i)" name="PassengerIndex" class="hidden peer" required
+                            onclick="choosePassengerHanlder('@PassengerEnums.Type.Child',@(i))" @(Model.PassengerType ==
+                        PassengerEnums.Type.Child && Model.PassengerIndex == i ? "checked" : "")>
+                        <label for="psg-c@(i)"
+                            class="w-1/2 inline-flex items-center justify-between p-2 px-4 text-gray-500 bg-white border border-gray-200 rounded cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <div class="w-full text-lg font-semibold flex justify-between">
+                                <div>
+                                    @passenger.FullName
+                                </div>
+                                @if (ViewBag.childrenSeats[i] != null)
+                                {
+                                    <div>
+                                        @ViewBag.childrenSeats[i].Col-@ViewBag.childrenSeats[i].Row
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        (chưa chọn ghế)
+                                    </div>
+                                }
+                            </div>
+                        </label>
+                    </li>
+                }
             </ul>
 
             <div class="flex flex-col justify-center">
@@ -169,7 +219,9 @@ $('.selectpicker').select2();
                         <tbody>
                             @for (var r = 1; r <= seatMap.NoRow; r++)
                             {
-                                SeatModel[] seats = ViewBag.seats;
+                                SeatModel[] adultSeats = ViewBag.adultSeats;
+                                SeatModel[] childrenSeats = ViewBag.childrenSeats;
+                                SeatModel[] seats = adultSeats.Concat(childrenSeats).ToArray();
 
                                 <tr class="text-center">
                                     <th class="pr-3">@r</th>
@@ -299,3 +351,11 @@ $('.selectpicker').select2();
         </div>
     </div>
 </form>
+
+<script>
+    function choosePassengerHanlder(type, index) {
+        @* console.log(type, index) *@
+        document.querySelector('input#PassengerType').value = type
+        document.querySelector('input#PassengerIndex').value = index
+    }
+</script>

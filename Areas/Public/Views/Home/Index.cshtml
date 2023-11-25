@@ -3,6 +3,7 @@
 
 @inject SignInManager<User> _signInManager
 @inject UserManager<User> _userManager
+@inject AppDBContext _appDBContext;
 
 @Html.Partial("Partials/_HeroSection")
 @* @Html.Partial("Partials/_Features")   *@
@@ -11,3 +12,4 @@
 @Html.Partial("Partials/_CallToAction")
 @Html.Partial("Partials/_Blog") *@
 @User.Identity.Name
+@_appDBContext.Airports.First().Name

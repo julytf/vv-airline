@@ -16,6 +16,13 @@ public partial class Schedule
     public DateTime DepartureTime { get; set; }
 
     public DateTime ArrivalTime { get; set; }
+    public TimeSpan Duration
+    {
+        get
+        {
+            return ArrivalTime - DepartureTime;
+        }
+    }
 
     public long? Distance { get; set; }
 
@@ -25,7 +32,5 @@ public partial class Schedule
 
     public List<Booking> Bookings { get; set; }
 
-    [NotMapped]
-    public IDictionary<String, long> Prices { get; set; } = new Dictionary<String, long>();
-
+    public List<Price> Prices { get; set; } = new List<Price>();
 }

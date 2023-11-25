@@ -5,5 +5,5 @@ public class ScheduleModel
     public string? ClassName { get; set; }
 
     public FlightModel Leg1 { get; set; } = new();
-    public FlightModel Leg2 { get; set; } = new();
+    public FlightModel? Leg2 { get; set; } = new();
 }

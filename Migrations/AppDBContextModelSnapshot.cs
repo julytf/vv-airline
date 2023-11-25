@@ -247,6 +247,10 @@ namespace vv_airline.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<string>("NameEn")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("ProvinceCode")
                         .HasColumnType("nvarchar(20)");
 
@@ -332,6 +336,32 @@ namespace vv_airline.Migrations
                     b.HasKey("Key");
 
                     b.ToTable("Configs");
+                });
+
+            modelBuilder.Entity("vv_airline.Models.Data.DefaultPrice", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("FlightRouteId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SeatClassId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Value")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightRouteId");
+
+                    b.HasIndex("SeatClassId");
+
+                    b.ToTable("DefaultPrices");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.District", b =>
@@ -531,7 +561,7 @@ namespace vv_airline.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("FlightRouteId")
+                    b.Property<long>("ScheduleId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("SeatClassId")
@@ -542,7 +572,7 @@ namespace vv_airline.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FlightRouteId");
+                    b.HasIndex("ScheduleId");
 
                     b.HasIndex("SeatClassId");
 
@@ -1056,6 +1086,25 @@ namespace vv_airline.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("vv_airline.Models.Data.DefaultPrice", b =>
+                {
+                    b.HasOne("vv_airline.Models.Data.FlightRoute", "FlightRoute")
+                        .WithMany("DefaultPrices")
+                        .HasForeignKey("FlightRouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("vv_airline.Models.Data.SeatClass", "SeatClass")
+                        .WithMany("DefaultPrices")
+                        .HasForeignKey("SeatClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FlightRoute");
+
+                    b.Navigation("SeatClass");
+                });
+
             modelBuilder.Entity("vv_airline.Models.Data.District", b =>
                 {
                     b.HasOne("vv_airline.Models.Data.Province", "Province")
@@ -1123,9 +1172,9 @@ namespace vv_airline.Migrations
 
             modelBuilder.Entity("vv_airline.Models.Data.Price", b =>
                 {
-                    b.HasOne("vv_airline.Models.Data.FlightRoute", "FlightRoute")
+                    b.HasOne("vv_airline.Models.Data.Schedule", "Schedule")
                         .WithMany("Prices")
-                        .HasForeignKey("FlightRouteId")
+                        .HasForeignKey("ScheduleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1135,7 +1184,7 @@ namespace vv_airline.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("FlightRoute");
+                    b.Navigation("Schedule");
 
                     b.Navigation("SeatClass");
                 });
@@ -1275,9 +1324,9 @@ namespace vv_airline.Migrations
 
             modelBuilder.Entity("vv_airline.Models.Data.FlightRoute", b =>
                 {
-                    b.Navigation("Flights");
+                    b.Navigation("DefaultPrices");
 
-                    b.Navigation("Prices");
+                    b.Navigation("Flights");
 
                     b.Navigation("Schedules");
                 });
@@ -1303,6 +1352,11 @@ namespace vv_airline.Migrations
                     b.Navigation("Users");
                 });
 
+            modelBuilder.Entity("vv_airline.Models.Data.Schedule", b =>
+                {
+                    b.Navigation("Prices");
+                });
+
             modelBuilder.Entity("vv_airline.Models.Data.Seat", b =>
                 {
                     b.Navigation("Tickets");
@@ -1310,6 +1364,8 @@ namespace vv_airline.Migrations
 
             modelBuilder.Entity("vv_airline.Models.Data.SeatClass", b =>
                 {
+                    b.Navigation("DefaultPrices");
+
                     b.Navigation("Prices");
 
                     b.Navigation("Seats");

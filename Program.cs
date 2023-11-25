@@ -52,25 +52,34 @@ public class Program
 
         var dbContext = scope.ServiceProvider.GetService<AppDBContext>();
 
-        // var schedule = dbContext
-        //             .Schedules
-        //             .Include(s => s.Flights)
-        //             .First();
+        var haNoiAirport = dbContext
+            .Airports
+            .Single(ap => ap.NameEn == "Ha Noi");
+        var hoChiMinhAirport = dbContext
+            .Airports
+            .Single(ap => ap.NameEn == "Ho Chi Minh");
 
-        // var flight = schedule.Flights[0];
-        // Console.WriteLine(flight.Id);
+        var hCMToHaNoiFlightRoute = dbContext
+            .FlightRoutes
+            .Single(fr =>
+                fr.DepartureAirport == hoChiMinhAirport
+                && fr.DestinationAirport == haNoiAirport
+            );
 
-        // var aircraft = flight.Aircraft;
-        // Console.WriteLine(aircraft.RegistrationNumber);
+        var schedule = dbContext
+            .Schedules
+            .Include(s => s.Flights)
+                .ThenInclude(f => f.FlightRoute)
+            .Single(s => s.FlightRoute == hCMToHaNoiFlightRoute);
+        Console.WriteLine(schedule.Flights.Count);
 
+        long value = (schedule.Flights.Count < 2 ? 0 : dbContext.DefaultPrices.Where(p =>
+                    p.SeatClass.Name == SeatEnums.Classes.Business.ToString()
+                    && p.FlightRoute == schedule.Flights[0].FlightRoute
+                ).FirstOrDefault()?.Value) ?? 0;
 
-        long price = dbContext.Prices.Single(p =>
-                p.FlightRoute.Id == 1
-                && p.SeatClass.Name == SeatEnums.Classes.Economy.ToString()
-            ).Value;
+        Console.WriteLine(value);
 
-            Console.WriteLine(price);
-            
 
         return;
     }

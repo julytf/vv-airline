@@ -21,8 +21,8 @@ public static class InitSeed
         _roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
         _userManager = scope.ServiceProvider.GetService<UserManager<User>>();
 
-        // await RolesSeed();
-        // await UsersSeed();
+        await RolesSeed();
+        await UsersSeed();
         await MapSeed();
     }
 

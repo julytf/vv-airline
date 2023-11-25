@@ -30,13 +30,118 @@
 </script>
 
 <form asp-controller="Auth" asp-action="Register" asp-route-returnurl='@ViewData["ReturnUrl"]' method="post">
-  @for (int i = 0; i < Model.Adults.Length; i++)
+
+
+  <div class=" mx-auto max-w-2xl mb-20">
+    <div class="border-solid border-2 border-primary rounded-md p-6">
+      <h2 class="text-lg font-semibold leading-9 text-gray-900 border-b-2 border-primary sm:-m-6 -m-8 p-2 ">
+        Người lớn @(1)
+      </h2>
+      <div class="mx-auto max-w-2xl">
+        <div class="space-y-12">
+          <div asp-validation-summary="ModelOnly" class="text-red-700"></div>
+          <div class=" pb-12">
+            @*
+            <p class="mt-1 text-sm leading-6 text-gray-600"></p>
+            *@
+
+            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div class="sm:col-span-3">
+                <label asp-for="@Model.Adults[0].LastName"
+                  class="block text-sm font-medium leading-6 text-gray-900"></label>
+                <div class="mt-2">
+                  <div
+                    class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
+                    <input asp-for="@Model.Adults[0].LastName"
+                      class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" />
+                  </div>
+                  <span asp-validation-for="@Model.Adults[0].LastName" class="text-red-700"></span>
+                </div>
+              </div>
+
+              <div class="sm:col-span-3">
+                <label asp-for="@Model.Adults[0].FirstName"
+                  class="block text-sm font-medium leading-6 text-gray-900"></label>
+                <div class="mt-2">
+                  <div
+                    class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
+                    <input asp-for="@Model.Adults[0].FirstName"
+                      class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" />
+                  </div>
+                  <span asp-validation-for="@Model.Adults[0].FirstName" class="text-red-700"></span>
+                </div>
+              </div>
+
+              <div class="sm:col-span-3">
+                <label asp-for="@Model.Adults[0].DateOfBirth"
+                  class="block text-sm font-medium leading-6 text-gray-900"></label>
+                <div class="mt-2">
+                  <div
+                    class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
+                    <input asp-for="@Model.Adults[0].DateOfBirth" type="date"
+                      class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" />
+                  </div>
+                  <span asp-validation-for="@Model.Adults[0].DateOfBirth" class="text-red-700"></span>
+                </div>
+              </div>
+              <div class="sm:col-span-3">
+                <label asp-for="@Model.Adults[0].Gender"
+                  class="block text-sm font-medium leading-6 text-gray-900"></label>
+
+                <div class="gap-x-3 inline-block mt-3">
+                  <input asp-for="@Model.Adults[0].Gender" id="gender-true" value="true" type="radio"
+                    class="h-4 w-4 border-gray-300 text-primary focus:ring-primary inline-block" />
+                  <label for="male"
+                    class="block text-sm font-medium leading-6 text-gray-900 inline-block ml-2">Nam</label>
+                </div>
+                <div class="gap-x-3 inline-block ml-3">
+                  <input asp-for="@Model.Adults[0].Gender" id="gender-false" value="false" type="radio"
+                    class="h-4 w-4 border-gray-300 text-primary focus:ring-primary inline-block" />
+                  <label for="female"
+                    class="block text-sm font-medium leading-6 text-gray-900 inline-block ml-2">Nữ</label>
+                </div>
+                <span asp-validation-for="@Model.Adults[0].Gender" class="text-red-700"></span>
+              </div>
+              <div class="sm:col-span-6">
+                <label asp-for="@Model.Adults[0].PhoneNumber"
+                  class="block text-sm font-medium leading-6 text-gray-900"></label>
+                <div class="mt-2">
+                  <div
+                    class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
+                    <input asp-for="@Model.Adults[0].PhoneNumber"
+                      class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" />
+                  </div>
+                  <span asp-validation-for="@Model.Adults[0].PhoneNumber" class="text-red-700"></span>
+                </div>
+              </div>
+              <div class="sm:col-span-6">
+                <label asp-for="@Model.Adults[0].Email" class="block text-sm font-medium leading-6 text-gray-900">
+                </label>
+                <div class="mt-2">
+                  <div
+                    class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
+                    <input asp-for="@Model.Adults[0].Email"
+                      class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" />
+                  </div>
+                  <span asp-validation-for="@Model.Adults[0].Email" class="text-red-700"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  @for (int i = 1; i < Model.Adults.Length; i++)
   {
 
     <div class=" mx-auto max-w-2xl mb-20">
       <div class="border-solid border-2 border-primary rounded-md p-6">
         <h2 class="text-lg font-semibold leading-9 text-gray-900 border-b-2 border-primary sm:-m-6 -m-8 p-2 ">
-          Thông tin Khách hàng - Người lớn @(i + 1)</h2>
+          Người lớn @(i + 1)
+        </h2>
         <div class="mx-auto max-w-2xl">
           <div class="space-y-12">
             <div asp-validation-summary="ModelOnly" class="text-red-700"></div>
@@ -102,38 +207,9 @@
                   </div>
                   <span asp-validation-for="@Model.Adults[i].Gender" class="text-red-700"></span>
                 </div>
-                <div class="sm:col-span-6">
-                  <label asp-for="@Model.Adults[i].PhoneNumber"
-                    class="block text-sm font-medium leading-6 text-gray-900"></label>
-                  <div class="mt-2">
-                    <div
-                      class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
-                      <input asp-for="@Model.Adults[i].PhoneNumber"
-                        class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" />
-                    </div>
-                    <span asp-validation-for="@Model.Adults[i].PhoneNumber" class="text-red-700"></span>
-                  </div>
-                </div>
-                <div class="sm:col-span-6">
-                  <label asp-for="@Model.Adults[i].Email" class="block text-sm font-medium leading-6 text-gray-900">
-                  </label>
-                  <div class="mt-2">
-                    <div
-                      class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
-                      <input asp-for="@Model.Adults[i].Email"
-                        class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" />
-                    </div>
-                    <span asp-validation-for="@Model.Adults[i].Email" class="text-red-700"></span>
-                  </div>
-                </div>
-
-
-
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>
@@ -145,7 +221,8 @@
     <div class=" mx-auto max-w-2xl mb-20">
       <div class="border-solid border-2 border-primary rounded-md p-6">
         <h2 class="text-lg font-semibold leading-9 text-gray-900 border-b-2 border-primary sm:-m-6 -m-8 p-2 ">
-          Thông tin Khách hàng - Trẻ em @(i + 1)</h2>
+          Trẻ em @(i + 1)
+        </h2>
         <div class="mx-auto max-w-2xl">
           <div class="space-y-12">
             <div asp-validation-summary="ModelOnly" class="text-red-700"></div>
@@ -161,7 +238,7 @@
                   <div class="mt-2">
                     <div
                       class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
-                      <input asp@Model.Children[i].-for="LastName"
+                      <input asp-for="@Model.Children[i].LastName"
                         class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" />
                     </div>
                     <span asp-validation-for="@Model.Children[i].LastName" class="text-red-700"></span>
@@ -182,41 +259,38 @@
                 </div>
 
                 <div class="sm:col-span-3">
-                  <label asp-for="@Model.Adults[i].DateOfBirth"
+                  <label asp-for="@Model.Children[i].DateOfBirth"
                     class="block text-sm font-medium leading-6 text-gray-900"></label>
                   <div class="mt-2">
                     <div
                       class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary sm:max-w-md">
-                      <input asp-for="@Model.Adults[i].DateOfBirth" type="date"
+                      <input asp-for="@Model.Children[i].DateOfBirth" type="date"
                         class="block flex-1 border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" />
                     </div>
-                    <span asp-validation-for="@Model.Adults[i].DateOfBirth" class="text-red-700"></span>
+                    <span asp-validation-for="@Model.Children[i].DateOfBirth" class="text-red-700"></span>
                   </div>
                 </div>
                 <div class="sm:col-span-3">
-                  <label asp-for="@Model.Adults[i].Gender"
+                  <label asp-for="@Model.Children[i].Gender"
                     class="block text-sm font-medium leading-6 text-gray-900"></label>
 
                   <div class="gap-x-3 inline-block mt-3">
-                    <input asp-for="@Model.Adults[i].Gender" id="gender-true" value="true" type="radio"
+                    <input asp-for="@Model.Children[i].Gender" id="gender-true" value="true" type="radio"
                       class="h-4 w-4 border-gray-300 text-primary focus:ring-primary inline-block" />
                     <label for="male"
                       class="block text-sm font-medium leading-6 text-gray-900 inline-block ml-2">Nam</label>
                   </div>
                   <div class="gap-x-3 inline-block ml-3">
-                    <input asp-for="@Model.Adults[i].Gender" id="gender-false" value="false" type="radio"
+                    <input asp-for="@Model.Children[i].Gender" id="gender-false" value="false" type="radio"
                       class="h-4 w-4 border-gray-300 text-primary focus:ring-primary inline-block" />
                     <label for="female"
                       class="block text-sm font-medium leading-6 text-gray-900 inline-block ml-2">Nữ</label>
                   </div>
-                  <span asp-validation-for="@Model.Adults[i].Gender" class="text-red-700"></span>
+                  <span asp-validation-for="@Model.Children[i].Gender" class="text-red-700"></span>
                 </div>
-
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>

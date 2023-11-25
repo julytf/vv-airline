@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using vv_airline.Models.Data;
 
 namespace vv_airline.Areas.SearchAndBooking.Models;
@@ -28,10 +29,17 @@ public class SearchModel
 
     [DisplayName("Ngày đi")]
     [Required]
-    public DateOnly DepartureDate { get; set; }
+    public DateTime DepartureDate { get; set; }
 
     [DisplayName("Ngày Về")]
-    public DateOnly? ReturnDate { get; set; }
+    public DateTime? ReturnDate { get; set; }
 
-
+    public void Validate(ModelStateDictionary ModelState)
+    {
+        if (IsRoundtrip && ReturnDate == null)
+        {
+            ModelState.AddModelError("ReturnDate", "error");
+            return;
+        }
+    }
 }

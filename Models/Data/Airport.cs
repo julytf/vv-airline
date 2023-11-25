@@ -13,6 +13,8 @@ public partial class Airport
 
     [StringLength(255)]
     public string Name { get; set; } = null!;
+    [StringLength(255)]
+    public string? NameEn { get; set; } = null!;
 
     [StringLength(255)]
     public string? Description { get; set; }

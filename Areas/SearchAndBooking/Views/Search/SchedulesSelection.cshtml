@@ -1,5 +1,6 @@
 @using vv_airline.Models.Data
 @using vv_airline.Models.Enums
+@using vv_airline.Areas.SearchAndBooking.Models
 
 @model vv_airline.Areas.SearchAndBooking.Models.ScheduleSelectionModel
 
@@ -14,10 +15,36 @@ $('.selectpicker').select2();
 
 <div class="w-full px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
 
+    @if (@ViewBag.search.IsRoundtrip)
+    {
+
+        <form asp-controller="SearchAndBooking" asp-action="SchedulesSelection" method="post">
+            <ul class="relative z-0">
+                <li class="inline-block">
+                    <button type="submit" name="action" value="toGo"
+                        class="border-solid border-2  rounded-md p-6 pt-2 -mb-4 inline-block @(Model.Type == ScheduleSelectionModel.ScheduleType.Go ? "border-primary bg-sky-200" : "")">
+                        <div class="block">
+                            <div class="w-full text-lg font-semibold">Chuyến đi</div>
+                        </div>
+                    </button>
+                </li>
+                <li class="inline-block">
+                    <button type="submit" name="action" value="toReturn"
+                        class="border-solid border-2 rounded-md p-6 pt-2 -mb-4 inline-block @(Model.Type == ScheduleSelectionModel.ScheduleType.Return ? "border-primary bg-sky-200" : "")">
+                        <div class="block">
+                            <div class="w-full text-lg font-semibold">Chuyến về</div>
+                        </div>
+                    </button>
+                </li>
+            </ul>
+        </form>
+    }
     <form asp-controller="SearchAndBooking" asp-action="SchedulesSelection" method="post"
-        class="border-solid border-2 border-primary rounded-md p-6">
+        class="border-solid border-2 border-primary rounded-md p-6 z-10 bg-white relative">
         <input asp-for="ScheduleId" type="hidden">
         <input asp-for="ClassName" type="hidden">
+        <input asp-for="Type" type="hidden">
+        @Model.Type.ToString()
         <div class="flex justify-end">
             <div class="w-1/2 p-3 flex">
                 <div class="w-1/2 border-2 border-green-300 bg-green-100 rounded-md p-2 m-1 text-center text-3xl">
@@ -28,8 +55,12 @@ $('.selectpicker').select2();
                 </div>
             </div>
         </div>
-        @foreach (var schedule in ViewBag.schedules)
+        @foreach (Schedule schedule in ViewBag.schedules)
         {
+
+            TimeSpan timeDiff = schedule.Flights[0].ArrivalTime - schedule.Flights[0].DepartureTime;
+            int dayDiff = (int)timeDiff.TotalDays;
+
             <div class="rounded-md border border-gray-300 shadow-lg flex mt-6">
                 <div class="w-1/2 p-3 text-center">
                     <div class="flex">
@@ -41,26 +72,45 @@ $('.selectpicker').select2();
                             <i class="fa-solid fa-plane"></i>
                         </div>
                         <div class="w-5/12">
-                            <div>15:00 (+2 ngày)</div>
+                            <div>@schedule.Flights[0].ArrivalTime.ToString("HH:mm") (+@dayDiff ngày)</div>
                             <div>@schedule.FlightRoute.DestinationAirport.Name</div>
                         </div>
                     </div>
                     <div>
-                        <span>2h 15m</span>
+                        <span>@timeDiff.ToString("hh") giờ @timeDiff.ToString("mm") phút</span>
                         -
-                        <span>bay thẳng</span>
+                        <span>
+                            @(
+                                schedule.HasTransit ?
+                                "có quá cảnh" :
+                                "bay thẳng"
+                                )
+                        </span>
                     </div>
                 </div>
                 <div class="w-1/2 p-3 flex">
+                    @{
+                        Price economyPrice = schedule
+                        .Prices
+                        .First(p => p.SeatClass.Name ==
+                        SeatEnums.Classes.Economy.ToString()
+                        );
+
+                        Price businessPrice = schedule
+                        .Prices
+                        .First(p => p.SeatClass.Name ==
+                        SeatEnums.Classes.Business.ToString()
+                        );
+                    }
                     <button data-ScheduleId="@schedule.Id" data-ClassName="@SeatEnums.Classes.Economy.ToString()"
                         class="w-1/2 border border-gray-400 rounded-md p-2 m-1 text-center text-3xl hover:border-primary hover:bg-sky-100"
                         onclick="return submitHandler(this)">
-                        @schedule.Prices[SeatEnums.Classes.Economy.ToString()]
+                        @economyPrice.Value.ToString("N0")
                     </button>
                     <button data-ScheduleId="@schedule.Id" data-ClassName="@SeatEnums.Classes.Business.ToString()"
                         class="w-1/2 border border-gray-400 rounded-md p-2 m-1 text-center text-3xl hover:border-primary hover:bg-sky-100"
                         onclick="return submitHandler(this)">
-                        @schedule.Prices[SeatEnums.Classes.Business.ToString()]
+                        @businessPrice.Value.ToString("N0")
                     </button>
                 </div>
             </div>

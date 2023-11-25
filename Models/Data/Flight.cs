@@ -21,6 +21,13 @@ public partial class Flight
     public DateTime DepartureTime { get; set; }
 
     public DateTime ArrivalTime { get; set; }
+    public TimeSpan Duration
+    {
+        get
+        {
+            return ArrivalTime - DepartureTime;
+        }
+    }
 
     public  FlightRoute FlightRoute { get; set; } = null!;
 

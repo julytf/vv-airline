@@ -15,6 +15,7 @@ public partial class SeatClass
     public string Name { get; set; } = null!;
 
     public List<Price> Prices { get; set; } = new List<Price>();
+    public List<DefaultPrice> DefaultPrices { get; set; } = new List<DefaultPrice>();
 
     public List<Seat> Seats { get; set; } = new List<Seat>();
 }

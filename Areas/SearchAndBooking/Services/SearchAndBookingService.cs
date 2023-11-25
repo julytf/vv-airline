@@ -58,9 +58,8 @@ public class SearchAndBookingService
             .Schedules
             .Include(s => s.Flights)
             .First(s => s.Id == scheduleSelectionModel.ScheduleId);
-        // Console.WriteLine(schedule.Id);
-        // Console.WriteLine(schedule.Flights[0].Id);
-        Data.GoSchedule = new()
+
+        ScheduleModel scheduleModel = new()
         {
             ScheduleId = scheduleSelectionModel.ScheduleId,
             ClassName = scheduleSelectionModel.ClassName,
@@ -68,28 +67,75 @@ public class SearchAndBookingService
             {
                 FlightId = schedule.Flights[0].Id,
                 AdultsSeats = new SeatModel[Data.Search.Adults],
+                ChildrenSeats = new SeatModel[Data.Search.Children],
+            },
+            Leg2 = schedule.Flights.Count < 2 ? null : new()
+            {
+                FlightId = schedule.Flights[1].Id,
+                AdultsSeats = new SeatModel[Data.Search.Adults],
+                ChildrenSeats = new SeatModel[Data.Search.Children],
             }
         };
-        // Console.WriteLine(Data.GoSchedule.Leg1.FlightId);
+
+        // Console.WriteLine("---");
+        // Console.WriteLine(scheduleSelectionModel.Type.ToString());
+        // Console.WriteLine("---");
+        if (scheduleSelectionModel.Type == ScheduleSelectionModel.ScheduleType.Go)
+        {
+            Data.GoSchedule = scheduleModel;
+            // Console.WriteLine("go");
+        }
+        else if (scheduleSelectionModel.Type == ScheduleSelectionModel.ScheduleType.Return)
+        {
+            Data.ReturnSchedule = scheduleModel;
+            // Console.WriteLine("return");
+        }
+
+
         SaveToSession();
     }
     public void Step3PassengersInformation(PassengersInformationModel passengersInformationModel)
     {
-        Data.AdultsPassengers = new[]{
-            new PassengerModel() {
-                Type = passengersInformationModel.Adults[0].Type,
-                Email = passengersInformationModel.Adults[0].Email,
-                PhoneNumber = passengersInformationModel.Adults[0].PhoneNumber,
-                FirstName = passengersInformationModel.Adults[0].FirstName,
-                LastName = passengersInformationModel.Adults[0].LastName,
-                DateOfBirth = passengersInformationModel.Adults[0].DateOfBirth,
-                Gender = passengersInformationModel.Adults[0].Gender,
-            }
+        Data.AdultsPassengers = new PassengerModel[Data.Search.Adults];
+        Data.ChildrenPassengers = new PassengerModel[Data.Search.Children];
+
+        Data.AdultsPassengers[0] = new()
+        {
+            Type = PassengerEnums.Type.Adult,
+            Email = passengersInformationModel.Adults[0].Email,
+            PhoneNumber = passengersInformationModel.Adults[0].PhoneNumber,
+            FirstName = passengersInformationModel.Adults[0].FirstName,
+            LastName = passengersInformationModel.Adults[0].LastName,
+            DateOfBirth = passengersInformationModel.Adults[0].DateOfBirth,
+            Gender = passengersInformationModel.Adults[0].Gender,
         };
-        Data.AdultsPassengers = new PassengerModel[0];
+        for (int i = 0; i < passengersInformationModel.Adults.Length; i++)
+        {
+            Data.AdultsPassengers[i] = new()
+            {
+                Type = PassengerEnums.Type.Adult,
+                FirstName = passengersInformationModel.Adults[i].FirstName,
+                LastName = passengersInformationModel.Adults[i].LastName,
+                DateOfBirth = passengersInformationModel.Adults[i].DateOfBirth,
+                Gender = passengersInformationModel.Adults[i].Gender,
+            };
+        }
+        for (int i = 0; i < passengersInformationModel.Children.Length; i++)
+        {
+            Data.ChildrenPassengers[i] = new()
+            {
+                Type = PassengerEnums.Type.Adult,
+                FirstName = passengersInformationModel.Children[i].FirstName,
+                LastName = passengersInformationModel.Children[i].LastName,
+                DateOfBirth = passengersInformationModel.Children[i].DateOfBirth,
+                Gender = passengersInformationModel.Children[i].Gender,
+            };
+        }
+
         SaveToSession();
     }
     public void Step4AdditionServicesSelection(AdditionServicesSelectionModel additionServicesSelectionModel) { }
+
     public void Step5SeatsSelection(SeatSelectionModel seatSelectionModel)
     {
         Seat seat = _appDBContext.Seats.First(s => s.Id == seatSelectionModel.SeatId);
@@ -122,7 +168,8 @@ public class SearchAndBookingService
             seats = flightModel.ChildrenSeats;
         }
 
-        seats[seatSelectionModel.PassengerIndex] = new SeatModel(){
+        seats[seatSelectionModel.PassengerIndex] = new SeatModel()
+        {
             SeatId = seatSelectionModel.SeatId,
             Col = seat.Col,
             Row = seat.Row,

@@ -11,7 +11,6 @@ public partial class Booking
     [Key]
     public long Id { get; set; }
 
-
     public byte Adults { get; set; }
 
     public byte? Children { get; set; }

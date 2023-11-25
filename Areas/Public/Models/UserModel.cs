@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace vv_airline.Areas.Public.Models;
-public class RegisterModel
+public class UserModel
 {
     // public string UserName { get; set; } = null!;
 

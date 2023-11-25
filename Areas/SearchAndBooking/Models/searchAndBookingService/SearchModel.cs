@@ -10,6 +10,6 @@ public class SearchModel
      public bool IsRoundtrip { get; set; }
      public byte Adults { get; set; }
      public byte Children { get; set; }
-     public DateOnly DepartureDate { get; set; }
-     public DateOnly? ReturnDate { get; set; }
+     public DateTime DepartureDate { get; set; }
+     public DateTime? ReturnDate { get; set; }
 }

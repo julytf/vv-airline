@@ -19,7 +19,7 @@ public partial class FlightRoute
 
     public List<Flight> Flights { get; set; } = new List<Flight>();
 
-    public List<Price> Prices { get; set; } = new List<Price>();
+    public List<DefaultPrice> DefaultPrices { get; set; } = new List<DefaultPrice>();
 
     public List<Schedule> Schedules { get; set; } = new List<Schedule>();
 }
