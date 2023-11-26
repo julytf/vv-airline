@@ -80,8 +80,8 @@ public class Startup
         {
             // options.Cookie.HttpOnly = true;  
             // options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-            options.LoginPath = $"/login/";
-            options.LogoutPath = $"/logout/";
+            // options.LoginPath = $"/login/";
+            // options.LogoutPath = $"/logout/";
             // options.AccessDeniedPath = $"/Identity/Account/AccessDenied";   // Trang khi User bị cấm truy cập
         });
 
@@ -107,6 +107,20 @@ public class Startup
         //         ValidIssuer = _configuration["JWT:ValidIssuer"],
         //         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]))
         //     };
+        // })
+        // .AddCookie("UserCookie", options =>
+        // {
+        //     options.Cookie.Name = "UserCookie";
+        //     options.LoginPath = "/login";
+        //     options.LogoutPath = "/logout";
+        //     options.AccessDeniedPath = "/accessDenied";
+        // })
+        // .AddCookie("AdminCookie", options =>
+        // {
+        //     options.Cookie.Name = "AdminCookie";
+        //     options.LoginPath = "/admin/login";
+        //     options.LogoutPath = "/admin/logout";
+        //     options.AccessDeniedPath = "/admin/accessDenied";
         // })
         ;
 

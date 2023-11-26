@@ -5,20 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using vv_airline.Models.Enums;
 
-namespace vv_airline.Models.Data;
+namespace vv_airline.Areas.Admin.Models;
 
-public partial class Aircraft
+public partial class AircraftModel
 {
-    [Key]
     [StringLength(255)]
     public string RegistrationNumber { get; set; } = null!;
 
     [StringLength(255)]
     public string Name { get; set; } = null!;
 
-    public List<Flight> Flights { get; set; } = new List<Flight>();
+    public long ModelId { get; set; }
 
-    public Model? Model { get; set; }
-    
     public AircraftEnums.Statuses Status { get; set; }
 }

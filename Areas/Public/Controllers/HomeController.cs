@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using vv_airline.Areas.Public.Models;
@@ -10,6 +11,7 @@ namespace vv_airline.Areas.Public.Controllers;
 
 [Area("Public")]
 [Route("/")]
+// [Authorize(AuthenticationSchemes = "UserCookie")]
 public class HomeController : AppBaseController
 {
     private readonly ILogger<HomeController> _logger;
@@ -28,6 +30,8 @@ public class HomeController : AppBaseController
     }
 
     [HttpGet]
+    [AllowAnonymous]
+    [Authorize]
     public IActionResult Index()
     {
         // throw new NotImplementedException();

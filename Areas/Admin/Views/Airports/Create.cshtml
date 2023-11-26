@@ -1,0 +1,193 @@
+@using vv_airline.Models.Data
+@using vv_airline.Models.Enums
+
+@model vv_airline.Areas.Admin.Models.AirportModel
+
+<script defer>
+
+  loadAddressOptions("Province")
+
+  async function provinceChangeHandler(provinceCode) {
+    if (provinceCode === "") return
+    loadAddressOptions("District", provinceCode)
+  }
+  async function DistrictChangeHandler(districtCode) {
+    if (districtCode === "") return
+    loadAddressOptions("Ward", districtCode)
+  }
+
+  async function loadAddressOptions(name, code = "") {
+    let rs = await fetch(`/api/address/${name}s/${code}`)
+    let docs = (await rs.json())[name.toLocaleLowerCase() + "s"]
+    console.log(docs)
+
+    $(`#${name}Code`).html(
+      '<option value=""option>Chọn</option>' +
+      docs.map((p) => `<option value="${p.code}">${p.name}</option>`).join('')
+    )
+  }
+
+</script>
+<div class="relative md:ml-64 bg-blueGray-50">
+
+    <!-- Header -->
+    <div class="relative bg-sky-600 md:pt-32 pb-32 pt-12 z-0">
+        <div class="px-4 md:px-10 mx-auto w-full">
+            <div>
+            </div>
+        </div>
+    </div>
+    <div class="px-4 md:px-10 mx-auto w-full -m-48 z-10">
+        <div class="flex flex-wrap">
+            <div class="w-full lg:w-full px-4">
+                <div
+                    class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+                    <div class="rounded-t bg-white mb-0 px-6 py-6">
+                        <div class="text-center flex justify-between">
+                            <h6 class="text-blueGray-700 text-xl font-bold">
+                                Tạo Sân Bay
+                            </h6>
+                            @* <button
+                            class="bg-sky-500 text-white active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded
+                            shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all
+                            duration-150"
+                            type="button">
+                            Settings
+                            </button> *@
+                        </div>
+                    </div>
+                    <div class="flex-auto px-4 lg:px-10 py-10 pt-0 bg-white">
+                        <form class="relative" method="post">
+                            @* <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                            User Information
+                            </h6> *@
+                            <div class="flex flex-wrap">
+                                <div class="w-full lg:w-full px-4">
+                                    <div class="relative w-full mb-3">
+                                        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            asp-for="Name"></label>
+                                        <input asp-for="Name"
+                                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+                                    </div>
+                                </div>
+                                <div class="w-full lg:w-full px-4">
+                                    <div class="relative w-full mb-3">
+                                        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            asp-for="ProvinceCode"></label>
+                                        <select asp-for="ProvinceCode"
+                                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" onchange="provinceChangeHandler(this.value)"></select>
+                                    </div>
+                                </div>
+                                <div class="w-full lg:w-full px-4">
+                                    <div class="relative w-full mb-3">
+                                        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            asp-for="DistrictCode"></label>
+                                        <select asp-for="DistrictCode"
+                                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" onchange="DistrictChangeHandler(this.value)"></select>
+                                    </div>
+                                </div>
+                                <div class="w-full lg:w-full px-4">
+                                    <div class="relative w-full mb-3">
+                                        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            asp-for="WardCode"></label>
+                                        <select asp-for="WardCode"
+                                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex w-full justify-end p-3">
+                                <button
+                                    class="relative right-0 bg-sky-500 text-white active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                    type="submit">
+                                    Tạo
+                                </button>
+                            </div>
+                            @* <hr class="mt-6 border-b-1 border-blueGray-300" />
+
+                            <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                            Contact Information
+                            </h6>
+                            <div class="flex flex-wrap">
+                            <div class="w-full lg:w-12/12 px-4">
+                            <div class="relative w-full mb-3">
+                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                            htmlFor="grid-password">
+                            Address
+                            </label>
+                            <input type="text"
+                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded
+                            text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                            value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" />
+                            </div>
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                            htmlFor="grid-password">
+                            City
+                            </label>
+                            <input type="email"
+                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded
+                            text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                            value="New York" />
+                            </div>
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                            htmlFor="grid-password">
+                            Country
+                            </label>
+                            <input type="text"
+                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded
+                            text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                            value="United States" />
+                            </div>
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                            htmlFor="grid-password">
+                            Postal Code
+                            </label>
+                            <input type="text"
+                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded
+                            text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                            value="Postal Code" />
+                            </div>
+                            </div>
+                            </div>
+
+                            <hr class="mt-6 border-b-1 border-blueGray-300" />
+
+                            <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                            About Me
+                            </h6>
+                            <div class="flex flex-wrap">
+                            <div class="w-full lg:w-12/12 px-4">
+                            <div class="relative w-full mb-3">
+                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                            htmlFor="grid-password">
+                            About me
+                            </label>
+                            <textarea type="text"
+                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded
+                            text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                            rows="4">
+                            A beautiful UI Kit and Admin for JavaScript & Tailwind CSS. It is Free
+                            and Open Source.
+                            </textarea>
+                            </div>
+                            </div>
+                            </div> *@
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

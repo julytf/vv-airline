@@ -29,6 +29,9 @@ public partial class Flight
         }
     }
 
+    public int RemainingSeats { get; set; }
+
+
     public  FlightRoute FlightRoute { get; set; } = null!;
 
     [StringLength(50)]

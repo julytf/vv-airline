@@ -15,7 +15,7 @@ public partial class Model
     [Unicode(false)]
     public string Name { get; set; } = null!;
 
-    public List<Aircraft> Aircraft { get; set; } = new List<Aircraft>();
+    public List<Aircraft> Aircrafts { get; set; } = new List<Aircraft>();
 
     public  SeatMap? SeatMap { get; set; }
 }

@@ -1,3 +1,6 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +13,7 @@ namespace vv_airline.Areas.Public.Controllers;
 
 [Area("Public")]
 [Route("/auth")]
+// [Authorize(AuthenticationSchemes = "UserCookie")]
 public class AuthController : AppBaseController
 {
     private readonly UserManager<User> _userManager;
@@ -101,6 +105,7 @@ public class AuthController : AppBaseController
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
+        // await HttpContext.SignOutAsync("UserCookie");
         _logger.LogInformation("User đăng xuất");
         return RedirectToAction("Index", "Home");
     }
@@ -112,7 +117,7 @@ public class AuthController : AppBaseController
         ViewData["ReturnUrl"] = returnUrl;
         return View();
     }
-    
+
     // POST: /Account/Register
     [HttpPost("/register")]
     [AllowAnonymous]

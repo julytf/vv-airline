@@ -1,6 +1,6 @@
-using System.Data.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using vv_airline.Areas.Public.Models;
 using vv_airline.Controllers;
 using vv_airline.Models.Data;

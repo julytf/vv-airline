@@ -4,6 +4,7 @@ using vv_airline.Database.Seeders;
 using vv_airline.Models;
 using vv_airline.Models.Data;
 using vv_airline.Models.Enums;
+using Newtonsoft.Json;
 public class Program
 {
     static async Task Main(string[] args)
@@ -52,34 +53,19 @@ public class Program
 
         var dbContext = scope.ServiceProvider.GetService<AppDBContext>();
 
-        var haNoiAirport = dbContext
-            .Airports
-            .Single(ap => ap.NameEn == "Ha Noi");
-        var hoChiMinhAirport = dbContext
-            .Airports
-            .Single(ap => ap.NameEn == "Ho Chi Minh");
+        // Model model = dbContext
+        //     .Models
+        //     .Include(m => m.Aircrafts)
+        //     .First();
 
-        var hCMToHaNoiFlightRoute = dbContext
-            .FlightRoutes
-            .Single(fr =>
-                fr.DepartureAirport == hoChiMinhAirport
-                && fr.DestinationAirport == haNoiAirport
-            );
+        // Console.WriteLine(model.Aircrafts.Count);
 
-        var schedule = dbContext
-            .Schedules
-            .Include(s => s.Flights)
-                .ThenInclude(f => f.FlightRoute)
-            .Single(s => s.FlightRoute == hCMToHaNoiFlightRoute);
-        Console.WriteLine(schedule.Flights.Count);
+        Aircraft aircraft = dbContext
+            .Aircrafts
+            .Include(m => m.Model)
+            .First();
 
-        long value = (schedule.Flights.Count < 2 ? 0 : dbContext.DefaultPrices.Where(p =>
-                    p.SeatClass.Name == SeatEnums.Classes.Business.ToString()
-                    && p.FlightRoute == schedule.Flights[0].FlightRoute
-                ).FirstOrDefault()?.Value) ?? 0;
-
-        Console.WriteLine(value);
-
+        Console.WriteLine(aircraft.Model.Name);
 
         return;
     }

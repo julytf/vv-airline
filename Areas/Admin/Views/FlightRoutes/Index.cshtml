@@ -1,0 +1,99 @@
+@using vv_airline.Models.Data
+
+<div class="relative md:ml-64 bg-blueGray-50">
+
+    <!-- Header -->
+    <div class="relative bg-sky-600 md:pt-32 pb-32 pt-12 z-0">
+        <div class="px-4 md:px-10 mx-auto w-full">
+            <div>
+            </div>
+        </div>
+    </div>
+    <div class="px-4 md:px-10 mx-auto w-full -m-48 z-10">
+        <div class="flex flex-wrap mt-4">
+            <div class="w-full mb-12 px-4">
+                <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
+                    <div class="rounded-t mb-0 px-4 py-3 border-0">
+                        <div class="flex flex-wrap items-center">
+                            <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+                                <h3 class="flex justify-between font-semibold text-lg text-blueGray-700">
+                                    Tuyến Bay
+                                    <a class="bg-sky-500 text-white active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                        asp-controller="FlightRoutes" asp-action="Create">
+                                        Tạo
+                                    </a>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block w-full overflow-x-auto">
+                        <!-- Projects table -->
+                        <table class="items-center w-full bg-transparent border-collapse">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                        Mã
+                                    </th>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                        Sân Bay Đi
+                                    </th>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                        Sân Bay Đến
+                                    </th>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                        Khoảng Cách
+                                    </th>
+                                    <th
+                                        class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                        Chỉnh Sửa
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (FlightRoute flightRoute in @ViewBag.flightRoutes)
+                                {
+
+                                    <tr>
+                                        <td
+                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            @flightRoute.Id
+
+                                        </td>
+                                        <td
+                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            @flightRoute.DepartureAirport.Name
+
+                                        </td>
+                                        <td
+                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            @flightRoute.DestinationAirport.Name
+
+                                        </td>
+                                        <td
+                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            @flightRoute.Distance Km
+
+                                        </td>
+                                        <td
+                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            <a asp-controller="FlightRoutes" asp-action="Update" asp-route-id="@flightRoute.Id">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
