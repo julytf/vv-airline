@@ -222,6 +222,7 @@ $('.selectpicker').select2();
                                 SeatModel[] adultSeats = ViewBag.adultSeats;
                                 SeatModel[] childrenSeats = ViewBag.childrenSeats;
                                 SeatModel[] seats = adultSeats.Concat(childrenSeats).ToArray();
+                                List<Ticket> occupiedTickets = ViewBag.occupiedTickets;
 
                                 <tr class="text-center">
                                     <th class="pr-3">@r</th>
@@ -232,14 +233,25 @@ $('.selectpicker').select2();
                                         bool isWaitingSeat = Array.Find<SeatModel>(seats, s => s != null && seat != null &&
                                         s.SeatId
                                         == seat.Id) != null;
+                                        bool occupiesSeat = occupiedTickets.FirstOrDefault(t => t.Seat == seat) != null;
 
                                         <td class="p-2">
-                                            @if (seat != null && !isWaitingSeat)
+                                            @if (seat != null )
                                             {
+                                                if(!isWaitingSeat && !occupiesSeat) {
+                                                    
                                                 <button name="SeatId" value="@seat.Id"
                                                     class="border border-gray-100 bg-green-300 rounded-md w-12 h-10 leading-10 hover:ring-4 hover:ring-green-800">
                                                     @c-@r
                                                 </button>
+                                                }
+                                                else {
+                                                    
+                                                <button onclick="return false;"
+                                                    class="border border-gray-100  rounded-md w-12 h-10 leading-10 hover:ring-4 ">
+                                                    @c-@r
+                                                </button>
+                                                }
                                             }
                                         </td>
                                     }

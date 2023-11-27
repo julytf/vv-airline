@@ -70,6 +70,7 @@ public partial class AppDBContext : IdentityDbContext<User>
     public DbSet<User> AppUsers { get; set; }
 
     public virtual DbSet<Ward> Wards { get; set; }
+    public virtual DbSet<BookingSession> BookingSessions { get; set; }
 
     // public async Task CreateDatabase()
     // {

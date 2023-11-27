@@ -3319,6 +3319,23 @@
           }
         }
       },
+      "Stripe.net/43.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3",
+          "System.Configuration.ConfigurationManager": "6.0.0"
+        },
+        "compile": {
+          "lib/net6.0/Stripe.net.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Stripe.net.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -9577,6 +9594,29 @@
         "version.txt"
       ]
     },
+    "Stripe.net/43.4.0": {
+      "sha512": "wimgjCvADOQ2tXmWsw79Z3w3w0yFVXL3QSbISrmR6yonUqjC54DIFnAlB2nhurwyHmFHTUGcrIa+hIwbi8FuIg==",
+      "type": "package",
+      "path": "stripe.net/43.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "icon.png",
+        "lib/net461/Stripe.net.dll",
+        "lib/net461/Stripe.net.xml",
+        "lib/net5.0/Stripe.net.dll",
+        "lib/net5.0/Stripe.net.xml",
+        "lib/net6.0/Stripe.net.dll",
+        "lib/net6.0/Stripe.net.xml",
+        "lib/netcoreapp3.1/Stripe.net.dll",
+        "lib/netcoreapp3.1/Stripe.net.xml",
+        "lib/netstandard2.0/Stripe.net.dll",
+        "lib/netstandard2.0/Stripe.net.xml",
+        "stripe.net.43.4.0.nupkg.sha512",
+        "stripe.net.nuspec"
+      ]
+    },
     "System.AppContext/4.3.0": {
       "sha512": "fKC+rmaLfeIzUhagxY17Q9siv/sPrjjKcfNg1Ic8IlQkZLipo8ljcaZQu4VtI4Jqbzjc2VTjzGLF6WmsRXAEgA==",
       "type": "package",
@@ -13812,6 +13852,7 @@
       "MimeKit >= 4.2.0",
       "MySql.Data.EntityFramework >= 8.1.0",
       "Newtonsoft.Json >= 13.0.3",
+      "Stripe.net >= 43.4.0",
       "System.Data.SqlClient >= 4.8.5"
     ]
   },
@@ -13964,6 +14005,10 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.3, )"
+          },
+          "Stripe.net": {
+            "target": "Package",
+            "version": "[43.4.0, )"
           },
           "System.Data.SqlClient": {
             "target": "Package",

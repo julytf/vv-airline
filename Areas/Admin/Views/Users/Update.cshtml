@@ -1,7 +1,7 @@
 @using vv_airline.Models.Data
 @using vv_airline.Models.Enums
 
-@model vv_airline.Areas.Admin.Models.FlightRouteModel
+@model vv_airline.Areas.Admin.Models.AircraftModel
 
 <div class="relative md:ml-64 bg-blueGray-50">
 
@@ -20,7 +20,7 @@
                     <div class="rounded-t bg-white mb-0 px-6 py-6">
                         <div class="text-center flex justify-between">
                             <h6 class="text-blueGray-700 text-xl font-bold">
-                                Sửa Tuyển Bay
+                                Sửa Máy Bay
                             </h6>
                             @* <button
                             class="bg-sky-500 text-white active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="flex-auto px-4 lg:px-10 py-10 pt-0 bg-white">
-                        <form class="relative" method="post">
+                        <form class="relative" asp-controller="Aircraft" asp-action="Update" method="post">
                             @* <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
                             User Information
                             </h6> *@
@@ -40,40 +40,55 @@
                                 <div class="w-full lg:w-full px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                            asp-for="DepartureAirportId"></label>
-                                        <select asp-for="DepartureAirportId"
+                                            asp-for="RegistrationNumber"></label>
+                                        <input asp-for="RegistrationNumber"
+                                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"  readonly/>
+                                    </div>
+
+                                    <span asp-validation-for="RegistrationNumber" class="text-red-700"></span>
+                                </div>
+                                <div class="w-full lg:w-full px-4">
+                                    <div class="relative w-full mb-3">
+                                        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            asp-for="Name"></label>
+                                        <input asp-for="Name"
+                                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"/>
+                                    </div>
+
+                                    <span asp-validation-for="Name" class="text-red-700"></span>
+                                </div>
+                                <div class="w-full lg:w-full px-4">
+                                    <div class="relative w-full mb-3">
+                                        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            asp-for="ModelId"></label>
+                                        <select asp-for="ModelId"
                                             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
-                                            @foreach (Airport airport in @ViewBag.airports)
+                                            @foreach (Model model in @ViewBag.models)
                                             {
-                                                <option value="@(airport.Id)">
-                                                    @(airport.Name)
+                                                <option value="@(model.Id)">
+                                                    @(model.Name)
                                                 </option>
                                             }
                                         </select>
+                                    <span asp-validation-for="ModelId" class="text-red-700"></span>
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-full px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                            asp-for="DestinationAirportId"></label>
-                                        <select asp-for="DestinationAirportId"
+                                            asp-for="Status"></label>
+                                        <select asp-for="Status"
                                             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
-                                            @foreach (Airport airport in @ViewBag.airports)
+                                            @foreach (AircraftEnums.Statuses status in Enum.GetValues(typeof(AircraftEnums.Statuses)))
                                             {
-                                                <option value="@(airport.Id)">
-                                                    @(airport.Name)
+                                                <option value="@status">
+                                                    @(status)
                                                 </option>
                                             }
                                         </select>
-                                    </div>
-                                </div>
-                                <div class="w-full lg:w-full px-4">
-                                    <div class="relative w-full mb-3">
-                                        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                            asp-for="Distance"></label>
-                                        <input asp-for="Distance"
-                                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
-                                    </div>
+                                        </div>
+
+                                    <span asp-validation-for="Status" class="text-red-700"></span>
                                 </div>
                             </div>
 

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using vv_airline.Controllers;
 using vv_airline.Models.Data;
@@ -6,6 +7,7 @@ namespace vv_airline.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Route("/admin/account")]
+[Authorize]
 public class AccountController : AppBaseController
 {
     public AccountController()

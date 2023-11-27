@@ -12,6 +12,19 @@ namespace vv_airline.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "BookingSessions",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Data = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookingSessions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Configs",
                 columns: table => new
                 {
@@ -115,7 +128,6 @@ namespace vv_airline.Migrations
                     RegistrationNumber = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     ModelId = table.Column<long>(type: "bigint", nullable: true),
-                    RemainingSeats = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -534,10 +546,11 @@ namespace vv_airline.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     AircraftRegistrationNumber = table.Column<string>(type: "nvarchar(255)", nullable: true),
                     DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RemainingSeats = table.Column<int>(type: "int", nullable: false),
                     FlightRouteId = table.Column<long>(type: "bigint", nullable: false),
                     Status = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true)
                 },
@@ -943,6 +956,9 @@ namespace vv_airline.Migrations
 
             migrationBuilder.DropTable(
                 name: "BookingService");
+
+            migrationBuilder.DropTable(
+                name: "BookingSessions");
 
             migrationBuilder.DropTable(
                 name: "Configs");

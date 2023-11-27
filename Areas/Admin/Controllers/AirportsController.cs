@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ namespace vv_airline.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Route("/admin/airports")]
+[Authorize]
 public class AirportsController : AppBaseController
 {
     private readonly UserManager<User> _userManager;

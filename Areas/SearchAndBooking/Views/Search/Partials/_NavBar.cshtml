@@ -27,14 +27,14 @@
             Title = "Thông tin khách",
             Icon = "fa-regular fa-user-pen"
         },
-        new StepModel
+        @* new StepModel
         {
             Index = 3,
             Path = "/search/addition-services-selection",
             Method = "AdditionServicesSelection",
             Title = "Dịch vụ bỗ trợ",
             Icon = "fa-regular fa-suitcase"
-        },
+        }, *@
         new StepModel
         {
             Index = 4,
@@ -58,7 +58,7 @@
     int currentStepIndex = Array.FindIndex(steps, step => step.Path == currentPath);
 }
 <ol
-    class="grid grid-cols-1 overflow-hidden border-2 border-primary text-sm text-gray-500 sm:grid-cols-6 bg-white sticky top-0 z-50">
+    class="grid grid-cols-1 overflow-hidden border-2 border-primary text-sm text-gray-500 sm:grid-cols-5 bg-white sticky top-0 z-30">
     @foreach (StepModel step in steps)
     {
         @* <a asp-controller="Search" asp-action="@(step.Index > currentStepIndex ? "" : step.Method)"> *@

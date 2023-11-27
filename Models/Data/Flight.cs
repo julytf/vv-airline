@@ -14,7 +14,7 @@ public partial class Flight
     public long Id { get; set; }
 
     [StringLength(255)]
-    public string Name { get; set; } = null!;
+    public string? Name { get; set; } = null!;
 
     public  Aircraft Aircraft { get; set; } = null!;
 

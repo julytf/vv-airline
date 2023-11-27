@@ -11,8 +11,8 @@ GO
 EXEC sp_MSForEachTable 'ENABLE TRIGGER ALL ON ?'
 GO
 
-use mvcapp;
-drop database vv_airline;
+    use mvcapp;
+    drop database vv_airline;
 
 use vv_airline;
 

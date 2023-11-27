@@ -28,6 +28,14 @@ public partial class Passenger
     [StringLength(50)]
     public string LastName { get; set; } = null!;
 
+    [NotMapped]
+    public string FullName
+    {
+        get
+        {
+            return LastName + " " + FirstName;
+        }
+    }
     public DateTime? DateOfBirth { get; set; }
 
     public bool? Gender { get; set; }

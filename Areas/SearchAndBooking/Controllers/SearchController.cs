@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using NuGet.Common;
 using NuGet.Packaging;
 using vv_airline.Areas.SearchAndBooking.Models;
 using vv_airline.Areas.SearchAndBooking.Models.Services;
@@ -118,6 +119,18 @@ public class SearchController : AppBaseController
                 );
         }
 
+        DateTime datetime = new();
+
+        if (type == ScheduleSelectionModel.ScheduleType.Go)
+        {
+            datetime = _searchAndBookingService.Data.Search.DepartureDate;
+        }
+        else if (type == ScheduleSelectionModel.ScheduleType.Return)
+        {
+
+            datetime = _searchAndBookingService.Data.Search.ReturnDate ?? DateTime.Now;
+        }
+
         List<Schedule> schedules = _appDBContext
             .Schedules
             .Include(s => s.Flights)
@@ -134,7 +147,7 @@ public class SearchController : AppBaseController
                 .ThenInclude(p => p.SeatClass)
             .Where(s =>
                 s.FlightRoute == flightRoute
-                && s.DepartureTime.Date == _searchAndBookingService.Data.Search.DepartureDate
+                && s.DepartureTime.Date == datetime
             )
             .ToList() ?? new List<Schedule>();
         // Console.WriteLine(JsonConvert.SerializeObject(schedules,
@@ -168,19 +181,23 @@ public class SearchController : AppBaseController
     public async Task<IActionResult> PassengersInformation()
     {
 
-        User user = await _userManager.FindByNameAsync(User.Identity.Name);
+        User? user = null!;
+        if (User.Identity.Name != null)
+            user = await _userManager.FindByNameAsync(User.Identity.Name);
         PassengersInformationModel model = new();
         model.Adults = new PassengersInformationModel.PassengerInformationModel[_searchAndBookingService.Data.Search.Adults];
-        model.Adults[0] = new()
-        {
-            Type = PassengerEnums.Type.Adult,
-            Email = user.Email,
-            PhoneNumber = user.PhoneNumber,
-            FirstName = user.FirstName,
-            LastName = user.LastName,
-            DateOfBirth = user.DateOfBirth,
-            Gender = user.Gender,
-        };
+
+        if (User.Identity.Name != null)
+            model.Adults[0] = new()
+            {
+                Type = PassengerEnums.Type.Adult,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DateOfBirth = user.DateOfBirth,
+                Gender = user.Gender,
+            };
         model.Children = new PassengersInformationModel.PassengerInformationModel[_searchAndBookingService.Data.Search.Children];
         return View(model);
     }
@@ -188,7 +205,14 @@ public class SearchController : AppBaseController
     [HttpPost("passengers-information")]
     public IActionResult PassengersInformation(PassengersInformationModel passengersInformationModel)
     {
-
+        if (passengersInformationModel.Adults[0].Email == null)
+        {
+            ModelState.AddModelError("Adults[0].Email", "Không thể trống");
+        }
+        if (passengersInformationModel.Adults[0].PhoneNumber == null)
+        {
+            ModelState.AddModelError("Adults[0].PhoneNumber", "Không thể trống");
+        }
         if (!ModelState.IsValid)
         {
             return View(passengersInformationModel);
@@ -292,13 +316,24 @@ public class SearchController : AppBaseController
 
         Aircraft aircraft = null!;
 
+        List<Ticket> occupiedTickets = null!;
         if (leg == SeatSelectionModel.LegEnum.One)
         {
             aircraft = schedule.Flights[0].Aircraft;
+            occupiedTickets = _appDBContext
+                .Tickets
+                .Include(t => t.Seat)
+                .Where(t => t.Flight == schedule.Flights[0])
+                .ToList();
         }
         else if (leg == SeatSelectionModel.LegEnum.Two)
         {
             aircraft = schedule.Flights[1].Aircraft;
+            occupiedTickets = _appDBContext
+                .Tickets
+                .Include(t => t.Seat)
+                .Where(t => t.Flight == schedule.Flights[1])
+                .ToList();
         }
         var seatMap = _appDBContext
             .SeatMaps
@@ -339,6 +374,7 @@ public class SearchController : AppBaseController
         adultSeats = legModel.AdultsSeats;
         childrenSeats = legModel.ChildrenSeats;
 
+
         // Console.WriteLine(_searchAndBookingService.Data.GoSchedule.ScheduleId);
         // Console.WriteLine(_searchAndBookingService.Data.ReturnSchedule?.ScheduleId);
         var goSchedule = _appDBContext
@@ -372,6 +408,7 @@ public class SearchController : AppBaseController
         ViewBag.adultPassengers = _searchAndBookingService.Data.AdultsPassengers;
         ViewBag.childrenPassengers = _searchAndBookingService.Data.ChildrenPassengers;
         ViewBag.adultSeats = adultSeats;
+        ViewBag.occupiedTickets = occupiedTickets ?? new List<Ticket>();
         ViewBag.childrenSeats = childrenSeats;
         ViewBag.seatMap = seatMap;
         ViewBag.goSchedule = goSchedule;
@@ -450,152 +487,5 @@ public class SearchController : AppBaseController
         ViewBag.returnPrice = returnPrice?.Value;
         ViewBag.totalPrice = totalPrice;
         return View();
-    }
-    [HttpGet("stripe-webhook")]
-    [HttpGet("checkout-success")]
-    public IActionResult CheckoutSuccess()
-    {
-        Schedule goSchedule;
-        Schedule? returnSchedule = null!;
-        goSchedule = _appDBContext
-            .Schedules
-            .Include(s => s.Flights)
-                .ThenInclude(f => f.FlightRoute)
-            .Single(s => s.Id == _searchAndBookingService.Data.GoSchedule.ScheduleId);
-        if (_searchAndBookingService.Data.Search.IsRoundtrip)
-        {
-            returnSchedule = _appDBContext
-                .Schedules
-                .Include(s => s.Flights)
-                .SingleOrDefault(s => s.Id == _searchAndBookingService.Data.ReturnSchedule.ScheduleId);
-        }
-
-
-
-        Price goPrice = _appDBContext
-            .Prices
-            .Single(p =>
-                p.Schedule == goSchedule
-                && p.SeatClass.Name == _searchAndBookingService.Data.GoSchedule.ClassName
-            );
-
-        Price returnPrice = _appDBContext
-            .Prices
-            .Single(p =>
-                p.Schedule == returnSchedule
-                && p.SeatClass.Name == _searchAndBookingService.Data.ReturnSchedule.ClassName
-            );
-
-
-        Booking newBooking = new Booking()
-        {
-            Adults = _searchAndBookingService.Data.Search.Adults,
-            Children = _searchAndBookingService.Data.Search.Adults,
-            IsRoundtrip = _searchAndBookingService.Data.Search.IsRoundtrip,
-            TotalPrice = (goPrice.Value + returnPrice.Value)
-            * (_searchAndBookingService.Data.Search.Adults + _searchAndBookingService.Data.Search.Children),
-            User = _appDBContext.Users.Where(u => u.UserName == User.Identity.Name).Single()
-        };
-
-        newBooking.Schedules.Add(goSchedule);
-        if (returnSchedule != null)
-        {
-        Console.WriteLine("here");
-            newBooking.Schedules.Add(returnSchedule);
-        }
-
-        Console.WriteLine("---------");
-        Console.WriteLine(newBooking.Schedules.Count);
-        Console.WriteLine("---------");
-
-        List<Ticket> tickets = new() { };
-
-        List<Passenger> adultPassengers = new List<Passenger>();
-        for (int i = 0; i < _searchAndBookingService.Data.AdultsPassengers.Length; i++)
-        {
-            var passenger = _searchAndBookingService.Data.AdultsPassengers[i];
-            Passenger newAdultPassenger = new Passenger()
-            {
-                Booking = newBooking,
-                Type = PassengerEnums.Type.Adult,
-                Email = passenger.Email,
-                PhoneNumber = passenger.PhoneNumber,
-                FirstName = passenger.FirstName,
-                LastName = passenger.LastName,
-                DateOfBirth = passenger.DateOfBirth,
-                Gender = passenger.Gender,
-
-            };
-            adultPassengers.Add(newAdultPassenger);
-            Ticket? goTicketLeg1;
-            Ticket? goTicketLeg2;
-            Ticket? returnTicketLeg1;
-            Ticket? returnTicketLeg2;
-            goTicketLeg1 = new Ticket()
-            {
-                Flight = goSchedule.Flights[0],
-                Passenger = newAdultPassenger,
-                Seat = _appDBContext.Seats.Single(s => s.Id == _searchAndBookingService.Data.GoSchedule.Leg1.AdultsSeats[i].SeatId),
-            };
-            tickets.Add(goTicketLeg1);
-            if (goSchedule.HasTransit)
-            {
-                goTicketLeg2 = new Ticket()
-                {
-                    Flight = goSchedule.Flights[1],
-                    Passenger = newAdultPassenger,
-                    Seat = _appDBContext.Seats.Single(s => s.Id == _searchAndBookingService.Data.GoSchedule.Leg2.AdultsSeats[i].SeatId),
-                };
-                tickets.Add(goTicketLeg2);
-            }
-            if (_searchAndBookingService.Data.Search.IsRoundtrip)
-            {
-                returnTicketLeg1 = new Ticket()
-                {
-                    Flight = returnSchedule.Flights[0],
-                    Passenger = newAdultPassenger,
-                    Seat = _appDBContext.Seats.Single(s => s.Id == _searchAndBookingService.Data.ReturnSchedule.Leg1.AdultsSeats[i].SeatId),
-                };
-                tickets.Add(returnTicketLeg1);
-                if (returnSchedule.HasTransit)
-                {
-                    returnTicketLeg2 = new Ticket()
-                    {
-                        Flight = returnSchedule.Flights[1],
-                        Passenger = newAdultPassenger,
-                        Seat = _appDBContext.Seats.Single(s => s.Id == _searchAndBookingService.Data.ReturnSchedule.Leg2.AdultsSeats[i].SeatId),
-                    };
-                    tickets.Add(returnTicketLeg2);
-                }
-            }
-        }
-        List<Passenger> childrenPassengers = new List<Passenger>();
-        foreach (var passenger in _searchAndBookingService.Data.ChildrenPassengers)
-        {
-            Passenger newChildPassenger = new Passenger()
-            {
-                Booking = newBooking,
-                Type = PassengerEnums.Type.Child,
-                FirstName = passenger.FirstName,
-                LastName = passenger.LastName,
-                DateOfBirth = passenger.DateOfBirth,
-                Gender = passenger.Gender,
-            };
-            childrenPassengers.Add(newChildPassenger);
-        }
-
-        if (newBooking != null) _appDBContext.Add(newBooking);
-        if (adultPassengers != null) _appDBContext.AddRange(adultPassengers);
-        if (childrenPassengers != null) _appDBContext.AddRange(childrenPassengers);
-        if (tickets != null) _appDBContext.AddRange(tickets);
-
-        if (newBooking != null) Console.WriteLine("newBooking");
-        if (adultPassengers != null) Console.WriteLine("adultPassengers");
-        if (childrenPassengers != null) Console.WriteLine("childrenPassengers");
-        if (tickets != null) Console.WriteLine("tickets");
-
-        _appDBContext.SaveChanges();
-
-        return Redirect("/");
     }
 }

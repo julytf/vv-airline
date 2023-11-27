@@ -1,5 +1,8 @@
 @using vv_airline.Models.Data
 @using vv_airline.Models.Enums
+
+@inject IConfiguration _configuration
+
 @model vv_airline.Areas.SearchAndBooking.Models.PassengersInformationModel
 
 @Html.Partial("Partials/_NavBar.cshtml")
@@ -146,21 +149,21 @@
 
 <div class=" mx-auto max-w-2xl mb-20">
     <div class="mt-6 flex items-center justify-center gap-x-20">
-        <button type="submit"
+        <a asp-controller="Booking" asp-action="RedirectToStripe"
             class="rounded-md bg-primary px-5 py-3 font-semibold text-2xl text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
             Thanh toán với Stripe
             <img src="/images/stripe_logo.png" class="inline w-8 rounded-md">
-        </button>
+        </a>
     </div>
 </div>
-<div class=" mx-auto max-w-2xl mb-20">
+@* <div class=" mx-auto max-w-2xl mb-20">
     <div class="mt-6 flex items-center justify-center gap-x-20">
-        <a asp-controller="Search" asp-action="CheckoutSuccess"
+        <a asp-controller="Booking" asp-action="CheckoutSuccess"
             class="rounded-md bg-primary px-5 py-3 font-semibold text-2xl text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
             Thanh toán thành công (DEBUG)
         </a>
     </div>
-</div>
+</div> *@
 
 <div class=" mx-auto max-w-2xl mb-20">
     <div class="mt-6 flex items-center justify-center gap-x-20">

@@ -16,6 +16,7 @@ namespace vv_airline.Areas.Admin.Controllers;
 // [Authorize(AuthenticationSchemes = "AdminCookie")]
 [Area("Admin")]
 [Route("/admin")]
+[Authorize] 
 public class AuthController : AppBaseController
 {
     private readonly UserManager<User> _userManager;
@@ -51,7 +52,7 @@ public class AuthController : AppBaseController
     //     throw new NotImplementedException();
     // }
     [HttpGet("login")]
-    // [AllowAnonymous]
+    [AllowAnonymous]
     // [Authorize]
     public async Task<IActionResult> Login()
     {
@@ -60,8 +61,8 @@ public class AuthController : AppBaseController
 
 
 
-    [HttpPost("login")]
     [AllowAnonymous]
+    [HttpPost("login")]
     public async Task<IActionResult> Login(LoginModel model, string returnUrl = "/admin")
     {
         ViewData["ReturnUrl"] = returnUrl;

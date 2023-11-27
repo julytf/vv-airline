@@ -12,7 +12,7 @@ using vv_airline.Models.Data;
 namespace vv_airline.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20231125073938_init")]
+    [Migration("20231126151550_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -217,9 +217,6 @@ namespace vv_airline.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("RemainingSeats")
-                        .HasColumnType("int");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -321,6 +318,23 @@ namespace vv_airline.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("vv_airline.Models.Data.BookingSession", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BookingSessions");
                 });
 
             modelBuilder.Entity("vv_airline.Models.Data.Config", b =>
@@ -446,9 +460,11 @@ namespace vv_airline.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("RemainingSeats")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasMaxLength(50)
@@ -1042,7 +1058,7 @@ namespace vv_airline.Migrations
             modelBuilder.Entity("vv_airline.Models.Data.Aircraft", b =>
                 {
                     b.HasOne("vv_airline.Models.Data.Model", "Model")
-                        .WithMany("Aircraft")
+                        .WithMany("Aircrafts")
                         .HasForeignKey("ModelId");
 
                     b.Navigation("Model");
@@ -1336,7 +1352,7 @@ namespace vv_airline.Migrations
 
             modelBuilder.Entity("vv_airline.Models.Data.Model", b =>
                 {
-                    b.Navigation("Aircraft");
+                    b.Navigation("Aircrafts");
 
                     b.Navigation("SeatMap");
                 });
