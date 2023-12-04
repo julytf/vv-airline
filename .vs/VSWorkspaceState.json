@@ -1,8 +1,6 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Areas\\SearchAndBooking\\Views\\Search",
-    "\\Areas\\SearchAndBooking\\Views\\Search\\Partials",
     "\\Database",
     "\\Database\\Seeders"
   ],
